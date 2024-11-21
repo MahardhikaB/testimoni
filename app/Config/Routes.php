@@ -20,3 +20,9 @@ $routes->post('sertifikat/store', 'SertifikatController::store');
 $routes->get('/sertifikat/edit/(:num)', 'SertifikatController::edit/$1');
 $routes->post('/sertifikat/update/(:num)', 'SertifikatController::update/$1');
 
+// Route Pameran
+$routes->get('/pameran', 'PameranController::index');
+$routes->get('/pameran/create', 'PameranController::create');
+$routes->post('pameran/store', 'PameranController::store');
+$routes->get('/pameran/edit/(:num)', 'PameranController::edit/$1');
+$routes->post('/pameran/update/(:num)', 'PameranController::update/$1');
