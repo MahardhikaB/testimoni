@@ -26,3 +26,8 @@ $routes->get('/pameran/create', 'PameranController::create');
 $routes->post('pameran/store', 'PameranController::store');
 $routes->get('/pameran/edit/(:num)', 'PameranController::edit/$1');
 $routes->post('/pameran/update/(:num)', 'PameranController::update/$1');
+
+// Route Ekspor
+$routes->get('/ekspor', 'EksporController::index');
+$routes->get('/ekspor/create', 'EksporController::create');
+$routes->post('ekspor/store', 'EksporController::store');
