@@ -9,9 +9,10 @@ class AdminController extends BaseController
     $session = session();
     $userData = [
         'nama_user' => $session->get('nama_user'),
-        'role' => $session->get('role')
+        'role' => $session->get('role'),
+        'section' => 'dashboard'
     ];
-    return view('admin/adminDashboard', ['user' => $userData]);
+    return view('admin/dashboard', ['user' => $userData]);
 }
 
 }
