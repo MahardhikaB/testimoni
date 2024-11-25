@@ -1,4 +1,7 @@
 <!--begin::Sidebar-->
+<?php 
+    // dd($user['section']);
+?>
 <aside class="app-sidebar bg-body-primary shadow" data-bs-theme="dark">
     <!--begin::Sidebar Brand-->
     <div class="sidebar-brand">
@@ -15,12 +18,12 @@
             <!--begin::Sidebar Menu-->
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
                 <li class="nav-item"> <a href="/admin/dashboard"
-                        class="nav-link <?= ($section == 'dashboard' ? 'active' : '') ?>"> <i
+                        class="nav-link <?= ($user['section'] == 'dashboard' ? 'active' : '') ?>"> <i
                             class="nav-icon bi bi-list-task"></i>
                         <p>Dashboard</p>
                     </a> </li>
                 <li class="nav-item"> <a href="#"
-                        class="nav-link <?= ($section == 'member-detail' ? 'active' : ($section == 'member-verifikasi' ? 'active' : '')) ?>">
+                        class="nav-link <?= ($user['section'] == 'member-detail' ? 'active' : ($user['section'] == 'member-verifikasi' ? 'active' : '')) ?>">
                         <i class="nav-icon bi bi-people-fill"></i>
                         <p>
                             Member
@@ -29,12 +32,12 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item"> <a href="/admin/member/detail"
-                                class="nav-link <?= ($section == 'member-detail' ? 'active' : '') ?>"> <i class="nav-icon bi bi-people
+                                class="nav-link <?= ($user['section'] == 'member-detail' ? 'active' : '') ?>"> <i class="nav-icon bi bi-people
                                             "></i>
                                 <p>Detail Member</p>
                             </a> </li>
                         <li class="nav-item"> <a href="/admin/member/verifikasi"
-                                class="nav-link <?= ($section == 'member-verifikasi' ? 'active' : '') ?>"> <i
+                                class="nav-link <?= ($user['section'] == 'member-verifikasi' ? 'active' : '') ?>"> <i
                                     class="nav-icon bi bi-check2-square"></i>
                                 <p>Verifikasi Pembaruan</p>
                             </a> </li>

@@ -56,4 +56,11 @@ class UserModel extends Model
     {
         return $this->where('role', $role)->findAll();
     }
+
+    public function getUserByEmailOrUsername(string $input)
+    {
+        return $this->where('email', $input)
+                    ->orWhere('nama_user', $input)
+                    ->first();
+    }
 }

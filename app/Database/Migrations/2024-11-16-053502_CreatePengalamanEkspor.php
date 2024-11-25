@@ -28,18 +28,18 @@ class CreatePengalamanEkspor extends Migration
                 'null'       => false,
                 'comment'    => 'Negara tujuan ekspor',
             ],
-            'tahun' => [
+            'tahun_ekspor' => [
                 'type' => 'YEAR',
                 'null' => false,
                 'comment' => 'Tahun ekspor dilakukan',
             ],
-            'produk' => [
+            'produk_ekspor' => [
                 'type'       => 'VARCHAR',
                 'constraint' => 255,
                 'null'       => false,
                 'comment'    => 'Produk yang diekspor',
             ],
-            'deskripsi' => [
+            'deskripsi_ekspor' => [
                 'type' => 'TEXT',
                 'null' => true,
                 'comment' => 'Deskripsi pengalaman ekspor',
