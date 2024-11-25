@@ -20,3 +20,18 @@ $routes->post('sertifikat/store', 'SertifikatController::store');
 $routes->get('/sertifikat/edit/(:num)', 'SertifikatController::edit/$1');
 $routes->post('/sertifikat/update/(:num)', 'SertifikatController::update/$1');
 
+// Route Admin
+$routes->get('/admin/dashboard', function () {
+    $data = ['section' => 'dashboard'];
+    return view('admin/dashboard', $data);
+});
+
+$routes->get('/admin/member/detail', function () {
+    $data = ['section' => 'member-detail'];
+    return view('admin/member/detail', $data);
+});
+
+$routes->get('/admin/member/verifikasi', function () {
+    $data = ['section' => 'member-verifikasi'];
+    return view('admin/member/verifikasi', $data);
+});
