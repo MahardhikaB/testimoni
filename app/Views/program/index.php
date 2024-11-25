@@ -44,7 +44,7 @@
         <a href="<?= base_url('program/create') ?>" class="btn btn-edit">Add Produk</a>
     </div>
     <div class="button-container">
-        <a href="<?= base_url('program/edit/1') ?>" class="btn btn-edit">Edit Produk</a>
+        <a href="<?= base_url('program/edit/2') ?>" class="btn btn-edit">Edit Produk</a>
     </div>
 
     <!-- Bootstrap JS -->

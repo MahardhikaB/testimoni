@@ -39,6 +39,7 @@ class ProgramController extends BaseController
 
         $programModel = new ProgramPembinaanModel();
         $programModel->insert([
+            'user_id_pembinaan' => 2,
             'nama_program' => $this->request->getPost('nama_program'),
             'tahun_program' => $this->request->getPost('tahun_program'),
             'penyelenggara_program' => $this->request->getPost('penyelenggara_program'),
