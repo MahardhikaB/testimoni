@@ -1,6 +1,21 @@
 <?php
 
-use CodeIgniter\Router\RouteCollection;
+namespace Config;
+
+// Create a new instance of our RouteCollection class.
+$routes = Services::routes();
+
+/*
+ * --------------------------------------------------------------------
+ * Router Setup
+ * --------------------------------------------------------------------
+ */
+$routes->setDefaultNamespace('App\Controllers');
+$routes->setDefaultController('Home');
+$routes->setDefaultMethod('index');
+$routes->setTranslateURIDashes(false);
+$routes->set404Override();
+$routes->setAutoRoute(true);
 
 /**
  * @var RouteCollection $routes
@@ -31,13 +46,3 @@ $routes->post('/pameran/update/(:num)', 'PameranController::update/$1');
 $routes->get('/ekspor', 'EksporController::index');
 $routes->get('/ekspor/create', 'EksporController::create');
 $routes->post('ekspor/store', 'EksporController::store');
-$routes->get('/ekspor/edit/(:num)', 'EksporController::edit/$1');
-$routes->post('/ekspor/update/(:num)', 'EksporController::update/$1');
-
-// Route Media
-$routes->get('/media', 'MediaController::index');
-$routes->get('/media/create', 'MediaController::create');
-$routes->post('media/store', 'MediaController::store');
-$routes->get('/media/edit/(:num)', 'MediaController::edit/$1');
-$routes->post('/media/update/(:num)', 'MediaController::update/$1');
-
