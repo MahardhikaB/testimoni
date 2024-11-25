@@ -27,6 +27,12 @@ class UserSeeder extends Seeder
                 'role'      => 'user', // Role sebagai user
                 'password'  => password_hash('user1234', PASSWORD_DEFAULT), // Enkripsi password
             ],
+            [
+                'nama_user' => 'bryan',
+                'email'     => 'bryantosin1@gmail.com',
+                'role'      => 'user', // Role sebagai user
+                'password'  => password_hash('password', PASSWORD_DEFAULT), // Enkripsi password
+            ],
         ];
 
         // Tambahkan data ke tabel users
