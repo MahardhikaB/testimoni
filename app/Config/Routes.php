@@ -36,6 +36,8 @@ $routes->post('registrasi', 'RegistrasiController::store');
 // Routes khusus untuk admin
 $routes->group('admin', ['filter' => 'role:admin'], function ($routes) {
     $routes->get('dashboard', 'AdminController::dashboard');
+    $routes->get('member/detail', 'AdminController::detail');
+    $routes->get('member/verifikasi', 'AdminController::verifikasi');
     $routes->get('produk', 'ProdukController::index');
     $routes->get('produk/create', 'ProdukController::create');
     $routes->post('produk/store', 'ProdukController::store');
