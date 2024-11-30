@@ -86,7 +86,7 @@
                         </li>
                         <!--end::User Image-->
                         <!--begin::Menu Footer-->
-                        <li class="user-footer"> <a href="#" class="btn btn-default btn-flat">Profil</a> <a href="#"
+                        <li class="user-footer"> <a href="#" class="btn btn-default btn-flat">Profil</a> <a href="<?= base_url('/logout') ?>"
                                 class="btn btn-default btn-flat float-end">Keluar</a> </li>
                         <!--end::Menu Footer-->
                     </ul>

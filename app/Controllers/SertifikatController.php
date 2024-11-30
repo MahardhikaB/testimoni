@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
+use App\Models\SertifikatModel;
 
 class SertifikatController extends BaseController
 {
@@ -24,31 +25,40 @@ class SertifikatController extends BaseController
 
     public function store()
     {
-        $validation = \Config\Services::validation();
-        $validation->setRules([
-            'judul_sertifikat' => 'required',
-            'no_sertifikat' => 'required',
-            'tanggal_terbit_sertifikat' => 'required',
-            'penerbit_sertifikat' => 'required',
-            'tipe' => 'required',
-        ]);
+        // Ambil user_id dari session
+        $userId = session()->get('user_id'); // Pastikan session sudah menyimpan user_id
 
-        if (!$validation->withRequest($this->request)->run()) {
-            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+        if (!$userId) {
+            return redirect()->back()->with('error', 'Pengguna tidak ditemukan atau belum login.');
         }
 
-        $sertifikatModel = new \App\Models\SertifikatModel();
+        $sertifikatModel = new SertifikatModel();
+
+        // Validasi input
+        $validationRules = [
+            'judul_sertifikat' => 'required',
+            'no_sertifikat' => 'required|alpha_numeric',
+            'tanggal_terbit_sertifikat' => 'required|valid_date',
+            'penerbit_sertifikat' => 'required',
+            'tipe' => 'required'
+        ];
+
+        if (!$this->validate($validationRules)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+
+        // Simpan data sertifikat
         $sertifikatModel->insert([
-            // 'user_id_sertifikat' => session()->get('user_id'),
-            'user_id_sertifikat' => 2,
+            'user_id_sertifikat' => $userId,
             'judul_sertifikat' => $this->request->getPost('judul_sertifikat'),
             'no_sertifikat' => $this->request->getPost('no_sertifikat'),
             'tanggal_terbit_sertifikat' => $this->request->getPost('tanggal_terbit_sertifikat'),
             'penerbit_sertifikat' => $this->request->getPost('penerbit_sertifikat'),
             'tipe' => $this->request->getPost('tipe'),
+            'status_verifikasi' => 'waiting'
         ]);
 
-        return redirect()->to('/sertifikat')->with('success', 'Sertifikat berhasil ditambahkan');
+        return redirect()->to('user/sertifikat')->with('success', 'Sertifikat berhasil ditambahkan.');
     }
 
     public function edit($id)
@@ -70,6 +80,7 @@ class SertifikatController extends BaseController
             'tanggal_terbit_sertifikat' => 'required',
             'penerbit_sertifikat' => 'required',
             'tipe' => 'required',
+            
         ]);
 
         if (!$validation->withRequest($this->request)->run()) {
@@ -83,6 +94,7 @@ class SertifikatController extends BaseController
             'tanggal_terbit_sertifikat' => $this->request->getPost('tanggal_terbit_sertifikat'),
             'penerbit_sertifikat' => $this->request->getPost('penerbit_sertifikat'),
             'tipe' => $this->request->getPost('tipe'),
+            'status_verifikasi' => 'waiting',
         ]);
 
         return redirect()->to('/sertifikat')->with('success', 'Sertifikat berhasil diperbarui');

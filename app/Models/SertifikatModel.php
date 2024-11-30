@@ -14,11 +14,15 @@ class SertifikatModel extends Model
     protected $updatedField  = 'updated_at';
 
     protected $allowedFields = [
-        'user_id_sertifikat', // Foreign key ke tabel users
-        'judul_sertifikat',   // Judul sertifikat
-        'no_sertifikat',      // Nomor sertifikat
-        'tanggal_terbit_sertifikat',     // Tanggal terbit sertifikat
-        'penerbit_sertifikat',           // Nama penerbit
+        'user_id_sertifikat',
+        'judul_sertifikat',
+        'no_sertifikat',
+        'tanggal_terbit_sertifikat',
+        'penerbit_sertifikat',
+        'tipe',
+        'status_verifikasi',
+        'created_at',
+        'updated_at',
     ];
 
     /**
