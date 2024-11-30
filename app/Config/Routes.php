@@ -40,6 +40,8 @@ $routes->group('admin', ['filter' => 'role:admin'], function ($routes) {
     $routes->get('dashboard/verifikasi/update/(:num)/(:alpha)', 'AdminController::updateVerifikasi/$1/$2');
     $routes->post('dashboard/verifikasi/update/(:num)/(:alpha)', 'AdminController::updateVerifikasi/$1/$2');
 
+    $routes->get('member/detail', 'AdminController::detail');
+
     $routes->get('produk', 'ProdukController::index');
     $routes->get('produk/create', 'ProdukController::create');
     $routes->post('produk/store', 'ProdukController::store');

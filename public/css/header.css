@@ -1,0 +1,62 @@
+/* Navbar Styles */
+nav {
+    height: 60px;
+    width: 100%;
+    background-color: white;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    align-items: center;
+    padding-left: 50px;
+    padding-right: 50px;
+    gap: 10px;
+    font-size: 16px;
+}
+
+.column-1 {
+    grid-column: span 2;
+    display: flex;
+    align-items: center;
+}
+
+.column-1 img {
+    height: 50px;
+}
+
+.column-2 {
+    grid-column: span 8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.column-2 a {
+    margin-right: 50px;
+    font-style: normal;
+    text-decoration: none;
+    color: black;
+}
+
+.column-2 a:hover {
+    color: #4C3D3D;
+    font-weight: bold;
+}
+
+.column-3 {
+    grid-column: span 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.column-3 a {
+    padding: 13px 40px;
+    background-color: #4C3D3D;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.column-3 a:hover {
+    background-color: #333;
+    transition: background-color 0.3s ease-in-out;
+}

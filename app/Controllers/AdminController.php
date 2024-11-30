@@ -14,9 +14,21 @@ class AdminController extends BaseController
             'nama_user' => $session->get('nama_user'),
             'role' => $session->get('role'),
             'section' => 'dashboard',
+            'title' => 'Admin | Dashboard'
         ];
 
         return view('admin/dashboard', ['user' => $userData]);
+    }
+
+    public function detail() {
+        $session = session();
+        $userData = [
+            'nama_user' => $session->get('nama_user'),
+            'role' => $session->get('role'),
+            'section' => 'detail',
+            'title' => 'Admin | Detail Member'
+        ];
+        return view('admin/member/detail', ['user' => $userData]);
     }
 
     public function verifikasi()
@@ -26,6 +38,7 @@ class AdminController extends BaseController
             'nama_user' => $session->get('nama_user'),
             'role' => $session->get('role'),
             'section' => 'member-verifikasi', // Penanda untuk sidebar
+            'title' => 'Admin | Verifikasi Upload Member'
         ];
 
         // Ambil data sertifikat dengan status 'waiting'

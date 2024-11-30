@@ -1,78 +1,134 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Dashboard</title>
-    <link rel="stylesheet" href="/path/to/your/css/styles.css">
-    <style>
-        /* Tambahkan gaya sederhana untuk tata letak */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
-            color: #333;
-        }
+<?= $this->extend('Layout/user_layout') ?>
 
-        .container {
-            max-width: 900px;
-            margin: 20px auto;
-            padding: 20px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
+<?= $this->section('title') ?>
+Dashboard Perusahaan
+<?= $this->endSection() ?>
 
-        header, footer {
-            text-align: center;
-            margin-bottom: 20px;
-        }
+<?= $this->section('head') ?>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link rel="stylesheet" href="/css/dashboard_user.css">
 
-        nav ul {
-            list-style: none;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            margin: 0 0 20px 0;
-        }
+<?= $this->endSection() ?>
 
-        nav ul li {
-            margin: 0 10px;
-        }
-
-        nav ul li a {
-            text-decoration: none;
-            color: #007bff;
-        }
-
-        nav ul li a:hover {
-            text-decoration: underline;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <header>
-            <h1>Welcome, <?= isset($user['nama_user']) ? esc($user['nama_user']) : 'Guest' ?>!</h1>
-            <p>Your role: <?= isset($user['role']) ? esc($user['role']) : 'Unknown' ?></p>
-        </header>
-
-        <nav>
-            <ul>
-                <li><a href="<?= base_url('/user/dashboard') ?>">Dashboard</a></li>
-                <li><a href="<?= base_url('/logout') ?>">Logout</a></li>
-            </ul>
-        </nav>
-
-        <main>
-            <h2>Dashboard User</h2>
-            <p>Ini adalah halaman dashboard untuk user dengan informasi login Anda.</p>
-        </main>
-
-        <footer>
-            <p>&copy; <?= date('Y') ?>. All rights reserved.</p>
-        </footer>
+<?= $this->section('content') ?>
+<div class="hero-section">
+    <div class="hero-text">
+        <h1>Dashboard Perusahaan</h1>
+        <p>Selamat Datang, <b>Alifia Putri Budiyanti.</b> 
+            <br>Lihat perkembangan terbaru perusahaan anda di sini.</br></p>
+        <a href="<?= base_url('/profile') ?>" class="btn">My Profile</a>
     </div>
-</body>
-</html>
+</div>
+
+<div class="company-information">
+    <div class="user-details">
+        <h4>PT JAYA SUKSES</h4>
+        <p>Nama Peserta : Alifia Putri Budiyanti</p>
+        <p>Alamat Perusahaan : Jalan Mawar Merah Nomor 13</p>
+    </div>
+    <div class="bootcamp-details">
+        <h4>MASA PELATIHAN</h4>
+        <p>Tanggal Mulai  : 01 - 07 - 2023</p>
+        <p>Tanggal Selesai : 09 - 10 - 2023</p>
+    </div>
+</div>
+
+<div class="content-profile">
+<div class="search-bar-container">
+    <h2 class="overview-title">OVERVIEW</h2>
+    <div class="search-input-container">
+        <input type="text" class="search-input" placeholder="Cari Data">
+        <i class="fas fa-search search-icon"></i>
+    </div>
+</div>
+
+
+    <!-- Table Section -->
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Kriteria</th>
+                    <th>Sebelum</th>
+                    <th>Sesudah</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Legalitas</td>
+                    <td>
+                        <a href="<?= base_url('documents/document.txt') ?>" target="_blank">
+                            <i class="<?= getFileIcon('documents/document.txt') ?>"></i> <?= basename('documents/document.txt') ?>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="<?= base_url('documents/Shame.pdf') ?>" target="_blank">
+                            <i class="<?= getFileIcon('documents/Shame.pdf') ?>"></i> <?= basename('documents/Shame.pdf') ?>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Ekspor</td>
+                    <td>
+                        <a href="<?= base_url('documents/ekspor-before.docx') ?>" target="_blank">
+                            <i class="<?= getFileIcon('documents/ekspor-before.docx') ?>"></i> <?= basename('documents/ekspor-before.docx') ?>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="<?= base_url('documents/ekspor-after.xlsx') ?>" target="_blank">
+                            <i class="<?= getFileIcon('documents/ekspor-after.xlsx') ?>"></i> <?= basename('documents/ekspor-after.xlsx') ?>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Sertifikasi</td>
+                    <td>
+                        <a href="<?= base_url('documents/company-logo.png') ?>" target="_blank">
+                            <i class="<?= getFileIcon('documents/company-logo.png') ?>"></i> <?= basename('documents/company-logo.png') ?>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="<?= base_url('documents/company-update.jpg') ?>" target="_blank">
+                            <i class="<?= getFileIcon('documents/company-update.jpg') ?>"></i> <?= basename('documents/company-update.jpg') ?>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+
+</div>
+
+<?= $this->endSection() ?>
+
+<?php
+function getFileIcon($file) {
+    $extension = strtolower(pathinfo($file, PATHINFO_EXTENSION)); // Get the file extension
+
+    // Return the appropriate Font Awesome icon class based on the file extension
+    switch ($extension) {
+        case 'jpg':
+        case 'jpeg':
+        case 'png':
+        case 'gif':
+            return 'fas fa-file-image';  // Image file icon
+        case 'pdf':
+            return 'fas fa-file-pdf';    // PDF file icon
+        case 'doc':
+        case 'docx':
+        case 'txt':
+            return 'fas fa-file-alt';    // Document file icon (Word, text)
+        case 'xls':
+        case 'xlsx':
+            return 'fas fa-file-excel';  // Excel file icon
+        default:
+            return 'fas fa-file';        // Generic file icon for unknown types
+    }
+}
+?>
