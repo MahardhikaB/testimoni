@@ -49,7 +49,7 @@ $routes->post('registrasi', 'RegistrasiController::store');
 
 // // Routes khusus untuk user
 // $routes->group('user', ['filter' => 'role:user'], function ($routes) {
-//     $routes->get('dashboard', 'UserController::dashboard');
+    $routes->get('dashboard', 'UserController::dashboard');
 //     $routes->get('pameran', 'PameranController::index');
 //     $routes->get('ekspor', 'EksporController::index');
 //     $routes->get('ekspor/create', 'EksporController::create');
