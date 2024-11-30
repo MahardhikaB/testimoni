@@ -23,7 +23,7 @@
                         <p>Dashboard</p>
                     </a> </li>
                 <li class="nav-item"> <a href="#"
-                        class="nav-link <?= ($user['section'] == 'member-detail' ? 'active' : ($user['section'] == 'member-verifikasi' ? 'active' : '')) ?>">
+                        class="nav-link <?= ($user['section'] == 'list-member' ? 'active' : ($user['section'] == 'member-verifikasi' ? 'active' : '')) ?>">
                         <i class="nav-icon bi bi-people-fill"></i>
                         <p>
                             Member
@@ -31,10 +31,10 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item"> <a href="/admin/member/detail"
-                                class="nav-link <?= ($user['section'] == 'member-detail' ? 'active' : '') ?>"> <i class="nav-icon bi bi-people
+                        <li class="nav-item"> <a href="/admin/member/list"
+                                class="nav-link <?= ($user['section'] == 'list-member' ? 'active' : '') ?>"> <i class="nav-icon bi bi-people
                                             "></i>
-                                <p>Detail Member</p>
+                                <p>List Member</p>
                             </a> </li>
                         <li class="nav-item"> <a href="/admin/dashboard/verifikasi"
                                 class="nav-link <?= ($user['section'] == 'member-verifikasi' ? 'active' : '') ?>"> <i
