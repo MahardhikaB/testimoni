@@ -36,7 +36,7 @@
                                             "></i>
                                 <p>Detail Member</p>
                             </a> </li>
-                        <li class="nav-item"> <a href="/admin/member/verifikasi"
+                        <li class="nav-item"> <a href="/admin/dashboard/verifikasi"
                                 class="nav-link <?= ($user['section'] == 'member-verifikasi' ? 'active' : '') ?>"> <i
                                     class="nav-icon bi bi-check2-square"></i>
                                 <p>Verifikasi Pembaruan</p>

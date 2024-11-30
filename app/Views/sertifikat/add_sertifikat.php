@@ -43,8 +43,18 @@
 
 <body>
     <div class="form-container">
+    <?php if (session()->get('errors')): ?>
+            <div class="alert alert-danger">
+                <ul>
+                    <?php foreach (session()->get('errors') as $error): ?>
+                        <li><?= $error ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        <?php endif; ?>
         <h2 class="form-title">Detail Sertifikat</h2>
-        <form action="<?= base_url('sertifikat/store') ?>" method="post">
+        <form action="<?= base_url('user/sertifikat/store') ?>" method="post">
+        <?= csrf_field() ?>
             <div class="row g-3">
                 <!-- Kolom kiri -->
                 <div class="col-md-6">
