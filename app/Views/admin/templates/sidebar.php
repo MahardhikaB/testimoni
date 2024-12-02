@@ -1,6 +1,6 @@
 <!--begin::Sidebar-->
 <?php 
-    // dd($user['section']);
+    // dd($section);
 ?>
 <aside class="app-sidebar bg-body-primary shadow" data-bs-theme="dark">
     <!--begin::Sidebar Brand-->
@@ -18,12 +18,13 @@
             <!--begin::Sidebar Menu-->
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
                 <li class="nav-item"> <a href="/admin/dashboard"
-                        class="nav-link <?= ($user['section'] == 'dashboard' ? 'active' : '') ?>"> <i
+                        class="nav-link <?= ($section == 'dashboard' ? 'active' : '') ?>"> <i
                             class="nav-icon bi bi-list-task"></i>
                         <p>Dashboard</p>
                     </a> </li>
-                <li class="nav-item"> <a href="#"
-                        class="nav-link <?= ($user['section'] == 'list-member' ? 'active' : ($user['section'] == 'member-verifikasi' ? 'active' : '')) ?>">
+                <li
+                    class="nav-item <?= ($user['mainSection'] == 'verifikasi' ? 'menu-open' : ($user['mainSection'] == 'member' ? 'menu-open' : '')) ?>">
+                    <a href="#" class="nav-link ">
                         <i class="nav-icon bi bi-people-fill"></i>
                         <p>
                             Member
@@ -32,15 +33,60 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item"> <a href="/admin/member/list"
-                                class="nav-link <?= ($user['section'] == 'list-member' ? 'active' : '') ?>"> <i class="nav-icon bi bi-people
+                                class="nav-link <?= ($section == 'list-member' ? 'active' : '') ?>">
+                                <i class="nav-icon bi bi-people
                                             "></i>
                                 <p>List Member</p>
                             </a> </li>
-                        <li class="nav-item"> <a href="/admin/dashboard/verifikasi"
-                                class="nav-link <?= ($user['section'] == 'member-verifikasi' ? 'active' : '') ?>"> <i
-                                    class="nav-icon bi bi-check2-square"></i>
-                                <p>Verifikasi Pembaruan</p>
-                            </a> </li>
+
+                        <li class="nav-item <?= ($user['mainSection'] == 'verifikasi' ? 'menu-open' : '') ?>">
+                            <a href="#"
+                                class="nav-link <?= ($user['mainSection'] == 'verifikasi' ? 'text-white' : '') ?>">
+                                <i
+                                    class="nav-icon bi bi-check2-square <?= ($user['mainSection'] == 'verifikasi' ? 'text-active' : '') ?>"></i>
+                                <p>Verifikasi
+                                    <i class="nav-arrow bi bi-chevron-right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item"> <a href="/admin/member/verifikasi/legalitas"
+                                        class="nav-link <?= ($section == 'legalitas' ? 'active' : '') ?>">
+                                        <i class="nav-icon bi bi-check2-square"></i>
+                                        <p>Verifikasi Legalitas</p>
+                                    </a> </li>
+                                <li class="nav-item"> <a href="/admin/member/verifikasi/produk"
+                                        class="nav-link <?= ($section == 'produk' ? 'active' : '') ?>">
+                                        <i class="nav-icon bi bi-check2-square"></i>
+                                        <p>Verifikasi Produk</p>
+                                    </a> </li>
+                                <li class="nav-item"> <a href="/admin/member/verifikasi/sertifikat"
+                                        class="nav-link <?= ($section == 'sertifikat' ? 'active' : '') ?>">
+                                        <i class="nav-icon bi bi-check2-square"></i>
+                                        <p>Verifikasi Sertifikat</p>
+                                    </a> </li>
+                                <li class="nav-item"> <a href="/admin/member/verifikasi/pengalaman-pameran"
+                                        class="nav-link <?= ($section == 'pengalaman-pameran' ? 'active' : '') ?>">
+                                        <i class="nav-icon bi bi-check2-square"></i>
+                                        <p>Verifikasi Pameran</p>
+                                    </a> </li>
+                                <li class="nav-item"> <a href="/admin/member/verifikasi/pengalaman-ekspor"
+                                        class="nav-link <?= ($section == 'pengalaman-ekspor' ? 'active' : '') ?>">
+                                        <i class="nav-icon bi bi-check2-square"></i>
+                                        <p>Verifikasi Ekspor</p>
+                                    </a> </li>
+                                <li class="nav-item"> <a href="/admin/member/verifikasi/media-promosi"
+                                        class="nav-link <?= ($section == 'media-promosi' ? 'active' : '') ?>">
+                                        <i class="nav-icon bi bi-check2-square"></i>
+                                        <p>Verifikasi Media Promosi</p>
+                                    </a> </li>
+                                <li class="nav-item"> <a href="/admin/member/verifikasi/program-pembinaan"
+                                        class="nav-link <?= ($section == 'program-pembinaan' ? 'active' : '') ?>">
+                                        <i class="nav-icon bi bi-check2-square"></i>
+                                        <p>Verifikasi Pembinaan</p>
+                                    </a> </li>
+                            </ul>
+                        </li>
+
                     </ul>
                 </li>
             </ul>

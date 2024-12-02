@@ -3,16 +3,37 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\LegalitasModel;
+use App\Models\MediaPromosiModel;
+use App\Models\PengalamanEksporModel;
+use App\Models\PengalamanPameranModel;
+use App\Models\ProdukModel;
+use App\Models\ProgramPembinaanModel;
 use App\Models\SertifikatModel;
+use App\Models\UserModel;
 
 class AdminController extends BaseController
 {
 
     protected $userModel;
+    protected $legalitasModel;
+    protected $produkModel;
+    protected $sertifikatModel;
+    protected $pengalamanPameranModel;
+    protected $pengalamanEksporModel;
+    protected $mediaPromosiModel;
+    protected $programPembinaanModel;
 
     public function __construct()
     {
-        $this->userModel = new \App\Models\UserModel();
+        $this->legalitasModel = new LegalitasModel();
+        $this->produkModel = new ProdukModel();
+        $this->sertifikatModel = new SertifikatModel();
+        $this->userModel = new UserModel();
+        $this->pengalamanPameranModel = new PengalamanPameranModel();
+        $this->pengalamanEksporModel = new PengalamanEksporModel();
+        $this->mediaPromosiModel = new MediaPromosiModel();
+        $this->programPembinaanModel = new ProgramPembinaanModel();
         helper('form');
     }
 
@@ -22,31 +43,62 @@ class AdminController extends BaseController
         $userData = [
             'nama_user' => $session->get('nama_user'),
             'role' => $session->get('role'),
-            'section' => 'dashboard',
+            'mainSection' => '',
             'title' => 'Admin | Dashboard'
         ];
 
-        return view('admin/dashboard', ['user' => $userData]);
+        return view('admin/dashboard', ['user' => $userData, 'section' => 'dashboard']);
     }
 
-    public function verifikasi()
+    public function verifikasi($tipe = null)
     {
+        // dd($tipe);
         $session = session();
+        $tipeTitle = '';
+        if(strlen($tipe) > 10){
+            $tipeTitle = explode('-', $tipe);
+            $tipeTitle = array_map(function($tipe){
+                return strtoupper(substr($tipe, 0, 1)) . substr($tipe, 1);
+            }, $tipeTitle);
+            $tipeTitle = implode(' ', $tipeTitle);
+        } else {
+            $tipeTitle = strtoupper(substr($tipe, 0, 1)) . substr($tipe, 1);
+        }
         $userData = [
             'nama_user' => $session->get('nama_user'),
             'role' => $session->get('role'),
-            'section' => 'member-verifikasi', // Penanda untuk sidebar
-            'title' => 'Admin | Verifikasi Upload Member'
+            'mainSection' => 'verifikasi',
+            'title' => 'Admin | Verifikasi ' . $tipeTitle . ' Member'
         ];
 
-        // Ambil data sertifikat dengan status 'waiting'
-        $sertifikatModel = new SertifikatModel();
-        $sertifikat = $sertifikatModel->where('status_verifikasi', 'waiting')->findAll();
+        $verifikasiData = [];
+
+        if (!in_array($tipe, ['legalitas', 'produk', 'sertifikat', 'pengalaman-pameran', 'pengalaman-ekspor', 'media-promosi', 'program-pembinaan'])) {
+            return redirect()->back()->with('error', 'Tipe verifikasi tidak valid.');
+        } else {
+            if ($tipe == 'legalitas') {
+                $verifikasiData = $this->legalitasModel->getUnverifiedLegalitas();
+            } else if ($tipe == 'produk') {
+                $verifikasiData = $this->produkModel->getUnverifiedProduk();
+            } else if ($tipe == 'sertifikat') {
+                $verifikasiData = $this->sertifikatModel->getUnverifiedSertifikat();
+            } else if ($tipe == 'pengalaman-pameran') {
+                $verifikasiData = $this->pengalamanPameranModel->getUnverifiedPameran();
+            } else if ($tipe == 'pengalaman-ekspor') {
+                $verifikasiData = $this->pengalamanEksporModel->getUnverifiedEkspor();
+            } else if ($tipe == 'media-promosi') {
+                $verifikasiData = $this->mediaPromosiModel->getUnverifiedMedia();
+            } else if ($tipe == 'program-pembinaan') {
+                $verifikasiData = $this->programPembinaanModel->getUnverifiedProgramPembinaan();
+            }
+        }
 
         // Kirim data pengguna dan sertifikat ke tampilan
         return view('admin/member/verifikasi', [
             'user' => $userData,
-            'sertifikat' => $sertifikat,
+            'verifikasiData' => $verifikasiData,
+            'section' => $tipe,
+            'tipeTitle' => $tipeTitle
         ]);
     }
     public function updateVerifikasi($id, $status)
@@ -88,10 +140,11 @@ class AdminController extends BaseController
             'user' => [
                 'nama_user' => $session->get('nama_user'),
                 'role' => $session->get('role'),
-                'section' => 'list-member',
+                'mainSection' => 'member',
                 'title' => 'Admin | List Member'
             ],
             'users' => $users,
+            'section' => 'list-member'
         ]);
     }
 

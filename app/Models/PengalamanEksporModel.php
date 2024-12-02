@@ -31,4 +31,14 @@ class PengalamanEksporModel extends Model
     {
         return $this->where('user_id_ekspor', $userId)->findAll();
     }
+
+    /**
+     * Mendapatkan pengalaman ekspor yang belum diverifikasi.
+     *
+     * @return array
+     */
+    public function getUnverifiedEkspor(): array
+    {
+        return $this->where('status_verifikasi', 'pending')->findAll();
+    }
 }

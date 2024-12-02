@@ -31,4 +31,14 @@ class PengalamanPameranModel extends Model
     {
         return $this->where('user_id_pameran', $userId)->findAll();
     }
+
+    /**
+     * Mendapatkan pengalaman pameran yang belum diverifikasi.
+     *
+     * @return array
+     */
+    public function getUnverifiedPameran(): array
+    {
+        return $this->where('status_verifikasi', 'pending')->findAll();
+    }
 }

@@ -31,4 +31,14 @@ class ProgramPembinaanModel extends Model
     {
         return $this->where('user_id_pembinaan', $userId)->findAll();
     }
+
+    /**
+     * Mendapatkan program pembinaan yang belum diverifikasi.
+     *
+     * @return array
+     */
+    public function getUnverifiedProgramPembinaan(): array
+    {
+        return $this->where('status_verifikasi', 'pending')->findAll();
+    }
 }

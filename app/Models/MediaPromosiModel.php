@@ -30,4 +30,14 @@ class MediaPromosiModel extends Model
     {
         return $this->where('user_id_media', $userId)->findAll();
     }
+
+    /**
+     * Mendapatkan media promosi yang belum diverifikasi.
+     *
+     * @return array
+     */
+    public function getUnverifiedMedia(): array
+    {
+        return $this->where('status_verifikasi', 'pending')->findAll();
+    }
 }
