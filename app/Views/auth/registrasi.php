@@ -118,7 +118,7 @@
         }
 
         input::placeholder {
-        font-size: 12px;
+            font-size: 12px;
         }
 
 
@@ -192,50 +192,40 @@
                     <form class="auth-form login-form" method="post" action="<?= base_url('signUp') ?>">
                         <?= csrf_field(); ?>
                         <div class="email mb-3">
-                            <div>
-                                <label class="form-label">Nama Lengkap</label>
-                            </div>
-                            <div>
-                                <input type="text" class="" name="Nama" placeholder="Contoh : Budi Susanto" required>
-                            </div>
+                            <label class="form-label">Nama Lengkap</label>
+                            <input type="text" name="nama_user" placeholder="Contoh: Budi Susanto" required>
                         </div>
 
                         <div class="email mb-3">
-                            <div>
-                                <label class="form-label">Nama Perusahaan</label>
-                            </div>
-                            <div>
-                                <input type="text" class="" name="Nama" placeholder="Contoh : PT. Ekspor Indonesia" required>
-                            </div>
+                            <label class="form-label">Nama Perusahaan</label>
+                            <input type="text" name="nama_perusahaan" placeholder="Contoh: PT. Ekspor Indonesia" required>
                         </div>
 
                         <div class="row">
-                            <div class="email mb-3 col-6 ">
-                                <div>
+                            <div class="email mb-3 col-6">
                                 <label class="form-label">Nomor Telepon</label>
-                                </div>
-                                <div>
-                                <input type="text" class="" name="Nomor_telepon" placeholder="Contoh : 087865789543" required>
-                                </div>
+                                <input type="text" name="nomor_telepon" placeholder="Contoh: 087865789543" required>
                             </div>
                             <div class="mb-3 col-6">
-                            <label class="form-label">Alamat Perusahaan</label>
-                            <input type="text" name="alamat" placeholder="Contoh : Jalan Mawar Melati Indah 12" required>
+                                <label class="form-label">Alamat Perusahaan</label>
+                                <input type="text" name="alamat" placeholder="Contoh: Jalan Mawar Melati Indah 12" required>
                             </div>
                         </div>
 
                         <div class="email mb-3">
-                            <div>
-                                <label class="form-label">Email</label>
-                            </div>
-                            <div>
-                            <input type="email" class="" name="email" placeholder="Contoh : eksporindonesia@gmail.com" required>
-                            </div>
+                            <label class="form-label">Jenis Perusahaan</label>
+                            <input type="text" name="jenis_perusahaan" placeholder="Food And Beverages Company" required>
                         </div>
+
+                        <div class="email mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" name="email" placeholder="Contoh: eksporindonesia@gmail.com" required>
+                        </div>
+
                         <div class="mb-4">
                             <label class="form-label">Password</label>
                             <div class="password-wrapper">
-                                <input type="password" class="" name="password" id="password" placeholder="Password minimal 8 karakter " required>
+                                <input type="password" name="password" id="password" placeholder="Password minimal 8 karakter dan harus ada karakter spesial" required>
                                 <i class="fas fa-eye toggle-password"></i>
                             </div>
                         </div>
@@ -244,9 +234,10 @@
                             <button type="submit" class="btn-log-in w-100 theme-btn mx-auto">Registrasi</button>
                         </div>
                         <div class="sign-up-link">
-                            <p>Sudah memiliki akun ? <a href="/login">Login</a></p>
+                            <p>Sudah memiliki akun? <a href="/login">Login</a></p>
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>
