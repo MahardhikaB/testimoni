@@ -1,21 +1,13 @@
-/* Navbar Styles */
+/* Default Styles */
 nav {
-    height: 60px;
-    width: 100%;
-    background-color: white;
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    align-items: center;
-    padding-left: 50px;
-    padding-right: 50px;
-    gap: 10px;
-    font-size: 16px;
-}
-
-.column-1 {
-    grid-column: span 2;
+    height: 80px;
     display: flex;
+    justify-content: space-between;
     align-items: center;
+    padding: 0 20px;
+    background-color: white;
+    font-size: 16px;
+    position: relative; /* Tambahkan jika diperlukan untuk dropdown positioning */
 }
 
 .column-1 img {
@@ -23,15 +15,14 @@ nav {
 }
 
 .column-2 {
-    grid-column: span 8;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    justify-content: center; /* Pusatkan horizontal */
+    align-items: center; /* Pusatkan vertical */
+    gap: 30px;
+    flex: 1; /* Tambahkan agar mengambil ruang di tengah */
 }
 
 .column-2 a {
-    margin-right: 50px;
-    font-style: normal;
     text-decoration: none;
     color: black;
 }
@@ -42,14 +33,13 @@ nav {
 }
 
 .column-3 {
-    grid-column: span 2;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: center; /* Tambahkan agar rata tengah */
+    align-items: center; /* Tambahkan agar vertikal tengah */
 }
 
 .column-3 a {
-    padding: 13px 40px;
+    padding: 10px 20px;
     background-color: #4C3D3D;
     color: white;
     border-radius: 5px;
@@ -58,5 +48,56 @@ nav {
 
 .column-3 a:hover {
     background-color: #333;
-    transition: background-color 0.3s ease-in-out;
+}
+
+/* Menu Toggle Button (Hidden by Default) */
+.menu-toggle {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Dropdown Menu (Hidden by Default) */
+.menu-dropdown {
+    display: none;
+    flex-direction: column;
+    background-color: white;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    width: 200px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    z-index: 100;
+}
+
+.menu-dropdown a {
+    padding: 10px 20px;
+    text-decoration: none;
+    color: black;
+    border-bottom: 1px solid #ddd;
+}
+
+.menu-dropdown a:last-child {
+    border-bottom: none;
+}
+
+.menu-dropdown a:hover {
+    background-color: #f9f9f9;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .column-2,
+    .column-3 {
+        display: none; /* Hide main nav links and sign-in button */
+    }
+
+    .menu-toggle {
+        display: block; /* Show menu toggle button */
+    }
+
+    .menu-dropdown.active {
+        display: flex; /* Show dropdown menu when active */
+    }
 }

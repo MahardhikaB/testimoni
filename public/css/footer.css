@@ -1,16 +1,42 @@
+/* Footer Styles */
 footer {
-    margin-top: 4rem;
-    height: 50px;
     width: 100%;
     background-color: #4C3D3D;
+    color: white;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: white;
-    padding-top: 30px;
-    padding-bottom: 30px;
+    padding: 20px 10px; /* Kurangi padding agar responsif */
+    text-align: center; /* Pastikan teks rata tengah */
+   /* tarik footer ke bawah halman */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 
 footer p {
     font-size: 16px;
+    margin: 0; /* Hapus margin bawaan */
+    line-height: 1.5;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    footer {
+        flex-direction: column; /* Agar konten footer tetap dalam satu kolom */
+        padding: 15px; /* Kurangi padding */
+        /* tarik kebwah */
+        position: relative;
+    }
+
+    footer p {
+        font-size: 14px; /* Perkecil ukuran font untuk layar kecil */
+    }
+}
+
+@media (max-width: 480px) {
+    footer p {
+        font-size: 12px; /* Tambahkan ukuran font lebih kecil untuk layar sangat kecil */
+    }
 }
