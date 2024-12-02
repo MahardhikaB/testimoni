@@ -30,6 +30,7 @@
 
 .hero-text {
     max-width: 600px;
+    padding: 20px;
 }
 
 .hero-text h1 {
@@ -58,20 +59,19 @@
     background-color: #3b3131;
 }
 
-
-
 /* Styling untuk Contact Details dan Address Details */
 .company-information {
     display: flex;
+    flex-wrap: wrap; /* Untuk responsivitas */
     justify-content: center;
     background-color: rgba(255, 247, 212, 0.3);
-    width: 93%; 
+    width: 93%;
     align-items: center;
     padding: 10px 30px;
     gap: 30px;
     border-radius: 5px;
     border: 1px solid rgba(76, 61, 61, 0.5);
-    margin: 30px auto 0;
+    margin: 1px auto 0;
 }
 
 /* Styling for user and bootcamp details */
@@ -80,9 +80,8 @@
     border-radius: 8px;
     margin-bottom: 15px;
     padding: 10px;
-    width: auto; 
-    white-space: nowrap; 
-    flex-grow: 1; 
+    flex: 1; /* Membuat kolom fleksibel */
+    white-space: normal; /* Agar teks dapat membungkus */
 }
 
 .user-details {
@@ -100,38 +99,37 @@
     right: 0;
 }
 
+@media (max-width: 768px) {
+    .user-details {
+        padding-right: 0;
+    }
+    .user-details::after {
+        content: none; /* Hilangkan garis pembatas pada layar kecil */
+    }
+}
+
 /* Profile content padding */
 .content-profile {
-    padding-left: 50px;
-    padding-right: 50px;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding: 20px;
 }
 
 .search-bar-container {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column; /* Susun vertikal untuk layar kecil */
+    gap: 10px; /* Tambahkan jarak */
     margin-top: 20px;
 }
 
-.overview-title {
-    font-size: 24px;
-    font-weight: bold;
-    color: #4C3D3D;
-}
-
 .search-input-container {
-display: flex;
-justify-content: flex-end;
-align-items: center;
-width: 361px;
-position: relative; /* Tambahkan ini untuk membuat posisi icon berdasarkan container */
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%; /* Ubah ke 100% agar fleksibel */
+    position: relative;
 }
-
 
 .search-input {
-    width: 100%;
+    width: 100%; /* Agar input mengambil seluruh lebar container */
     height: 37px;
     padding: 0 40px 0 15px;
     background-color: #FFFFFF;
@@ -156,10 +154,11 @@ position: relative; /* Tambahkan ini untuk membuat posisi icon berdasarkan conta
     color: #4C3D3D;
     cursor: pointer;
 }
+
 /* Table styling */
 .table-container {
     margin-top: 20px;
-    
+    overflow-x: auto; /* Tambahkan scroll horizontal untuk layar kecil */
 }
 
 table {
@@ -177,19 +176,48 @@ table, th, td {
 th {
     padding: 10px;
     text-align: left;
-    background-color: #FFD95A; 
+    background-color: #FFD95A;
     color: #4C3D3D;
 }
 
 tbody tr:nth-child(odd) {
-    background-color: #FFF7D4; 
+    background-color: #FFF7D4;
 }
 
 tbody tr:nth-child(even) {
-    background-color: #FFFFFF; 
+    background-color: #FFFFFF;
 }
 
 td {
     padding: 10px;
     text-align: left;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .hero-section {
+        height: auto; /* Sesuaikan tinggi untuk layar kecil */
+        padding: 20px;
+    }
+
+    .hero-text h1 {
+        font-size: 24px; /* Perkecil ukuran font */
+    }
+
+    .hero-text p {
+        font-size: 14px; /* Perkecil ukuran font */
+    }
+
+    .company-information {
+        flex-direction: column; /* Susun kolom secara vertikal */
+        gap: 15px;
+    }
+
+    table {
+        font-size: 14px; /* Perkecil font untuk layar kecil */
+    }
+
+    th, td {
+        padding: 8px; /* Perkecil padding */
+    }
 }
