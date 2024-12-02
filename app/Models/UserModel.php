@@ -52,9 +52,18 @@ class UserModel extends Model
     ];
 
     // Fungsi untuk mendapatkan data pengguna berdasarkan role
-    public function getUsersByRole(int $role)
+    public function getUsersByRole(string $role)
     {
         return $this->where('role', $role)->findAll();
+    }
+
+    public function getUsersListWithPerusahaan()
+    {
+        return $this->select('users.user_id, users.nama_user, perusahaan.nama_perusahaan, perusahaan.jenis_perusahaan, perusahaan.alamat, perusahaan.pelatihan_mulai, perusahaan.pelatihan_selesai')
+                    ->join('perusahaan', 'perusahaan.user_id_perusahaan = users.user_id', 'left')
+                    ->where('users.role', 'user')
+                    ->where('perusahaan.nama_perusahaan !=', null)
+                    ->findAll();
     }
 
     public function getUserByEmailOrUsername(string $input)

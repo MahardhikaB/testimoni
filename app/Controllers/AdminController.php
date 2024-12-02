@@ -7,6 +7,15 @@ use App\Models\SertifikatModel;
 
 class AdminController extends BaseController
 {
+
+    protected $userModel;
+
+    public function __construct()
+    {
+        $this->userModel = new \App\Models\UserModel();
+        helper('form');
+    }
+
     public function dashboard()
     {
         $session = session();
@@ -18,17 +27,6 @@ class AdminController extends BaseController
         ];
 
         return view('admin/dashboard', ['user' => $userData]);
-    }
-
-    public function detail() {
-        $session = session();
-        $userData = [
-            'nama_user' => $session->get('nama_user'),
-            'role' => $session->get('role'),
-            'section' => 'detail',
-            'title' => 'Admin | Detail Member'
-        ];
-        return view('admin/member/detail', ['user' => $userData]);
     }
 
     public function verifikasi()
@@ -80,6 +78,22 @@ class AdminController extends BaseController
     log_message('info', "Status updated successfully for ID: {$id}");
     return redirect()->to('/admin/dashboard/verifikasi')->with('success', 'Status verifikasi berhasil diperbarui.');
 }
+
+    public function memberList(){
+        $session = session();
+        
+        $users = $this->userModel->getUsersListWithPerusahaan();
+
+        return view('admin/member/list', [
+            'user' => [
+                'nama_user' => $session->get('nama_user'),
+                'role' => $session->get('role'),
+                'section' => 'list-member',
+                'title' => 'Admin | List Member'
+            ],
+            'users' => $users,
+        ]);
+    }
 
     
 }
