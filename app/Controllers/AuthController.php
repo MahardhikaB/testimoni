@@ -73,6 +73,47 @@ class AuthController extends Controller
         }
     }
 
+    public function register()
+    {
+        $userModel = new UserModel();
+
+        // Validasi input
+        $validationRules = [
+            'Nama' => 'required|string|max_length[100]',
+            'email' => 'required|valid_email|is_unique[users.email]|max_length[100]',
+            'password' => 'required|min_length[8]',
+            'Nomor_telepon' => 'required|numeric|max_length[15]',
+            'alamat' => 'required|string|max_length[255]',
+        ];
+
+        $validationMessages = [
+            'email' => [
+                'is_unique' => 'Email sudah terdaftar.',
+            ],
+            'password' => [
+                'min_length' => 'Password minimal 8 karakter.',
+            ],
+        ];
+
+        if (!$this->validate($validationRules, $validationMessages)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+
+        // Ambil data dari request
+        $data = [
+            'nama_user' => $this->request->getPost('Nama'),
+            'email' => $this->request->getPost('email'),
+            'password' => password_hash($this->request->getPost('password'), PASSWORD_BCRYPT), // Hash password
+            'role' => 'user', // Default role untuk registrasi
+        ];
+
+        // Simpan ke tabel users
+        $userModel->insert($data);
+
+        // Redirect ke halaman login dengan pesan sukses
+        return redirect()->to('/login')->with('success', 'Registrasi berhasil. Silakan login.');
+    }
+    
     // Logout
     public function logout()
     {
