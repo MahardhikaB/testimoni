@@ -235,7 +235,7 @@
                         <div class="mb-4">
                             <label class="form-label">Password</label>
                             <div class="password-wrapper">
-                                <input type="password" class="" name="password" id="password" placeholder="Password minimal 8 karakter dan harus ada karakter spesial" required>
+                                <input type="password" class="" name="password" id="password" placeholder="Password minimal 8 karakter " required>
                                 <i class="fas fa-eye toggle-password"></i>
                             </div>
                         </div>
@@ -265,5 +265,21 @@
         this.classList.toggle('fa-eye-slash');
     });
 </script>
+
+<?php if (session()->getFlashdata('errors')): ?>
+    <div class="alert alert-danger">
+        <ul>
+            <?php foreach (session()->getFlashdata('errors') as $error): ?>
+                <li><?= $error ?></li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+<?php endif; ?>
+
+<?php if (session()->getFlashdata('success')): ?>
+    <div class="alert alert-success">
+        <?= session()->getFlashdata('success') ?>
+    </div>
+<?php endif; ?>
 
 </html>

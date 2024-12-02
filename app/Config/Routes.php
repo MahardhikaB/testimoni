@@ -30,7 +30,8 @@ $routes->get('login', 'LoginController::index');
 $routes->post('login', 'LoginController::authenticate');
 $routes->get('logout', 'LoginController::logout');
 $routes->get('registrasi', 'RegistrasiController::index');
-$routes->post('registrasi', 'RegistrasiController::store');
+$routes->post('signUp', 'AuthController::register');
+
 
 // Routes khusus untuk admin
 $routes->group('admin', ['filter' => 'role:admin'], function ($routes) {
