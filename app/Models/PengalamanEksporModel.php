@@ -19,6 +19,7 @@ class PengalamanEksporModel extends Model
         'tahun_ekspor',              // Tahun ekspor
         'produk_ekspor',             // Produk yang diekspor
         'deskripsi_ekspor',          // Deskripsi pengalaman ekspor
+        'status_verifikasi',         // Status verifikasi
     ];
 
     /**
@@ -39,6 +40,10 @@ class PengalamanEksporModel extends Model
      */
     public function getUnverifiedEkspor(): array
     {
-        return $this->where('status_verifikasi', 'pending')->findAll();
+        return $this->select(' pengalaman_ekspor.id_ekspor, pengalaman_ekspor.destinasi_ekspor, pengalaman_ekspor.tahun_ekspor, pengalaman_ekspor.produk_ekspor, perusahaan.nama_perusahaan')
+                    ->join('users', 'users.user_id = pengalaman_ekspor.user_id_ekspor')
+                    ->join('perusahaan', 'perusahaan.user_id_perusahaan = users.user_id')
+                    ->where('pengalaman_ekspor.status_verifikasi', 'pending')
+                    ->findAll();
     }
 }
