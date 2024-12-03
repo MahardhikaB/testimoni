@@ -1,0 +1,561 @@
+/* Hero Section */
+.hero-section {
+    height: calc(100vh - 300px);
+    background: url('../images/background.png') no-repeat center center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+
+/* Profile Image Adjustments */
+.profile-image {
+    position: absolute;
+    top: 78%;
+    left: 10%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 5px solid white;
+    z-index: 10;
+}
+
+/* Profile Section */
+.profile-section {
+    display: flex;
+    justify-content: space-between;
+    padding: 30px;
+    padding-left: 250px;
+    background-color: #f5f5f5;
+    margin-top: -80px;
+    line-height: 30px;
+    position: relative;
+}
+
+.profile-card {
+    text-align: left;
+    width: 100%;
+}
+
+.profile-card h3 {
+    font-size: 24px;
+}
+
+.profile-card h5 {
+    font-size: 16px;
+    color: #C07F00;
+}
+
+.location-company {
+    display: flex;
+    align-items: center;
+}
+
+.location-company p {
+    margin-left: 5px;
+    font-size: 14px;
+}
+
+/* Styling untuk Contact Details dan Address Details */
+.company-information {
+    display: flex;
+    background-color: rgba(255, 247, 212, 0.3);
+    width: auto;
+    align-items: center;
+    padding: 10px 30px;
+    gap: 30px;
+    border-radius: 5px;
+    border: 1px solid rgba(76, 61, 61, 0.5);
+}
+
+.contact-details,
+.address-details {
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.contact-details h4,
+.address-details h4 {
+    font-size: 12px;
+}
+
+.contact-details p,
+.address-details p {
+    font-size: 10px;
+}
+
+/* Tambahkan border antara Contact Details dan Address Details */
+.contact-details {
+    position: relative;
+    padding-right: 40px;
+    width: 200px;
+}
+
+.contact-details::after {
+    content: "";
+    width: 1px;
+    height: 100%;
+    background-color: #ddd;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.address-details {
+    width: 200px;
+}
+
+/* Sosial Media Icons */
+.social-icons {
+    display: flex;
+    margin-top: 15px;
+    gap: 10px;
+    align-items: center;
+}
+
+.social-icons i {
+    font-size: 20px;
+}
+
+.edit-profile-btn button {
+    width: 150px;
+    height: 44px;
+    background-color: #4C3D3D;
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    margin-left: 10px;
+
+}
+
+.content-profile {
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.content-profile .tab-container {
+
+    display: flex;
+}
+
+.content-profile .tab-container .tabs {
+    line-height: 50px;
+    width: calc(100% - 1200px);
+    /* Hanya garis stroke di kanan */
+    border-right: 1px solid grey;
+    /* Atur warna dan ketebalan sesuai kebutuhan */
+}
+
+.content-profile .tab-container .tabs .tabs-btn a {
+    color: #4C3D3D;
+    text-decoration: none;
+}
+
+.content-profile .tab-container .tab-content {
+    padding-left: 20px;
+    padding-top: 5px;
+}
+
+.legalitas-before-content {
+    margin: 20px;
+    /* Optional: margin for the overall container */
+}
+
+.legalitas-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 500px);
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.content-before-content-one,
+.content-before-content-two,
+.content-before-content-three,
+.content-before-content-four,
+.content-before-content-five {
+    background-color: #f8f8f8;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 4px;
+
+}
+
+.content-before-content-one p,
+.content-before-content-two p,
+.content-before-content-three p,
+.content-before-content-four p,
+.content-before-content-five p {
+    font-size: 12px;
+    margin-bottom: 8px;
+
+}
+
+.content-before-content-one h5,
+.content-before-content-two h5,
+.content-before-content-three h5,
+.content-before-content-four h5,
+.content-before-content-five h5 {
+    font-size: 14px;
+    margin-bottom: 15px;
+
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.produk-before-content {
+    margin: 20px;
+    /* Optional: margin for the overall container */
+}
+
+.produk-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 500px);
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.produk-before-content-one,
+.produk-before-content-two,
+.produk-before-content-three,
+.produk-before-content-four,
+.produk-before-content-five {
+    background-color: #f8f8f8;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 4px;
+
+}
+
+.produk-before-content-one p,
+.produk-before-content-two p,
+.produk-before-content-three p,
+.produk-before-content-four p,
+.produk-before-content-five p {
+    font-size: 12px;
+    margin-bottom: 8px;
+
+}
+
+.produk-before-content-one h5,
+.produk-before-content-two h5,
+.produk-before-content-three h5,
+.produk-before-content-four h5,
+.produk-before-content-five h5 {
+    font-size: 14px;
+    margin-bottom: 15px;
+
+}
+
+
+.sertifikasi-before-content {
+    margin: 20px;
+    /* Optional: margin for the overall container */
+}
+
+.sertifikasi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 3fr);
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.sertifikasi-before-content-one,
+.sertifikasi-before-content-two,
+.sertifikasi-before-content-three,
+.sertifikasi-before-content-four,
+.sertifikasi-before-content-five {
+    background-color: #f8f8f8;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 4px;
+
+}
+
+.sertifikasi-before-content-one p,
+.sertifikasi-before-content-two p,
+.sertifikasi-before-content-three p,
+.sertifikasi-before-content-four p,
+.sertifikasi-before-content-five p {
+    font-size: 12px;
+    margin-bottom: 8px;
+
+}
+
+.sertifikasi-before-content-one h5,
+.sertifikasi-before-content-two h5,
+.sertifikasi-before-content-three h5,
+.sertifikasi-before-content-four h5,
+.sertifikasi-before-content-five h5 {
+    font-size: 14px;
+    margin-bottom: 15px;
+
+}
+
+
+.sertifikasi-before-content {
+    margin: 20px;
+    /* Optional: margin for the overall container */
+}
+
+.sertifikasi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 3fr);
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.sertifikasi-before-content-one,
+.sertifikasi-before-content-two,
+.sertifikasi-before-content-three,
+.sertifikasi-before-content-four,
+.sertifikasi-before-content-five {
+    background-color: #f8f8f8;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 4px;
+
+}
+
+.sertifikasi-before-content-one p,
+.sertifikasi-before-content-two p,
+.sertifikasi-before-content-three p,
+.sertifikasi-before-content-four p,
+.sertifikasi-before-content-five p {
+    font-size: 12px;
+    margin-bottom: 8px;
+
+}
+
+.sertifikasi-before-content-one h5,
+.sertifikasi-before-content-two h5,
+.sertifikasi-before-content-three h5,
+.sertifikasi-before-content-four h5,
+.sertifikasi-before-content-five h5 {
+    font-size: 14px;
+    margin-bottom: 15px;
+
+}
+
+.pameran-content {
+    margin: 20px;
+    /* Optional: margin for the overall container */
+}
+
+.pameran-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 500px);
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.pameran-content-one,
+.pameran-content-two,
+.pameran-content-three,
+.pameran-content-four,
+.pameran-content-five {
+    background-color: #f8f8f8;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 4px;
+
+}
+
+.pameran-content-one p,
+.pameran-content-two p,
+.pameran-content-three p,
+.pameran-content-four p,
+.pameran-content-five p {
+    font-size: 12px;
+    margin-bottom: 8px;
+
+}
+
+.pameran-content-one h5,
+.pameran-content-two h5,
+.pameran-content-three h5,
+.pameran-content-four h5,
+.pameran-content-five h5 {
+    font-size: 14px;
+    margin-bottom: 15px;
+
+}
+
+.ekspor-content {
+    margin: 20px;
+    /* Optional: margin for the overall container */
+}
+
+.ekspor-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 500px);
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.ekspor-content-one,
+.ekspor-content-two,
+.ekspor-content-three,
+.ekspor-content-four,
+.ekspor-content-five {
+    background-color: #f8f8f8;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 4px;
+
+}
+
+.ekspor-content-one p,
+.ekspor-content-two p,
+.ekspor-content-three p,
+.ekspor-content-four p,
+.ekspor-content-five p {
+    font-size: 12px;
+    margin-bottom: 8px;
+
+}
+
+.ekspor-content-one h5,
+.ekspor-content-two h5,
+.ekspor-content-three h5,
+.ekspor-content-four h5,
+.ekspor-content-five h5 {
+    font-size: 14px;
+    margin-bottom: 15px;
+
+}
+
+.promosi-content {
+    margin: 20px;
+    /* Optional: margin for the overall container */
+}
+
+.promosi-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 500px);
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.promosi-content-one,
+.promosi-content-two,
+.promosi-content-three,
+.promosi-content-four,
+.promosi-content-five {
+    background-color: #f8f8f8;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 4px;
+
+}
+
+.promosi-content-one p,
+.promosi-content-two p,
+.promosi-content-three p,
+.promosi-content-four p,
+.promosi-content-five p {
+    font-size: 12px;
+    margin-bottom: 8px;
+
+}
+
+.promosi-content-one h5,
+.promosi-content-two h5,
+.promosi-content-three h5,
+.promosi-content-four h5,
+.promosi-content-five h5 {
+    font-size: 14px;
+    margin-bottom: 15px;
+
+}
+
+.pembinaan-content {
+    margin: 20px;
+    /* Optional: margin for the overall container */
+}
+
+.pembinaan-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 500px);
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.pembinaan-content-one,
+.pembinaan-content-two,
+.pembinaan-content-three,
+.pembinaan-content-four,
+.pembinaan-content-five {
+    background-color: #f8f8f8;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 4px;
+
+}
+
+.pembinaan-content-one p,
+.pembinaan-content-two p,
+.pembinaan-content-three p,
+.pembinaan-content-four p,
+.pembinaan-content-five p {
+    font-size: 12px;
+    margin-bottom: 8px;
+
+}
+
+.pembinaan-content-one h5,
+.pembinaan-content-two h5,
+.pembinaan-content-three h5,
+.pembinaan-content-four h5,
+.pembinaan-content-five h5 {
+    font-size: 14px;
+    margin-bottom: 15px;
+
+}
+
+
+.tab-button {
+    text-decoration: none;
+    padding: 10px;
+    font-size: 16px;
+    color: #333;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.tab-button:hover {
+    color: #000;
+}
+
+.tab-button::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background-color: #000;
+    left: 0;
+    bottom: 0;
+    transition: width 0.3s ease;
+}
+
+.tab-button:hover::after,
+.tab-button.active::after {
+    /* Underline on hover and when active */
+    width: 100%;
+}
+
+.tab-button.active {
+    color: #000;
+    /* Optional: Change text color for active tab */
+}
