@@ -8,8 +8,8 @@
 
     <!-- Navigation Links -->
     <div class="column-2">
-        <a href="/dashboard">Beranda</a>
-        <a href="/profile">Profile Perusahaan</a>
+        <a href="/user/dashboard">Beranda</a>
+        <a href="/user/profile">Profile Perusahaan</a>
         <a href="/progress">Progress Perusahaan</a>
     </div>
 
