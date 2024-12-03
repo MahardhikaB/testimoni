@@ -19,6 +19,8 @@ class ProdukModel extends Model
         'deskripsi_produk',      // Deskripsi produk
         'harga_produk',          // Harga produk
         'ketersediaan_produk',   // Status ketersediaan
+        'tipe',                  // Befor After identifier
+        'status_verifikasi',     // Status verifikasi
     ];
 
     /**
@@ -30,5 +32,15 @@ class ProdukModel extends Model
     public function getProdukByUserId(int $userId)
     {
         return $this->where('user_id_produk', $userId)->findAll();
+    }
+
+    /**
+     * Mendapatkan produk yang belum diverifikasi.
+     *
+     * @return array
+     */
+    public function getUnverifiedProduk(): array
+    {
+        return $this->where('status_verifikasi', 'pending')->findAll();
     }
 }

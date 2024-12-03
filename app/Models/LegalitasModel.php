@@ -15,8 +15,9 @@ class LegalitasModel extends Model
 
     protected $allowedFields = [
         'user_id_legalitas', // Foreign key ke tabel users
-        'legalitas_awal',
-        'legalitas_akhir',
+        'legalitas',         // File legalitas
+        'tipe',              // Tipe legalitas
+        'status_verifikasi', // Status verifikasi legalitas
     ];
 
     /**
@@ -28,6 +29,22 @@ class LegalitasModel extends Model
     public function getLegalitasByUserId(int $userId)
     {
         return $this->where('user_id_legalitas', $userId)->first();
+    }
+
+    /**
+     * Mendapatkan legalitas yang belum diverifikasi.
+     *
+     * @return array
+     */
+    public function getUnverifiedLegalitas(): array
+    {
+        
+        return $this->select('legalitas.*, users.nama_user, perusahaan.nama_perusahaan')
+                    ->join('users', 'users.user_id = legalitas.user_id_legalitas')
+                    ->join('perusahaan', 'perusahaan.user_id_perusahaan = users.user_id')
+                    ->where('users.role', 'user')
+                    ->where('legalitas.status_verifikasi', 'pending')
+                    ->findAll();
     }
 
     /**
