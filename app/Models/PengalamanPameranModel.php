@@ -19,6 +19,7 @@ class PengalamanPameranModel extends Model
         'tanggal_pameran',         // Tanggal pameran
         'lokasi_pameran',          // Lokasi pameran
         'deskripsi_pameran',       // Deskripsi pameran
+        'status_verifikasi',       // Status verifikasi
     ];
 
     /**
@@ -39,6 +40,11 @@ class PengalamanPameranModel extends Model
      */
     public function getUnverifiedPameran(): array
     {
-        return $this->where('status_verifikasi', 'pending')->findAll();
+        return $this->select('pengalaman_pameran.*, users.nama_user, perusahaan.nama_perusahaan')
+                    ->join('users', 'users.user_id = pengalaman_pameran.user_id_pameran')
+                    ->join('perusahaan', 'perusahaan.user_id_perusahaan = users.user_id')
+                    ->where('users.role', 'user')
+                    ->where('pengalaman_pameran.status_verifikasi', 'pending')
+                    ->findAll();
     }
 }
