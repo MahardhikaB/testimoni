@@ -12,5 +12,7 @@ class ProgressSeeder extends Seeder
         $this->call('UserProdukSeeder');
         $this->call('UserSertifikatSeeder');
         $this->call('UserPengalamanPameranSeeder');
+        $this->call('UserPengalamanEksporSeeder');
+        $this->call('UserMediaPromosiSeeder');
     }
 }
