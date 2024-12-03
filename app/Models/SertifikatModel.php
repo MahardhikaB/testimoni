@@ -43,6 +43,11 @@ class SertifikatModel extends Model
      */
     public function getUnverifiedSertifikat(): array
     {
-        return $this->where('status_verifikasi', 'pending')->findAll();
+        return $this->select('sertifikat.*, users.nama_user, perusahaan.nama_perusahaan')
+                    ->join('users', 'users.user_id = sertifikat.user_id_sertifikat')
+                    ->join('perusahaan', 'perusahaan.user_id_perusahaan = users.user_id')
+                    ->where('users.role', 'user')
+                    ->where('sertifikat.status_verifikasi', 'pending')
+                    ->findAll();
     }
 }

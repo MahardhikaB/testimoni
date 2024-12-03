@@ -15,8 +15,9 @@ class LegalitasModel extends Model
 
     protected $allowedFields = [
         'user_id_legalitas', // Foreign key ke tabel users
-        'legalitas_awal',
-        'legalitas_akhir',
+        'legalitas',         // File legalitas
+        'tipe',              // Tipe legalitas
+        'status_verifikasi', // Status verifikasi legalitas
     ];
 
     /**

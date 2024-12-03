@@ -19,6 +19,7 @@ class ProgramPembinaanModel extends Model
         'tahun_program',         // Tahun pelaksanaan program
         'penyelenggara_program', // Penyelenggara program pembinaan
         'deskripsi_program',     // Deskripsi program pembinaan
+        'status_verifikasi',     // Status verifikasi
     ];
 
     /**
@@ -39,6 +40,11 @@ class ProgramPembinaanModel extends Model
      */
     public function getUnverifiedProgramPembinaan(): array
     {
-        return $this->where('status_verifikasi', 'pending')->findAll();
+        return $this->select('program_pembinaan.*, users.nama_user, perusahaan.nama_perusahaan')
+                    ->join('users', 'users.user_id = program_pembinaan.user_id_pembinaan')
+                    ->join('perusahaan', 'perusahaan.user_id_perusahaan = users.user_id')
+                    ->where('users.role', 'user')
+                    ->where('program_pembinaan.status_verifikasi', 'pending')
+                    ->findAll();
     }
 }

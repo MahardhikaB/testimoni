@@ -19,6 +19,8 @@ class ProdukModel extends Model
         'deskripsi_produk',      // Deskripsi produk
         'harga_produk',          // Harga produk
         'ketersediaan_produk',   // Status ketersediaan
+        'tipe',                  // Befor After identifier
+        'status_verifikasi',     // Status verifikasi
     ];
 
     /**

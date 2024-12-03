@@ -20,14 +20,15 @@
                 <?php foreach ($verifikasiData as $index => $item): ?>
                 <tr>
                     <td class="align-middle"><?= $index + 1; ?></td>
-                    <td class="align-middle"><?= esc($item['nama_produk']); ?></td>
-                    <td class="align-middle"><?= esc($item['deskripsi_produk']); ?></td>
-                    <td class="align-middle"><?= esc($item['harga_produk']); ?></td>
-                    <td class="align-middle"><img style="height: 56px" src="/img/default-profile.jpg" alt=""></td>
+                    <td class="align-middle"><?= esc($item['nama_user']); ?></td>
+                    <td class="align-middle"><?= esc($item['nama_perusahaan']); ?></td>
+                    <td class="align-middle"><?= esc($item['nama_program']); ?></td>
+                    <td class="align-middle"><?= esc($item['tahun_program']); ?></td>
+                    <td class="align-middle"><?= esc($item['penyelenggara_program']); ?></td>
                     <td class="align-middle">
-                        <a href="<?= base_url('/admin/dashboard/verifikasi/update/' . $item['id_produk'] . '/accepted'); ?>"
+                        <a href="<?= base_url('/admin/dashboard/verifikasi/update/' . $item['id_program'] . '/accepted'); ?>"
                             class="btn btn-success btn-sm">Terima</a>
-                        <a href="<?= base_url('/admin/dashboard/verifikasi/update/' . $item['id_produk'] . '/rejected'); ?>"
+                        <a href="<?= base_url('/admin/dashboard/verifikasi/update/' . $item['id_program'] . '/rejected'); ?>"
                             class="btn btn-danger btn-sm">Tolak</a>
                     </td>
                 </tr>
