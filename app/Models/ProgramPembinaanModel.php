@@ -27,7 +27,7 @@ class ProgramPembinaanModel extends Model
      * @param int $userId
      * @return array
      */
-    public function getProgramsByUserId(int $userId)
+    public function getPembinaanByUserId(int $userId)
     {
         return $this->where('user_id_pembinaan', $userId)->findAll();
     }
