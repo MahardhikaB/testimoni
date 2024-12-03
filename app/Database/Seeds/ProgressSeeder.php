@@ -10,5 +10,7 @@ class ProgressSeeder extends Seeder
     {
         $this->call('UserLegalitasSeeder');
         $this->call('UserProdukSeeder');
+        $this->call('UserSertifikatSeeder');
+        $this->call('UserPengalamanPameranSeeder');
     }
 }
