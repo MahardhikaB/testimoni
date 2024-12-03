@@ -36,7 +36,7 @@ $routes->post('signUp', 'AuthController::register');
 // Routes khusus untuk admin
 $routes->group('admin', ['filter' => 'role:admin'], function ($routes) {
     $routes->get('dashboard', 'AdminController::dashboard');
-    $routes->get('dashboard/verifikasi', 'AdminController::verifikasi');
+    $routes->get('member/verifikasi/(:segment)', 'AdminController::verifikasi/$1');
     $routes->post('dashboard/verifikasi', 'AdminController::verifikasi');
     $routes->get('dashboard/verifikasi/update/(:num)/(:alpha)', 'AdminController::updateVerifikasi/$1/$2');
     $routes->post('dashboard/verifikasi/update/(:num)/(:alpha)', 'AdminController::updateVerifikasi/$1/$2');

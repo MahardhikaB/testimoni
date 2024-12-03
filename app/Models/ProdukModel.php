@@ -31,4 +31,14 @@ class ProdukModel extends Model
     {
         return $this->where('user_id_produk', $userId)->findAll();
     }
+
+    /**
+     * Mendapatkan produk yang belum diverifikasi.
+     *
+     * @return array
+     */
+    public function getUnverifiedProduk(): array
+    {
+        return $this->where('status_verifikasi', 'pending')->findAll();
+    }
 }

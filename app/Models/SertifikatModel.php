@@ -35,4 +35,14 @@ class SertifikatModel extends Model
     {
         return $this->where('user_id_sertifikat', $userId)->findAll();
     }
+
+    /**
+     * Mendapatkan sertifikat yang belum diverifikasi.
+     *
+     * @return array
+     */
+    public function getUnverifiedSertifikat(): array
+    {
+        return $this->where('status_verifikasi', 'pending')->findAll();
+    }
 }

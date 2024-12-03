@@ -31,6 +31,22 @@ class LegalitasModel extends Model
     }
 
     /**
+     * Mendapatkan legalitas yang belum diverifikasi.
+     *
+     * @return array
+     */
+    public function getUnverifiedLegalitas(): array
+    {
+        
+        return $this->select('legalitas.*, users.nama_user, perusahaan.nama_perusahaan')
+                    ->join('users', 'users.user_id = legalitas.user_id_legalitas')
+                    ->join('perusahaan', 'perusahaan.user_id_perusahaan = users.user_id')
+                    ->where('users.role', 'user')
+                    ->where('legalitas.status_verifikasi', 'pending')
+                    ->findAll();
+    }
+
+    /**
      * Menambahkan atau memperbarui legalitas untuk user tertentu.
      *
      * @param int   $userId
