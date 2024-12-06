@@ -15,7 +15,7 @@ Dashboard Perusahaan
         <h1>Dashboard Perusahaan</h1>
         <p>Selamat Datang, <b><?= esc($user['nama_user']) ?>.</b> 
             <br>Lihat perkembangan terbaru perusahaan Anda di sini.</br></p>
-        <a href="<?= base_url('/profile') ?>" class="btn">My Profile</a>
+        <a href="<?= base_url('/user/profile') ?>" class="btn">My Profile</a>
     </div>
 </div>
 
