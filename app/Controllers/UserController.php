@@ -4,9 +4,16 @@ namespace App\Controllers;
 
 use App\Models\UserModel;
 use App\Models\PerusahaanModel;
+use App\Models\ProdukModel;
+use App\Models\SertifikatModel;
+use App\Models\PengalamanPameranModel;
+use App\Models\PengalamanEksporModel;
+use App\Models\MediaPromosiModel;
+use App\Models\ProgramPembinaanModel;
 
 class UserController extends BaseController
 {
+    // Dashboard
     public function dashboard()
     {
         $session = session();
@@ -39,5 +46,57 @@ class UserController extends BaseController
 
         // Return view
         return view('user/dashboard', $userData);
+    }
+
+    // Profile
+    public function profile()
+    {
+        $session = session();
+
+        // Ambil user_id dari session
+        $userId = $session->get('user_id');
+        if (!$userId) {
+            return redirect()->to('/login')->with('error', 'Harap login terlebih dahulu.');
+        }
+
+        // Instansiasi model
+        $userModel = new UserModel();
+        $perusahaanModel = new PerusahaanModel();
+        $produkModel = new ProdukModel();
+        $sertifikatModel = new SertifikatModel();
+        $pameranModel = new PengalamanPameranModel();
+        $eksporModel = new PengalamanEksporModel();
+        $mediaPromosiModel = new MediaPromosiModel();
+        $pembinaanModel = new ProgramPembinaanModel();
+
+        // Ambil data pengguna dari database
+        $user = $userModel->find($userId);
+
+        if (!$user) {
+            return redirect()->to('/login')->with('error', 'Data pengguna tidak ditemukan.');
+        }
+
+        $perusahaan = $perusahaanModel->getCompanyByUserId($userId);
+        $produk = $produkModel->getProdukByUserId($userId);
+        $sertifikat = $sertifikatModel->getSertifikatByUserId($userId);
+        $pameran = $pameranModel->getPameranByUserId($userId);
+        $ekspor = $eksporModel->getEksporByUserId($userId);
+        $mediaPromosi = $mediaPromosiModel->getMediaByUserId($userId);
+        $pembinaan = $pembinaanModel->getPembinaanByUserId($userId);
+
+        // Data yang akan dikirim ke view
+        $userData = [
+            'user' => $user,
+            'perusahaan' => $perusahaan,
+            'produk' => $produk,
+            'sertifikat' => $sertifikat,
+            'pameran' => $pameran,
+            'ekspor' => $ekspor,
+            'mediaPromosi' => $mediaPromosi,
+            'pembinaan' => $pembinaan,
+        ];
+
+        // Return view
+        return view('user/profile', $userData);
     }
 }

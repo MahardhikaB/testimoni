@@ -1,107 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/login.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>Login</title>
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-    <!-- Custom Styles -->
-    <style>
-        body {
-            background-color: #eff0f7;
-            font-family: Arial, sans-serif;
-        }
-
-        .auth-container {
-            max-width: 400px;
-            margin: auto;
-            margin-top: 10%;
-            padding: 20px;
-            background: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .btn-login {
-            background-color: #4C3D3D;
-            color: #fff;
-        }
-
-        .btn-login:hover {
-            background-color: #3b2f2f;
-        }
-    </style>
 </head>
-
 <body>
-    <div class="container">
-        <?php if (session()->getFlashdata('error')) : ?>
-            <div class="alert alert-danger" role="alert">
-                <?= session()->getFlashdata('error') ?>
+    <div class="wrapper">
+    <?php if (session()->getFlashdata('error')) : ?>
+                <div class="alert alert-danger" role="alert">
+                    <?= session()->getFlashdata('error') ?>
+                </div>
+            <?php endif; ?>
+        <div class="container main">
+            
+            <div class="row">
+                <!-- Bagian Kiri -->
+                <div class="col-md-6 side-image">
+                    <img src="images/logo.png" alt="">
+                </div>
+
+                <!-- Bagian Kanan -->
+                <div class="col-md-6 right">
+                    <form action="<?= base_url('login') ?>" method="post">
+                        <?= csrf_field() ?> <!-- Menambahkan token CSRF -->
+
+                        <div class="input-box">
+                            <header>Login</header>
+
+                            <!-- Input Email -->
+                            <div class="input-field">
+                                <input type="email" class="input" name="email" id="email" required autocomplete="off">
+                                <label for="email">Email</label>
+                            </div>
+
+                            <!-- Input Password -->
+                            <div class="input-field">
+                                <input type="password" class="input" name="password" id="password" required>
+                                <label for="password">Password</label>
+                            </div>
+
+                            <!-- Tombol Submit -->
+                            <div class="input-field">
+                                <input type="submit" class="submit" value="Login">
+                            </div>
+
+                            <div class="signin">
+                                <span>Belum punya akun? <a href="<?= base_url('registrasi') ?>">Daftar di sini</a></span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
-        <?php endif; ?>
-
-        <div class="auth-container">
-            <h2 class="text-center mb-4">Login</h2>
-            <form action="<?= base_url('login') ?>" method="post">
-                <?= csrf_field() ?>
-
-                <!-- Email -->
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" name="email" id="email" class="form-control" required>
-                </div>
-
-                <!-- Password -->
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <div class="input-group">
-                        <input type="password" name="password" id="password" class="form-control" required>
-                        <button type="button" class="btn btn-outline-secondary toggle-password">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Submit Button -->
-                <div class="mb-3 d-grid">
-                    <button type="submit" class="btn btn-login">Login</button>
-                </div>
-
-                <!-- Register Link -->
-                <p class="text-center">
-                    Belum punya akun? <a href="<?= base_url('registrasi') ?>" class="text-decoration-none">Daftar</a>
-                </p>
-            </form>
         </div>
     </div>
-
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Password Toggle Script -->
-    <script>
-        document.querySelector('.toggle-password').addEventListener('click', function () {
-            const passwordInput = document.getElementById('password');
-            const icon = this.querySelector('i');
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                icon.classList.remove('fa-eye');
-                icon.classList.add('fa-eye-slash');
-            } else {
-                passwordInput.type = 'password';
-                icon.classList.remove('fa-eye-slash');
-                icon.classList.add('fa-eye');
-            }
-        });
-    </script>
 </body>
-
 </html>

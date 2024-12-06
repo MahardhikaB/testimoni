@@ -6,13 +6,8 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px 10px; /* Kurangi padding agar responsif */
-    text-align: center; /* Pastikan teks rata tengah */
-   /* tarik footer ke bawah halman */
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    padding: 20px 10px;
+    text-align: center;
 }
 
 footer p {
