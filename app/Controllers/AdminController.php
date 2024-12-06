@@ -101,35 +101,108 @@ class AdminController extends BaseController
             'tipeTitle' => $tipeTitle
         ]);
     }
-    public function updateVerifikasi($id, $status)
-{
-    log_message('info', "updateVerifikasi called with ID: {$id}, Status: {$status}");
+//     public function updateVerifikasi($id, $status)
+// {
 
-    $sertifikatModel = new SertifikatModel();
+//     log_message('info', "updateVerifikasi called with ID: {$id}, Status: {$status}");
 
-    // Pastikan status valid
-    if (!in_array($status, ['accepted', 'rejected'])) {
-        log_message('error', "Invalid status: {$status}");
-        return redirect()->back()->with('error', 'Status tidak valid.');
+//     $sertifikatModel = new SertifikatModel();
+
+//     // Pastikan status valid
+//     if (!in_array($status, ['accepted', 'rejected'])) {
+//         log_message('error', "Invalid status: {$status}");
+//         return redirect()->back()->with('error', 'Status tidak valid.');
+//     }
+
+//     // Periksa apakah ID ada di database
+//     $sertifikat = $sertifikatModel->find($id);
+//     if (!$sertifikat) {
+//         log_message('error', "Sertifikat with ID {$id} not found");
+//         return redirect()->back()->with('error', 'Sertifikat tidak ditemukan.');
+//     }
+
+//     // Update status
+//     $update = $sertifikatModel->update($id, ['status_verifikasi' => $status]);
+//     if (!$update) {
+//         log_message('error', "Failed to update status for ID: {$id}");
+//         return redirect()->back()->with('error', 'Gagal memperbarui status verifikasi.');
+//     }
+
+//     log_message('info', "Status updated successfully for ID: {$id}");
+//     return redirect()->to('/admin/dashboard/verifikasi')->with('success', 'Status verifikasi berhasil diperbarui.');
+// }
+
+    public function updateVerifikasi(){
+        // dd($this->request->getVar('id') . ', ' . $this->request->getVar('aksi') . ', ' . $this->request->getVar('section'));
+        if(!$this->validate([
+            'aksi' => [
+                'rules' => 'required|in_list[terima,tolak]',
+                'errors' => [
+                    'required' => 'Aksi harus ada.'
+                ]
+            ],
+            'section' => [
+                'rules' => 'required|in_list[legalitas,produk,sertifikat,pengalaman-pameran,pengalaman-ekspor,media-promosi,program-pembinaan]',
+                'errors' => [
+                    'required' => 'Section harus ada.'
+                ]
+                ],
+            'id' => [
+                'rules' => 'required|numeric|if_exist',
+                'errors' => [
+                    'required' => 'ID harus ada.',
+                    'numeric' => 'ID harus berupa angka.',
+                    'if_exist' => 'ID tidak ditemukan.'
+                ]
+            ]
+        ])){
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+
+        $id = $this->request->getVar('id');
+        $aksi = $this->request->getVar('aksi');
+        $section = $this->request->getVar('section');
+
+        $model = $this->getModelBySection($section);
+        $hasil = $model->updateVerifikasi($id, $aksi);
+
+        dd($hasil);
+
+        if(!$hasil){
+            return redirect()->back()->with('error', 'Gagal memperbarui status verifikasi.');
+        }else {
+            return redirect()->back()->with('success', 'Status verifikasi berhasil diperbarui.');
+        }
     }
 
-    // Periksa apakah ID ada di database
-    $sertifikat = $sertifikatModel->find($id);
-    if (!$sertifikat) {
-        log_message('error', "Sertifikat with ID {$id} not found");
-        return redirect()->back()->with('error', 'Sertifikat tidak ditemukan.');
-    }
+    public function getModelBySection($section){
+        $model = null;
+        switch($section){
+            case 'legalitas':
+                $model = $this->legalitasModel;
+                break;
+            case 'produk':
+                $model = $this->produkModel;
+                break;
+            case 'sertifikat':
+                $model = $this->sertifikatModel;
+                break;
+            case 'pengalaman-pameran':
+                $model = $this->pengalamanPameranModel;
+                break;
+            case 'pengalaman-ekspor':
+                $model = $this->pengalamanEksporModel;
+                break;
+            case 'media-promosi':
+                $model = $this->mediaPromosiModel;
+                break;
+            case 'program-pembinaan':
+                $model = $this->programPembinaanModel;
+                break;
+        }
 
-    // Update status
-    $update = $sertifikatModel->update($id, ['status_verifikasi' => $status]);
-    if (!$update) {
-        log_message('error', "Failed to update status for ID: {$id}");
-        return redirect()->back()->with('error', 'Gagal memperbarui status verifikasi.');
+        return $model;
     }
-
-    log_message('info', "Status updated successfully for ID: {$id}");
-    return redirect()->to('/admin/dashboard/verifikasi')->with('success', 'Status verifikasi berhasil diperbarui.');
-}
 
     public function memberList(){
         $session = session();

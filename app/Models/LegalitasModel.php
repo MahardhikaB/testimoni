@@ -37,14 +37,18 @@ class LegalitasModel extends Model
      * @return array
      */
     public function getUnverifiedLegalitas(): array
-    {
-        
+    {   
         return $this->select('legalitas.*, users.nama_user, perusahaan.nama_perusahaan')
                     ->join('users', 'users.user_id = legalitas.user_id_legalitas')
                     ->join('perusahaan', 'perusahaan.user_id_perusahaan = users.user_id')
                     ->where('users.role', 'user')
                     ->where('legalitas.status_verifikasi', 'pending')
                     ->findAll();
+    }
+
+    public function updateVerifikasi(int $id, string $status): bool
+    {
+        return $this->update($id, ['status_verifikasi' => $status]);
     }
 
     /**

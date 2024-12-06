@@ -22,10 +22,22 @@
                     <td class="align-middle"><?= esc($item['nama_perusahaan']); ?></td>
                     <td class="align-middle"><img style="height: 56px" src="/img/default-profile.jpg" alt=""></td>
                     <td class="align-middle">
-                        <a href="<?= base_url('/admin/dashboard/verifikasi/update/' . $item['id_legalitas'] . '/accepted'); ?>"
-                            class="btn btn-success btn-sm">Terima</a>
-                        <a href="<?= base_url('/admin/dashboard/verifikasi/update/' . $item['id_legalitas'] . '/rejected'); ?>"
-                            class="btn btn-danger btn-sm">Tolak</a>
+                        <div class="d-flex">
+                            <form action="<?= base_url('admin/member/verifikasi') ?>" method="post">
+                                <?= csrf_field(); ?>
+                                <input type="hidden" name="id" value="<?= $item['id_legalitas']; ?>">
+                                <input type="hidden" name="section" value="<?= $section; ?>">
+                                <input type="hidden" name="aksi" value="terima">
+                                <button type="submit" class="btn btn-sm btn-success me-2">Terima</button>
+                            </form>
+                            <form action="<?= base_url('admin/member/verifikasi') ?>" method="post">
+                                <?= csrf_field(); ?>
+                                <input type="hidden" name="id" value="<?= $item['id_legalitas']; ?>">
+                                <input type="hidden" name="section" value="<?= $section; ?>">
+                                <input type="hidden" name="aksi" value="tolak">
+                                <button type="submit" class="btn btn-sm btn-danger">Tolak</button>
+                            </form>
+                        </div>
                     </td>
                 </tr>
                 <?php endforeach; ?>
