@@ -50,4 +50,9 @@ class SertifikatModel extends Model
                     ->where('sertifikat.status_verifikasi', 'pending')
                     ->findAll();
     }
+
+    public function updateVerifikasi(int $id, string $status): bool
+    {
+        return $this->update($id, ['status_verifikasi' => $status]);
+    }
 }

@@ -27,14 +27,14 @@
                                 <?= csrf_field(); ?>
                                 <input type="hidden" name="id" value="<?= $item['id_legalitas']; ?>">
                                 <input type="hidden" name="section" value="<?= $section; ?>">
-                                <input type="hidden" name="aksi" value="terima">
+                                <input type="hidden" name="aksi" value="accepted">
                                 <button type="submit" class="btn btn-sm btn-success me-2">Terima</button>
                             </form>
                             <form action="<?= base_url('admin/member/verifikasi') ?>" method="post">
                                 <?= csrf_field(); ?>
                                 <input type="hidden" name="id" value="<?= $item['id_legalitas']; ?>">
                                 <input type="hidden" name="section" value="<?= $section; ?>">
-                                <input type="hidden" name="aksi" value="tolak">
+                                <input type="hidden" name="aksi" value="rejected">
                                 <button type="submit" class="btn btn-sm btn-danger">Tolak</button>
                             </form>
                         </div>

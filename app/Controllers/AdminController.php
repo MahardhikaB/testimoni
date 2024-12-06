@@ -136,7 +136,7 @@ class AdminController extends BaseController
         // dd($this->request->getVar('id') . ', ' . $this->request->getVar('aksi') . ', ' . $this->request->getVar('section'));
         if(!$this->validate([
             'aksi' => [
-                'rules' => 'required|in_list[terima,tolak]',
+                'rules' => 'required|in_list[accepted,rejected]',
                 'errors' => [
                     'required' => 'Aksi harus ada.'
                 ]
@@ -166,7 +166,7 @@ class AdminController extends BaseController
         $model = $this->getModelBySection($section);
         $hasil = $model->updateVerifikasi($id, $aksi);
 
-        dd($hasil);
+        // dd($hasil);
 
         if(!$hasil){
             return redirect()->back()->with('error', 'Gagal memperbarui status verifikasi.');
