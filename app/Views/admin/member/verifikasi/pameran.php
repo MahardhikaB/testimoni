@@ -26,10 +26,22 @@
                     <td class="align-middle"><?= esc($item['tanggal_pameran']); ?></td>
                     <td class="align-middle"><?= esc($item['lokasi_pameran']); ?></td>
                     <td class="align-middle">
-                        <a href="<?= base_url('/admin/dashboard/verifikasi/update/' . $item['id_pameran'] . '/accepted'); ?>"
-                            class="btn btn-success btn-sm">Terima</a>
-                        <a href="<?= base_url('/admin/dashboard/verifikasi/update/' . $item['id_pameran'] . '/rejected'); ?>"
-                            class="btn btn-danger btn-sm">Tolak</a>
+                        <div class="d-flex">
+                            <form action="<?= base_url('admin/member/verifikasi') ?>" method="post">
+                                <?= csrf_field(); ?>
+                                <input type="hidden" name="id" value="<?= $item['id_pameran']; ?>">
+                                <input type="hidden" name="section" value="<?= $section; ?>">
+                                <input type="hidden" name="aksi" value="accepted">
+                                <button type="submit" class="btn btn-sm btn-success me-2">Terima</button>
+                            </form>
+                            <form action="<?= base_url('admin/member/verifikasi') ?>" method="post">
+                                <?= csrf_field(); ?>
+                                <input type="hidden" name="id" value="<?= $item['id_pameran']; ?>">
+                                <input type="hidden" name="section" value="<?= $section; ?>">
+                                <input type="hidden" name="aksi" value="rejected">
+                                <button type="submit" class="btn btn-sm btn-danger">Tolak</button>
+                            </form>
+                        </div>
                     </td>
                 </tr>
                 <?php endforeach; ?>

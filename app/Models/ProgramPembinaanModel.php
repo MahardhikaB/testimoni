@@ -47,4 +47,9 @@ class ProgramPembinaanModel extends Model
                     ->where('program_pembinaan.status_verifikasi', 'pending')
                     ->findAll();
     }
+
+    public function updateVerifikasi(int $id, string $status): bool
+    {
+        return $this->update($id, ['status_verifikasi' => $status]);
+    }
 }
