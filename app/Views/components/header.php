@@ -30,7 +30,7 @@
         <a href="/user/dashboard">Beranda</a>
         <a href="/user/profile">Profile Perusahaan</a>
         <a href="/user/progress">Progress Perusahaan</a>
-        <a href="/registrasi">Sign In</a>
+        <a href="/logout">Log Out</a>
     </div>
 
     <script>
