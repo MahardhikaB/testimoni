@@ -23,14 +23,15 @@ $routes->setAutoRoute(true);
 
 
 // Halaman utama
-$routes->get('/', 'LoginController::index');
+$routes->get('/', 'AuthController::loginForm');
 
 // Routes untuk Login dan Registrasi
-$routes->get('login', 'LoginController::index');
-$routes->post('login', 'LoginController::authenticate');
-$routes->get('logout', 'LoginController::logout');
-$routes->get('registrasi', 'RegistrasiController::index');
+$routes->get('login', 'AuthController::loginForm');
+$routes->post('login', 'AuthController::login');
+$routes->get('logout', 'AuthController::logout');
+$routes->get('registrasi', 'AuthController::registerForm');
 $routes->post('signUp', 'AuthController::register');
+
 
 
 // Routes khusus untuk admin
@@ -69,6 +70,12 @@ $routes->group('user', ['filter' => 'role:user'], function ($routes) {
     $routes->post('sertifikat/store', 'SertifikatController::store');
     $routes->get('sertifikat/edit/(:num)', 'SertifikatController::edit/$1');
     $routes->post('sertifikat/update/(:num)', 'SertifikatController::update/$1');
+    $routes->get('progress', 'ProgressController::index');
+    $routes->get('progress/tambah', 'ProgressController::add');
+    $routes->get('progress/edit/(:num)', 'ProgressController::edit/$1');
+    $routes->post('progress/update/(:num)', 'ProgressController::update/$1');
+    $routes->get('progress/detail/(:num)', 'ProgressController::detail/$1');
+    $routes->post('progress/save', 'ProgressController::save');
 });
 
 
