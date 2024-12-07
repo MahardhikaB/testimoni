@@ -25,7 +25,7 @@
                         <?= csrf_field() ?>
 
                         <div class="input-box">
-                            <header>Registrasi</header>
+                            <header class="h2">Registrasi</header>
 
                             <!-- Nama Lengkap -->
                             <div class="input-field">
