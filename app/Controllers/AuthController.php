@@ -22,56 +22,43 @@ class AuthController extends Controller
         return view('auth/login');
     }
 
+    public function registerForm(): string
+    {
+        return view('auth/registrasi');
+    }
+
     // Proses login
     public function login()
     {
-        $session = session();
-        $request = service('request');
-        
-        // Validasi input
-        $validation = \Config\Services::validation();
-        $validation->setRules([
-            'email' => 'required|valid_email',
-            'password' => 'required|min_length[8]'
-        ], [
-            'email' => [
-                'required' => 'Email harus diisi.',
-                'valid_email' => 'Email tidak valid.',
-            ],
-            'password' => [
-                'required' => 'Password harus diisi.',
-                'min_length' => 'Password minimal 8 karakter.',
-            ]
+        $email = $this->request->getPost('email');
+        $password = $this->request->getPost('password');
+    
+        $userModel = new UserModel();
+        $user = $userModel->where('email', $email)->first();
+    
+        if (!$user) {
+            // Jika email tidak ditemukan
+            return redirect()->back()->withInput()->with('error', 'Email tidak ditemukan.');
+        }
+    
+        if (!password_verify($password, $user['password'])) {
+            // Jika password salah
+            return redirect()->back()->withInput()->with('error', 'Password salah.');
+        }
+    
+        // Jika berhasil login
+        session()->set([
+            'user_id' => $user['user_id'],
+            'nama_user' => $user['nama_user'],
+            'role' => $user['role'],
+            'isLoggedIn' => true,
         ]);
-
-        if (!$validation->withRequest($request)->run()) {
-            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
-        }
-
-        // Ambil data user berdasarkan email
-        $email = $request->getPost('email');
-        $password = $request->getPost('password');
-        $user = $this->userModel->where('email', $email)->first();
-
-        if ($user) {
-            // Verifikasi password
-            if (password_verify($password, $user['password'])) {
-                // Cek role
-                if ($user['role'] === 'admin') {
-                    $session->set('user', $user);
-                    return redirect()->to('/admin/dashboard');
-                } elseif ($user['role'] === 'user') {
-                    $session->set('user', $user);
-                    return redirect()->to('/user/dashboard');
-                } else {
-                    return redirect()->back()->with('error', 'Role tidak valid.');
-                }
-            } else {
-                return redirect()->back()->with('error', 'Password salah.');
-            }
-        } else {
-            return redirect()->back()->with('error', 'Email tidak ditemukan.');
-        }
+    
+        // Tambahkan pesan sukses
+        session()->set('success', 'Berhasil login! Selamat datang, ' . $user['nama_user'] . '.');
+    
+        // Redirect berdasarkan role
+        return redirect()->to($user['role'] === 'admin' ? '/admin/dashboard' : '/user/dashboard');
     }
 
     public function register()
