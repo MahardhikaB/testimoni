@@ -76,37 +76,32 @@ $routes->group('user', ['filter' => 'role:user'], function ($routes) {
     $routes->post('progress/update/(:num)', 'ProgressController::update/$1');
     $routes->get('progress/detail/(:num)', 'ProgressController::detail/$1');
     $routes->post('progress/save', 'ProgressController::save');
+
+    // Route Produk
+    $routes->get('produk', 'ProdukController::index');
+    $routes->get('produk/create', 'ProdukController::create');
+    $routes->post('produk/store', 'ProdukController::store');
+    $routes->get('produk/edit/(:num)', 'ProdukController::edit/$1');
+    $routes->post('produk/update/(:num)', 'ProdukController::update/$1');
+
+    // Route Pameran
+    $routes->get('pameran', 'PameranController::index');
+    $routes->get('pameran/create', 'PameranController::create');
+    $routes->post('pameran/store', 'PameranController::store');
+    $routes->get('pameran/edit/(:num)', 'PameranController::edit/$1');
+    $routes->post('pameran/update/(:num)', 'PameranController::update/$1');
+
+    // Route Ekspor
+    $routes->get('ekspor', 'EksporController::index');
+    $routes->get('ekspor/create', 'EksporController::create');
+    $routes->post('ekspor/store', 'EksporController::store');
+    $routes->get('ekspor/edit/(:num)', 'EksporController::edit/$1');
+    $routes->post('ekspor/update/(:num)', 'EksporController::update/$1');
+
+    // Route Program Pembinaan
+    $routes->get('program', 'ProgramController::index');
+    $routes->get('program/create', 'ProgramController::create');
+    $routes->post('program/store', 'ProgramController::store');
+    $routes->get('program/edit/(:num)', 'ProgramController::edit/$1');
+    $routes->post('program/update/(:num)', 'ProgramController::update/$1');
 });
-
-
-// // Route Produk
-// $routes->get('/produk', 'ProdukController::index');
-// $routes->get('/produk/create', 'ProdukController::create');
-// $routes->post('produk/store', 'ProdukController::store');
-// $routes->get('/produk/edit/(:num)', 'ProdukController::edit/$1');
-// $routes->post('/produk/update/(:num)', 'ProdukController::update/$1');
-
-
-// Route Sertifikat
-
-
-// // Route Pameran
-// $routes->get('/pameran', 'PameranController::index');
-// $routes->get('/pameran/create', 'PameranController::create');
-// $routes->post('pameran/store', 'PameranController::store');
-// $routes->get('/pameran/edit/(:num)', 'PameranController::edit/$1');
-// $routes->post('/pameran/update/(:num)', 'PameranController::update/$1');
-
-// // Route Ekspor
-// $routes->get('/ekspor', 'EksporController::index');
-// $routes->get('/ekspor/create', 'EksporController::create');
-// $routes->post('ekspor/store', 'EksporController::store');
-// $routes->get('/ekspor/edit/(:num)', 'EksporController::edit/$1');
-// $routes->post('/ekspor/update/(:num)', 'EksporController::update/$1');
-
-// // Route Program Pembinaan
-// $routes->get('/program', 'ProgramController::index');
-// $routes->get('/program/create', 'ProgramController::create');
-// $routes->post('program/store', 'ProgramController::store');
-// $routes->get('/program/edit/(:num)', 'ProgramController::edit/$1');
-// $routes->post('/program/update/(:num)', 'ProgramController::update/$1');

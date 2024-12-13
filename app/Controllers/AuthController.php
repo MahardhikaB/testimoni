@@ -19,6 +19,9 @@ class AuthController extends Controller
     // Menampilkan form login
     public function loginForm()
     {
+        if (session()->get('isLoggedIn')) {
+            return redirect()->to(session()->get('role') === 'admin' ? '/admin/dashboard' : '/user/dashboard');
+        }
         return view('auth/login');
     }
 
