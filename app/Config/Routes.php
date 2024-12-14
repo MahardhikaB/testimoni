@@ -63,6 +63,13 @@ $routes->group('user', ['filter' => 'role:user'], function ($routes) {
     $routes->get('profile', 'UserController::profile');
     $routes->get('pameran', 'PameranController::index');
 
+    // Route Legalitas
+    $routes->get('legalitas', 'LegalitasController::index');
+    $routes->get('legalitas/create', 'LegalitasController::create');
+    $routes->post('legalitas/store', 'LegalitasController::store');
+    $routes->get('legalitas/edit/(:num)', 'LegalitasController::edit/$1');
+    $routes->post('legalitas/update/(:num)', 'LegalitasController::update/$1');
+
     // Route Ekspor
     $routes->get('ekspor', 'EksporController::index');
     $routes->get('ekspor/create', 'EksporController::create');
