@@ -28,7 +28,7 @@ Dashboard Perusahaan
     <div class="bootcamp-details">
         <h4>MASA PELATIHAN</h4>
         <p>Tanggal Mulai  : <?= $perusahaan['pelatihan_mulai'] ? date('d - m - Y', strtotime($perusahaan['pelatihan_mulai'])) : 'Belum ada data' ?></p>
-        <p>Tanggal Selesai : <?= $perusahaan['pelatihan_selesai'] ? date('d - m - Y', strtotime($perusahaan['pelatihan_selesai'])) : 'Belum ada data' ?></p>
+        <p>Tanggal Selesai : ~sekarang</p>
     </div>
 </div>
 
