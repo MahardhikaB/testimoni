@@ -40,11 +40,6 @@ class CreateUsers extends Migration
                 'type'    => 'DATETIME',
                 'null'    => true,
             ],
-            'status_verifikasi' => [
-                'type'       => 'ENUM',
-                'constraint' => ['pending', 'accepted','rejected' ],
-                'default'    => 'pending',
-            ],
         ]);
 
         $this->forge->addKey('user_id', true);
