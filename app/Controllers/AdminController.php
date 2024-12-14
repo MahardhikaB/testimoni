@@ -73,7 +73,7 @@ class AdminController extends BaseController
 
         $verifikasiData = [];
 
-        if (!in_array($tipe, ['legalitas', 'produk', 'sertifikat', 'pengalaman-pameran', 'pengalaman-ekspor', 'media-promosi', 'program-pembinaan'])) {
+        if (!in_array($tipe, ['legalitas', 'produk', 'sertifikat', 'pengalaman-pameran', 'pengalaman-ekspor', 'media-promosi', 'program-pembinaan', 'verifikasi-user'])) {
             return redirect()->back()->with('error', 'Tipe verifikasi tidak valid.');
         } else {
             if ($tipe == 'legalitas') {
@@ -90,6 +90,8 @@ class AdminController extends BaseController
                 $verifikasiData = $this->mediaPromosiModel->getUnverifiedMedia();
             } else if ($tipe == 'program-pembinaan') {
                 $verifikasiData = $this->programPembinaanModel->getUnverifiedProgramPembinaan();
+            } else if ($tipe == 'verifikasi-user') {
+                $verifikasiData = $this->userModel->getUnverifiedUser();
             }
         }
 
@@ -142,7 +144,7 @@ class AdminController extends BaseController
                 ]
             ],
             'section' => [
-                'rules' => 'required|in_list[legalitas,produk,sertifikat,pengalaman-pameran,pengalaman-ekspor,media-promosi,program-pembinaan]',
+                'rules' => 'required|in_list[legalitas,produk,sertifikat,pengalaman-pameran,pengalaman-ekspor,media-promosi,program-pembinaan,verifikasi-user]',
                 'errors' => [
                     'required' => 'Section harus ada.'
                 ]
@@ -199,6 +201,9 @@ class AdminController extends BaseController
             case 'program-pembinaan':
                 $model = $this->programPembinaanModel;
                 break;
+            case 'verifikasi-user':
+                $model = $this->userModel;
+                break;    
         }
 
         return $model;

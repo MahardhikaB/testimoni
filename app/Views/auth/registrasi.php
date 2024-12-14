@@ -52,10 +52,16 @@
                             </div>
 
                             <!-- Jenis Perusahaan -->
-                            <div class="input-field">
-                                <input type="text" class="input" name="jenis_perusahaan" id="jenis_perusahaan" required autocomplete="off">
-                                <label for="jenis_perusahaan">Jenis Perusahaan</label>
-                            </div>
+                            <label class="pb-1 px-3" for="jenis_perusahaan">Jenis Perusahaan</label>
+                                <div class="input-field pb-4">
+                                    <select class="form-select" name="jenis_perusahaan" id="jenis_perusahaan" required>
+                                        <option value="" disabled selected>Pilih Jenis Perusahaan</option>
+                                        <option value="Ekspor">Ekspor</option>
+                                        <option value="Importir">Importir</option>
+                                    </select>
+                                    
+                                </div>
+
 
                             <!-- Email -->
                             <div class="input-field">
@@ -67,7 +73,9 @@
                             <div class="input-field">
                                 <input type="password" class="input" name="password" id="password" required>
                                 <label for="password">Password</label>
+                                <small class="pb-4 text-muted">*Password minimal 8 karakter</small>
                             </div>
+                            
 
                             <!-- Tombol Submit -->
                             <div class="input-field">

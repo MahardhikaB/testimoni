@@ -39,6 +39,10 @@ class AuthController extends Controller
         $userModel = new UserModel();
         $user = $userModel->where('email', $email)->first();
     
+        if ($user['status_verifikasi'] === 'pending') {
+            return redirect()->back()->with('error', 'Akun Anda sedang menunggu verifikasi.');
+        }
+        
         if (!$user) {
             // Jika email tidak ditemukan
             return redirect()->back()->withInput()->with('error', 'Email tidak ditemukan.');
@@ -65,35 +69,36 @@ class AuthController extends Controller
     }
 
     public function register()
-    {
-        // Tangkap data dari form
-        $data = $this->request->getPost();
+{
+    // Tangkap data dari form
+    $data = $this->request->getPost();
 
-        // Validasi input
-        $validation = \Config\Services::validation();
+    // Validasi input
+    $validation = \Config\Services::validation();
 
-        $validation->setRules([
-            'nama_user' => 'required|string|max_length[100]',
-            'email' => 'required|valid_email|max_length[100]|is_unique[users.email]',
-            'password' => 'required|min_length[8]',
-            'nama_perusahaan' => 'required|string|max_length[100]',
-            'alamat' => 'required|string',
-            'nomor_telepon' => 'required|numeric|min_length[10]|max_length[15]',
-            'jenis_perusahaan' => 'required|string|max_length[100]',
-        ]);
+    $validation->setRules([
+        'nama_user' => 'required|string|max_length[100]',
+        'email' => 'required|valid_email|max_length[100]|is_unique[users.email]',
+        'password' => 'required|min_length[8]',
+        'nama_perusahaan' => 'required|string|max_length[100]',
+        'alamat' => 'required|string',
+        'nomor_telepon' => 'required|numeric|min_length[10]|max_length[15]',
+        'jenis_perusahaan' => 'required|in_list[Ekspor,Importir]',
+    ]);
 
-        if (!$validation->withRequest($this->request)->run()) {
-            // Kembali ke form dengan pesan error
-            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
-        }
+    if (!$validation->withRequest($this->request)->run()) {
+        // Kembali ke form dengan pesan error
+        return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+    }
 
-        // Hash password
-        $hashedPassword = password_hash($data['password'], PASSWORD_DEFAULT);
+    // Hash password
+    $hashedPassword = password_hash($data['password'], PASSWORD_DEFAULT);
 
-        // Buat transaksi untuk menyimpan ke dua tabel
-        $db = \Config\Database::connect();
-        $db->transStart();
+    // Buat transaksi untuk menyimpan ke dua tabel
+    $db = \Config\Database::connect();
+    $db->transStart();
 
+    try {
         // Simpan data user ke tabel `users`
         $userModel = new UserModel();
         $userId = $userModel->insert([
@@ -101,7 +106,14 @@ class AuthController extends Controller
             'email' => $data['email'],
             'role' => 'user', // Default role untuk registrasi
             'password' => $hashedPassword,
+            'status_verifikasi' => 'pending', // Status default
         ]);
+
+        if (!$userId) {
+            throw new \Exception('Gagal menyimpan data user.');
+        }
+
+        $currentDate = date('Y-m-d');
 
         // Simpan data perusahaan ke tabel `perusahaan`
         $perusahaanModel = new PerusahaanModel();
@@ -111,18 +123,26 @@ class AuthController extends Controller
             'alamat' => $data['alamat'],
             'telepon' => $data['nomor_telepon'],
             'jenis_perusahaan' => $data['jenis_perusahaan'],
+            'pelatihan_mulai' => $currentDate, // Set ke tanggal saat ini
+            'pelatihan_selesai' => 'sekarang', // Nilai absolut "sekarang"
         ]);
 
         // Commit transaksi
         $db->transComplete();
 
         if ($db->transStatus() === false) {
-            return redirect()->back()->with('error', 'Registrasi gagal, silakan coba lagi.');
+            throw new \Exception('Registrasi gagal, silakan coba lagi.');
         }
-
-        // Redirect ke halaman login dengan pesan sukses
-        return redirect()->to('/login')->with('success', 'Registrasi berhasil, silakan login.');
+    } catch (\Exception $e) {
+        // Rollback transaksi dan tampilkan pesan error
+        $db->transRollback();
+        return redirect()->back()->with('error', $e->getMessage());
     }
+
+    // Redirect ke halaman login dengan pesan sukses
+    return redirect()->to('/login')->with('success', 'Registrasi berhasil. Akun Anda sedang menunggu verifikasi.');
+}
+
     
     // Logout
     public function logout()
