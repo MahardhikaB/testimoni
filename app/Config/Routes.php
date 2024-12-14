@@ -62,23 +62,20 @@ $routes->group('user', ['filter' => 'role:user'], function ($routes) {
     $routes->get('dashboard', 'UserController::dashboard');
     $routes->get('profile', 'UserController::profile');
     $routes->get('pameran', 'PameranController::index');
+
+    // Route Ekspor
     $routes->get('ekspor', 'EksporController::index');
     $routes->get('ekspor/create', 'EksporController::create');
     $routes->post('ekspor/store', 'EksporController::store');
 
-    // Routes Legalitas
-    $routes->get('legalitas', 'LegalitasController::index');
-    $routes->get('legalitas/create', 'LegalitasController::create');
-    $routes->post('legalitas/store', 'LegalitasController::store');
-    $routes->get('legalitas/edit/(:num)', 'LegalitasController::edit/$1');
-    $routes->post('legalitas/update/(:num)', 'LegalitasController::update/$1');
-    
+    // Route Sertifikat
     $routes->get('sertifikat', 'SertifikatController::index');
     $routes->get('sertifikat/create', 'SertifikatController::create');
     $routes->post('sertifikat/store', 'SertifikatController::store');
     $routes->get('sertifikat/edit/(:num)', 'SertifikatController::edit/$1');
     $routes->post('sertifikat/update/(:num)', 'SertifikatController::update/$1');
-    
+
+    // Route Progress
     $routes->get('progress', 'ProgressController::index');
     $routes->get('progress/tambah', 'ProgressController::add');
     $routes->get('progress/edit/(:num)', 'ProgressController::edit/$1');
