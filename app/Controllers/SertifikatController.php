@@ -41,6 +41,7 @@ class SertifikatController extends BaseController
             'tanggal_terbit_sertifikat' => 'required|valid_date',
             'penerbit_sertifikat' => 'required',
             'tipe' => 'required'
+            
         ];
 
         if (!$this->validate($validationRules)) {
