@@ -170,14 +170,15 @@
                             <header class="h2">Login</header>
 
                             <!-- Input Email -->
+                            <!-- Input Email -->
                             <div class="input-field">
-                                <input type="email" class="input" name="email" id="email" required autocomplete="off">
+                                <input type="email" class="input" name="email" id="email" required autocomplete="off" value="<?= old('email') ?>">
                                 <label for="email">Email</label>
                             </div>
 
                             <!-- Input Password -->
                             <div class="input-field">
-                                <input type="password" class="input" name="password" id="password" required>
+                                <input type="password" class="input" name="password" id="password" required value="<?= old('password') ?>">
                                 <label for="password">Password</label>
                             </div>
 
@@ -198,45 +199,45 @@
 
 
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const flashError = <?= json_encode(session()->getFlashdata('error')) ?>;
-        const flashValidationErrors = <?= json_encode(session()->getFlashdata('errors')) ?>;
-        const flashSuccess = <?= json_encode(session()->getFlashdata('success')) ?>;
+        document.addEventListener('DOMContentLoaded', function() {
+            const flashError = <?= json_encode(session()->getFlashdata('error')) ?>;
+            const flashValidationErrors = <?= json_encode(session()->getFlashdata('errors')) ?>;
+            const flashSuccess = <?= json_encode(session()->getFlashdata('success')) ?>;
 
-        if (flashError) {
-            const alert = document.querySelector('.alert');
-            alert.querySelector('.msg').textContent = flashError;
-            alert.classList.add('show');
-            alert.classList.remove('hide');
-            setTimeout(function() {
-                alert.classList.remove('show');
-                alert.classList.add('hide');
-            }, 5000);
-        }
+            if (flashError) {
+                const alert = document.querySelector('.alert');
+                alert.querySelector('.msg').textContent = flashError;
+                alert.classList.add('show');
+                alert.classList.remove('hide');
+                setTimeout(function() {
+                    alert.classList.remove('show');
+                    alert.classList.add('hide');
+                }, 5000);
+            }
 
-        if (flashValidationErrors) {
-            const alert = document.querySelector('.alert');
-            alert.querySelector('.msg').textContent = Object.values(flashValidationErrors).join(' ');
-            alert.classList.add('show');
-            alert.classList.remove('hide');
-            setTimeout(function() {
-                alert.classList.remove('show');
-                alert.classList.add('hide');
-            }, 5000);
-        }
+            if (flashValidationErrors) {
+                const alert = document.querySelector('.alert');
+                alert.querySelector('.msg').textContent = Object.values(flashValidationErrors).join(' ');
+                alert.classList.add('show');
+                alert.classList.remove('hide');
+                setTimeout(function() {
+                    alert.classList.remove('show');
+                    alert.classList.add('hide');
+                }, 5000);
+            }
 
-        if (flashSuccess) {
-            const success = document.querySelector('.success');
-            success.querySelector('.msg').textContent = flashSuccess;
-            success.classList.add('show');
-            success.classList.remove('hide');
-            setTimeout(function() {
-                success.classList.remove('show');
-                success.classList.add('hide');
-            }, 5000);
-        }
-    });
-</script>
+            if (flashSuccess) {
+                const success = document.querySelector('.success');
+                success.querySelector('.msg').textContent = flashSuccess;
+                success.classList.add('show');
+                success.classList.remove('hide');
+                setTimeout(function() {
+                    success.classList.remove('show');
+                    success.classList.add('hide');
+                }, 5000);
+            }
+        });
+    </script>
 
 
 </body>

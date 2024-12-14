@@ -39,15 +39,15 @@ class AuthController extends Controller
         $userModel = new UserModel();
         $user = $userModel->where('email', $email)->first();
     
-        if ($user['status_verifikasi'] === 'pending') {
-            return redirect()->back()->with('error', 'Akun Anda sedang menunggu verifikasi.');
-        }
-        
         if (!$user) {
             // Jika email tidak ditemukan
             return redirect()->back()->withInput()->with('error', 'Email tidak ditemukan.');
         }
-    
+        
+        if ($user['status_verifikasi'] === 'pending') {
+            return redirect()->back()->with('error', 'Akun Anda sedang menunggu verifikasi.');
+        }
+        
         if (!password_verify($password, $user['password'])) {
             // Jika password salah
             return redirect()->back()->withInput()->with('error', 'Password salah.');
@@ -78,14 +78,30 @@ class AuthController extends Controller
 
     $validation->setRules([
         'nama_user' => 'required|string|max_length[100]',
-        'email' => 'required|valid_email|max_length[100]|is_unique[users.email]',
-        'password' => 'required|min_length[8]',
+        'email' => [
+            'rules' => 'required|valid_email|max_length[100]|is_unique[users.email]',
+            'errors' => [
+                'is_unique' => 'Email telah terdaftar.',
+            ]
+        ],
+        'password' => [
+            'rules' => 'required|min_length[8]',
+            'errors' => [
+                'min_length' => 'Password harus terdiri dari minimal 8 karakter.',
+            ]
+        ],
         'nama_perusahaan' => 'required|string|max_length[100]',
         'alamat' => 'required|string',
-        'nomor_telepon' => 'required|numeric|min_length[10]|max_length[15]',
+        'nomor_telepon' => [
+            'rules' => 'required|numeric|min_length[10]|max_length[15]',
+            'errors' => [
+                'min_length' => 'Nomor telepon harus terdiri dari minimal 10 angka.',
+                'numeric' => 'Nomor telepon hanya boleh berisi angka.',
+            ]
+        ],
         'jenis_perusahaan' => 'required|in_list[Ekspor,Importir]',
     ]);
-
+    
     if (!$validation->withRequest($this->request)->run()) {
         // Kembali ke form dengan pesan error
         return redirect()->back()->withInput()->with('errors', $validation->getErrors());
