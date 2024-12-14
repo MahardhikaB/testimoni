@@ -19,19 +19,15 @@ class UserSeeder extends Seeder
                 'nama_user' => 'Admin User',
                 'email'     => 'admin@example.com',
                 'role'      => 'admin', // Role sebagai admin
+                'status_verifikasi' => 'accepted',
                 'password'  => password_hash('admin1234', PASSWORD_DEFAULT), // Enkripsi password
             ],
             [
                 'nama_user' => 'Regular User',
                 'email'     => 'user@example.com',
                 'role'      => 'user', // Role sebagai user
+                'status_verifikasi' => 'accepted',
                 'password'  => password_hash('user1234', PASSWORD_DEFAULT), // Enkripsi password
-            ],
-            [
-                'nama_user' => 'bryan',
-                'email'     => 'bryantosin1@gmail.com',
-                'role'      => 'user', // Role sebagai user
-                'password'  => password_hash('password', PASSWORD_DEFAULT), // Enkripsi password
             ],
         ];
 
