@@ -15,11 +15,13 @@ class PengalamanEksporModel extends Model
 
     protected $allowedFields = [
         'user_id_ekspor',     // Foreign key ke tabel users
-        'destinasi_ekspor',   // Negara tujuan ekspor
-        'tahun_ekspor',              // Tahun ekspor
-        'produk_ekspor',             // Produk yang diekspor
-        'deskripsi_ekspor',          // Deskripsi pengalaman ekspor
-        'status_verifikasi',         // Status verifikasi
+        'negara_tujuan',      // Negara tujuan ekspor (sebelumnya destinasi_ekspor)
+        'tanggal',            // Tanggal ekspor (sebelumnya tahun_ekspor)
+        'produk_ekspor',      // Produk yang diekspor
+        'deskripsi_ekspor',   // Deskripsi pengalaman ekspor
+        'kuantitas',          // Jumlah barang yang diekspor
+        'nilai',              // Nilai ekspor dalam USD
+        'status_verifikasi',  // Status verifikasi
     ];
 
     /**
@@ -40,15 +42,44 @@ class PengalamanEksporModel extends Model
      */
     public function getUnverifiedEkspor(): array
     {
-        return $this->select(' pengalaman_ekspor.id_ekspor, pengalaman_ekspor.destinasi_ekspor, pengalaman_ekspor.tahun_ekspor, pengalaman_ekspor.produk_ekspor, perusahaan.nama_perusahaan')
+        return $this->select('pengalaman_ekspor.id_ekspor, pengalaman_ekspor.negara_tujuan, pengalaman_ekspor.tanggal, pengalaman_ekspor.produk_ekspor, perusahaan.nama_perusahaan')
                     ->join('users', 'users.user_id = pengalaman_ekspor.user_id_ekspor')
                     ->join('perusahaan', 'perusahaan.user_id_perusahaan = users.user_id')
                     ->where('pengalaman_ekspor.status_verifikasi', 'pending')
                     ->findAll();
     }
 
+    /**
+     * Memperbarui status verifikasi untuk pengalaman ekspor tertentu.
+     *
+     * @param int $id
+     * @param string $status
+     * @return bool
+     */
     public function updateVerifikasi(int $id, string $status): bool
     {
         return $this->update($id, ['status_verifikasi' => $status]);
+    }
+
+    /**
+     * Mendapatkan pengalaman ekspor dengan nilai ekspor di atas jumlah tertentu.
+     *
+     * @param float $minValue
+     * @return array
+     */
+    public function getEksporByMinValue(float $minValue): array
+    {
+        return $this->where('nilai >=', $minValue)->findAll();
+    }
+
+    /**
+     * Mendapatkan data pengalaman ekspor berdasarkan negara tujuan.
+     *
+     * @param string $negara
+     * @return array
+     */
+    public function getEksporByCountry(string $negara): array
+    {
+        return $this->where('negara_tujuan', $negara)->findAll();
     }
 }
