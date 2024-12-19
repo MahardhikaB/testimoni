@@ -69,6 +69,7 @@ $routes->group('user', ['filter' => 'role:user'], function ($routes) {
     $routes->post('legalitas/store', 'LegalitasController::store');
     $routes->get('legalitas/edit/(:num)', 'LegalitasController::edit/$1');
     $routes->post('legalitas/update/(:num)', 'LegalitasController::update/$1');
+    $routes->post('legalitas/delete/(:num)', 'LegalitasController::delete/$1');
 
     // Route Ekspor
     $routes->get('ekspor', 'EksporController::index');

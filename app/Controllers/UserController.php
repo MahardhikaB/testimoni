@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\LegalitasModel;
 use App\Models\UserModel;
 use App\Models\PerusahaanModel;
 use App\Models\ProdukModel;
@@ -62,6 +63,7 @@ class UserController extends BaseController
         // Instansiasi model
         $userModel = new UserModel();
         $perusahaanModel = new PerusahaanModel();
+        $legalitasModel = new LegalitasModel();
         $produkModel = new ProdukModel();
         $sertifikatModel = new SertifikatModel();
         $pameranModel = new PengalamanPameranModel();
@@ -76,6 +78,7 @@ class UserController extends BaseController
             return redirect()->to('/login')->with('error', 'Data pengguna tidak ditemukan.');
         }
 
+        $legalitas = $legalitasModel->getLegalitasByUserIdExceptRejected($userId);
         $perusahaan = $perusahaanModel->getCompanyByUserId($userId);
         $produk = $produkModel->getProdukByUserId($userId);
         $sertifikat = $sertifikatModel->getSertifikatByUserId($userId);
@@ -88,6 +91,7 @@ class UserController extends BaseController
         $userData = [
             'user' => $user,
             'perusahaan' => $perusahaan,
+            'legalitas' => $legalitas,
             'produk' => $produk,
             'sertifikat' => $sertifikat,
             'pameran' => $pameran,

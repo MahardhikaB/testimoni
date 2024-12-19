@@ -9,8 +9,7 @@ class legalitasController extends BaseController
     public function index()
     {
         $legalitasModel = new \App\Models\LegalitasModel();
-        $legalitas = $legalitasModel->findAll();
-
+        $legalitas = $legalitasModel->getLegalitasByUserId(session()->get('user_id'));
         return view('legalitas/index', [
             'legalitas' => $legalitas,
         ]);
@@ -60,7 +59,7 @@ class legalitasController extends BaseController
             'tipe' => '1',
         ]);
 
-        return redirect()->to('user/legalitas')->with('success', 'legalitas berhasil ditambahkan');
+        return redirect()->to('user/profile')->with('success', 'Legalitas berhasil ditambahkan dan sedang dalam proses verifikasi.');
     }
 
     public function edit($id_legalitas)
@@ -79,26 +78,52 @@ class legalitasController extends BaseController
 
     public function update($id_legalitas)
     {
+        // dd($this->request->getVar());
         $validation = \Config\Services::validation();
         $validation->setRules([
-            'nama_legalitas' => 'required',
-            'tanggal_legalitas' => 'required',
-            'lokasi_legalitas' => 'required',
-            'deskripsi_legalitas' => 'required',
+            'legalitas' => 'required',
+        ], [
+            'legalitas' => [
+                'required' => 'Jenis legalitas harus diisi.'
+            ],
         ]);
 
         if (!$validation->withRequest($this->request)->run()) {
             return redirect()->back()->withInput()->with('errors', $validation->getErrors());
         }
+        
+        $fileLegalitas = $this->request->getFile('file_legalitas');
+
+        if ($fileLegalitas->getError() == 4) {
+            $namaFile = $this->request->getPost('file_legalitas_lama');
+        } else {
+            $namaFile = $fileLegalitas->getRandomName();
+            $fileLegalitas->move('storage', $namaFile);
+        }
 
         $legalitasModel = new \App\Models\LegalitasModel();
         $legalitasModel->update($id_legalitas, [
-            'nama_legalitas' => $this->request->getPost('nama_legalitas'),
-            'tanggal_legalitas' => $this->request->getPost('tanggal_legalitas'),
-            'lokasi_legalitas' => $this->request->getPost('lokasi_legalitas'),
-            'deskripsi_legalitas' => $this->request->getPost('deskripsi_legalitas'),
+            'legalitas' => $this->request->getPost('legalitas'),
+            'file_legalitas' => $namaFile,
+            'tipe' => '1',
+            'status_verifikasi' => 'pending',
         ]);
 
-        return redirect()->to('/legalitas')->with('success', 'legalitas berhasil diperbarui');
+        return redirect()->to('user/profile')->with('success_legalitas', 'Legalitas berhasil diubah dan sedang dalam proses verifikasi.');   
+    }
+
+    public function delete($id_legalitas)
+    {
+        // dd($id_legalitas);
+        $legalitasModel = new \App\Models\LegalitasModel();
+        $legalitas = $legalitasModel->find($id_legalitas);
+
+        if (!$legalitas) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException("legalitas dengan ID $id_legalitas tidak ditemukan.");
+        }
+
+        $legalitasModel->delete($id_legalitas);
+
+        return redirect()->to('user/profile')->with('success_legalitas', 'Legalitas berhasil dihapus.');
     }
 }
