@@ -18,7 +18,12 @@ window.onload = function() {
         // dd(base_url('/storage/' . $legalitas[0]['file_legalitas']));
      ?>
     <div class="before-content content-result-container">
-        <h4>Legalitas Before</h4>
+        <div class="add-data">
+            <h4>Legalitas Before</h4>
+            <button id="btnTambahLegalitasBefore">
+                Tambah Legalitas Before
+            </button>
+        </div>
         <?php if (!empty($legalitas) && is_array($legalitas)): 
                 $found = false;    
                 foreach ($legalitas as $item):
@@ -66,7 +71,12 @@ window.onload = function() {
     </div>
     <!-- Legalitas After -->
     <div class="after-content content-result-container">
-        <h4>Legalitas After</h4>
+        <div class="add-data">
+            <h4>Legalitas After</h4>
+            <button id="btnTambahLegalitasAfter">
+                Tambah Legalitas After
+            </button>
+        </div>
         <?php if (!empty($legalitas) && is_array($legalitas)): 
                 $found = false;    
                 foreach ($legalitas as $item):
@@ -111,14 +121,7 @@ window.onload = function() {
         <?php
             endif; 
         ?>
-    </div>
-    <div class="add-data">
-        <button id="btnTambahLegalitasBefore">
-            Tambah Legalitas Before
-        </button>
-        <button id="btnTambahLegalitasAfter">
-            Tambah Legalitas After
-        </button>
+
     </div>
 </div>
 
