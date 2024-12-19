@@ -12,7 +12,7 @@ window.onload = function() {
 </script>
 <?php endif; ?>
 
-<div id="legalitas" class="content-container">
+<div class="content-container">
     <!-- Legalitas Awal -->
     <?php 
         // dd(base_url('/storage/' . $legalitas[0]['file_legalitas']));
@@ -53,6 +53,10 @@ window.onload = function() {
         ?>
         <p style="margin-top: 1rem;">Belum ada legalitas awal yang ditambahkan.</p>
         <?php endif; 
+         else:
+        ?>
+        <p style="margin-top: 1rem;">Belum ada legalitas awal yang ditambahkan.</p>
+        <?php
             endif; 
         ?>
     </div>
@@ -72,7 +76,9 @@ window.onload = function() {
             <div class="content-result-info">
                 <p>Legalitas : <?= htmlspecialchars($item['legalitas']) ?></p>
                 <div>
-                    <button class="btnEdit" onclick="" title="Edit">
+                    <button class="btnEdit"
+                        onclick="editData('<?= base_url('/user/legalitas/update/') . $item['id_legalitas'] ?>', '<?= $item['legalitas'] ?>' ,'<?= $item['file_legalitas'] ?>')"
+                        title="Edit">
                         <i class="fa-regular fa-pen-to-square"></i>
                     </button>
                     <button class="btnHapus"
@@ -95,6 +101,10 @@ window.onload = function() {
         ?>
         <p style="margin-top: 1rem;">Belum ada legalitas awal yang ditambahkan.</p>
         <?php endif; 
+         else:
+        ?>
+        <p style="margin-top: 1rem;">Belum ada legalitas awal yang ditambahkan.</p>
+        <?php
             endif; 
         ?>
     </div>
@@ -125,24 +135,22 @@ window.onload = function() {
                 </ul>
             </div>
             <?php endif; ?>
-            <form action="<?= base_url('user/legalitas/update/') . $legalitas[0]['id_legalitas'] ?>" method="post"
-                enctype="multipart/form-data">
+            <form id="formEdit" action="" method="post" enctype="multipart/form-data">
                 <?= csrf_field() ?>
                 <!-- Kolom kiri -->
                 <div class="col-md-6 mx-auto input-container">
                     <div class="mb-3 input-group">
                         <label for="legalitas" class="form-label">Jenis Legalitas</label>
-                        <input type="text" class="form-control" id="legalitas" name="legalitas"
-                            value="<?= $legalitas[0]['legalitas'] ?>"
+                        <input type="text" class="form-control" id="legalitasEditInput" name="legalitas" value=""
                             placeholder="Masukkan jenis legalitas (BPOM, dll)">
                     </div>
                     <div class="mb-3 input-group">
                         <p for="fileLegalitas" class="form-label">File Legalitas</p>
-                        <a href="<?= base_url('/storage/' . $legalitas[0]['file_legalitas']) ?>" target="_blank"
-                            class="btn btn-primary">Lihat File <?= $legalitas[0]['file_legalitas']  ?></a>
+                        <a id="hyperlinkToFile" href="<?= base_url('/storage/' ) ?>" target="_blank"
+                            class="btn btn-primary">Lihat File </a>
                         <input type="file" class="form-control" id="fileLegalitas" name="file_legalitas" accept=".pdf"
                             placeholder="Upload file legalitas">
-                        <input type="hidden" name="file_legalitas_lama" value="<?= $legalitas[0]['file_legalitas'] ?>">
+                        <input id="inputLegalitasLama" type="hidden" name="file_legalitas_lama" value="">
                     </div>
                 </div>
                 <!-- Tombol Kembali dan Submit -->
@@ -218,14 +226,23 @@ window.onload = function() {
 let modal = document.getElementById("myModal");
 let modalDelete = document.getElementById("myModalDelete");
 let modalAdd = document.getElementById("myModalAdd");
+
 let titleModal = document.getElementById("titleModal");
 let tipe_input = document.getElementById("tipe_input")
-let btn = document.getElementsByClassName("btnEdit");
+
+let legalitasEditInput = document.getElementById("legalitasEditInput");
+let hyperlinkToFile = document.getElementById("hyperlinkToFile");
+let inputLegalitasLama = document.getElementById("inputLegalitasLama");
+
 let btnTambahLegalitasBefore = document.getElementById("btnTambahLegalitasBefore");
 let btnTambahLegalitasAfter = document.getElementById("btnTambahLegalitasAfter");
 let btnClose = document.getElementById("btnClose");
-let span = document.getElementsByClassName("close");
+
+
 let formDelete = document.getElementById("formDelete");
+let formEdit = document.getElementById("formEdit");
+
+let span = document.getElementsByClassName("close");
 let alert = document.getElementById("myAlert");
 
 function hapusData(action) {
@@ -234,15 +251,19 @@ function hapusData(action) {
     formDelete.action = action;
 }
 
-btn[0].onclick = function() {
+function editData(action, legalitas, fileLegalitas) {
     modal.style.display = "block";
-}
-
-btn[1].onclick = function() {
-    modal.style.display = "block";
+    formEdit.action = action;
+    formEdit.method = "post";
+    legalitasEditInput.value = legalitas;
+    hyperlinkToFile.href = "<?= base_url('/storage/') ?>" + fileLegalitas;
+    hyperlinkToFile.innerHTML = 'Lihat file: ' + fileLegalitas;
+    inputLegalitasLama.value = fileLegalitas;
+    console.log(action + " " + legalitas + " " + fileLegalitas);
 }
 
 btnTambahLegalitasBefore.onclick = function() {
+    console.log("TEEST")
     modalAdd.style.display = "block";
     titleModal.innerHTML = "Tambah Legalitas Before";
     tipe_input.value = "0";
