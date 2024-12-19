@@ -17,7 +17,7 @@ class AddFieldFileLegalitasToLegalitas extends Migration
         ];
 
         // Tambahkan kolom ke tabel legalitas
-        $this->forge->modifyColumn('legalitas', $fields);
+        $this->forge->addColumn('legalitas', $fields);
     }
 
     public function down()

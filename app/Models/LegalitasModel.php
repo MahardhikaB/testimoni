@@ -27,9 +27,19 @@ class LegalitasModel extends Model
      * @param int $userId
      * @return array|null
      */
+
     public function getLegalitasByUserId(int $userId)
     {
-        return $this->where('user_id_legalitas', $userId)->first();
+        return $this->where('user_id_legalitas', $userId)->findAll();
+    }
+
+    public function getLegalitasByUserIdExceptRejected(int $userId)
+    {
+        return $this->select('id_legalitas, legalitas, file_legalitas, tipe, status_verifikasi')
+                    ->where('user_id_legalitas', $userId)
+                    ->where('status_verifikasi !=', 'rejected')
+                    ->where('file_legalitas !=', '')
+                    ->findAll();
     }
 
     /**
