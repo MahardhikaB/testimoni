@@ -32,10 +32,14 @@ window.onload = function() {
             <div class="content-result-info">
                 <p>Legalitas : <?= htmlspecialchars($item['legalitas']) ?></p>
                 <div>
-                    <button class="btnEdit" onclick="" title="Edit">
+                    <button class="btnEdit"
+                        onclick="editData('<?= base_url('/user/legalitas/update/') . $item['id_legalitas'] ?>', '<?= $item['legalitas'] ?>' ,'<?= $item['file_legalitas'] ?>')"
+                        title="Edit">
                         <i class="fa-regular fa-pen-to-square"></i>
                     </button>
-                    <button class="btnHapus" onclick="hapusData(<?= $legalitas[0]['id_legalitas'] ?>)" title="Hapus">
+                    <button class="btnHapus"
+                        onclick="hapusData('<?= base_url('/user/legalitas/delete/') . $item['id_legalitas'] ?>')"
+                        title="Hapus">
                         <i class="fa-solid fa-trash"></i>
                     </button>
                 </div>
