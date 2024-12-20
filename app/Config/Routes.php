@@ -82,6 +82,7 @@ $routes->group('user', ['filter' => 'role:user'], function ($routes) {
     $routes->post('sertifikat/store', 'SertifikatController::store');
     $routes->get('sertifikat/edit/(:num)', 'SertifikatController::edit/$1');
     $routes->post('sertifikat/update/(:num)', 'SertifikatController::update/$1');
+    $routes->post('sertifikat/delete/(:num)', 'SertifikatController::delete/$1');
 
     // Route Progress
     $routes->get('progress', 'ProgressController::index');
