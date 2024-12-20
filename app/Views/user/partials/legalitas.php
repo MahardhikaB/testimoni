@@ -18,7 +18,12 @@ window.onload = function() {
         // dd(base_url('/storage/' . $legalitas[0]['file_legalitas']));
      ?>
     <div class="before-content content-result-container">
-        <h4>Legalitas Before</h4>
+        <div class="add-data">
+            <h4>Legalitas Before</h4>
+            <button id="btnTambahLegalitasBefore">
+                Tambah Legalitas Before
+            </button>
+        </div>
         <?php if (!empty($legalitas) && is_array($legalitas)): 
                 $found = false;    
                 foreach ($legalitas as $item):
@@ -32,10 +37,14 @@ window.onload = function() {
             <div class="content-result-info">
                 <p>Legalitas : <?= htmlspecialchars($item['legalitas']) ?></p>
                 <div>
-                    <button class="btnEdit" onclick="" title="Edit">
+                    <button class="btnEdit"
+                        onclick="editData('<?= base_url('/user/legalitas/update/') . $item['id_legalitas'] ?>', '<?= $item['legalitas'] ?>' ,'<?= $item['file_legalitas'] ?>')"
+                        title="Edit">
                         <i class="fa-regular fa-pen-to-square"></i>
                     </button>
-                    <button class="btnHapus" onclick="hapusData(<?= $legalitas[0]['id_legalitas'] ?>)" title="Hapus">
+                    <button class="btnHapus"
+                        onclick="hapusData('<?= base_url('/user/legalitas/delete/') . $item['id_legalitas'] ?>')"
+                        title="Hapus">
                         <i class="fa-solid fa-trash"></i>
                     </button>
                 </div>
@@ -62,7 +71,12 @@ window.onload = function() {
     </div>
     <!-- Legalitas After -->
     <div class="after-content content-result-container">
-        <h4>Legalitas After</h4>
+        <div class="add-data">
+            <h4>Legalitas After</h4>
+            <button id="btnTambahLegalitasAfter">
+                Tambah Legalitas After
+            </button>
+        </div>
         <?php if (!empty($legalitas) && is_array($legalitas)): 
                 $found = false;    
                 foreach ($legalitas as $item):
@@ -107,14 +121,7 @@ window.onload = function() {
         <?php
             endif; 
         ?>
-    </div>
-    <div class="add-data">
-        <button id="btnTambahLegalitasBefore">
-            Tambah Legalitas Before
-        </button>
-        <button id="btnTambahLegalitasAfter">
-            Tambah Legalitas After
-        </button>
+
     </div>
 </div>
 

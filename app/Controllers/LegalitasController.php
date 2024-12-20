@@ -22,10 +22,12 @@ class legalitasController extends BaseController
 
     public function store()
     {
+        // dd($this->request->getVar());
         $validation = \Config\Services::validation();
         $validation->setRules([
             'legalitas' => 'required',
             'file_legalitas' => 'uploaded[file_legalitas]|max_size[file_legalitas,4096]|ext_in[file_legalitas,pdf]',
+            'tipe' => 'required',
         ], [
             'legalitas' => [
                 'required' => 'Jenis legalitas harus diisi.'
@@ -34,7 +36,10 @@ class legalitasController extends BaseController
                 'uploaded' => 'File legalitas harus diupload.',
                 'max_size' => 'Ukuran file legalitas maksimal 4MB.',
                 'ext_in' => 'File legalitas harus berformat PDF.'
-            ]
+            ],
+            'tipe' => [
+                'required' => 'Tipe legalitas harus diisi.'
+            ],
         ]);
 
         if (!$validation->withRequest($this->request)->run()) {
@@ -56,10 +61,10 @@ class legalitasController extends BaseController
             'user_id_legalitas' => session()->get('user_id'),
             'legalitas' => $this->request->getPost('legalitas'),
             'file_legalitas' => $namaFile,
-            'tipe' => '1',
+            'tipe' => $this->request->getPost('tipe'),
         ]);
 
-        return redirect()->to('user/profile')->with('success', 'Legalitas berhasil ditambahkan dan sedang dalam proses verifikasi.');
+        return redirect()->to('user/profile')->with('success_legalitas', 'Legalitas berhasil ditambahkan dan sedang dalam proses verifikasi.');
     }
 
     public function edit($id_legalitas)
@@ -105,7 +110,6 @@ class legalitasController extends BaseController
         $legalitasModel->update($id_legalitas, [
             'legalitas' => $this->request->getPost('legalitas'),
             'file_legalitas' => $namaFile,
-            'tipe' => '1',
             'status_verifikasi' => 'pending',
         ]);
 
@@ -122,6 +126,10 @@ class legalitasController extends BaseController
             throw new \CodeIgniter\Exceptions\PageNotFoundException("legalitas dengan ID $id_legalitas tidak ditemukan.");
         }
 
+        if(!empty($legalitas['file_legalitas'])) {
+            unlink('storage/' . $legalitas['file_legalitas']);
+        }
+        
         $legalitasModel->delete($id_legalitas);
 
         return redirect()->to('user/profile')->with('success_legalitas', 'Legalitas berhasil dihapus.');
