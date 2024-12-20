@@ -113,6 +113,14 @@ $routes->group('user', ['filter' => 'role:user'], function ($routes) {
     $routes->get('ekspor/edit/(:num)', 'EksporController::edit/$1');
     $routes->post('ekspor/update/(:num)', 'EksporController::update/$1');
 
+    // Route Media Promosi
+    $routes->get('media', 'MediaController::index');
+    $routes->get('media/create', 'MediaController::create');
+    $routes->post('media/store', 'MediaController::store');
+    $routes->get('media/edit/(:num)', 'MediaController::edit/$1');
+    $routes->post('media/update/(:num)', 'MediaController::update/$1');
+    $routes->post('media/delete/(:num)', 'MediaController::delete/$1');
+
     // Route Program Pembinaan
     $routes->get('program', 'ProgramController::index');
     $routes->get('program/create', 'ProgramController::create');

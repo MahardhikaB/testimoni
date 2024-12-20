@@ -19,6 +19,7 @@ class MediaPromosiModel extends Model
         'tahun_media',          // Tahun penggunaan media promosi
         'deskripsi_media',      // Deskripsi media promosi
         'status_verifikasi',    // Status verifikasi
+        'tipe',                 // Tipe media promosi
     ];
 
     /**
