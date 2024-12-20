@@ -11,7 +11,6 @@
                     <h5>Product Name: <?= esc($produkItem['nama_produk']); ?></h5>
                     <p><strong>Description:</strong> <?= esc($produkItem['deskripsi_produk']); ?></p>
                     <p><strong>Price:</strong> Rp <?= number_format($produkItem['harga_produk'], 0, ',', '.'); ?></p>
-                    <p><strong>Availability:</strong> <?= esc($produkItem['ketersediaan_produk']); ?></p>
                 </div>
             <?php endforeach; ?>
         <?php else: ?>
@@ -33,7 +32,6 @@
                     <h5>Product Name: <?= esc($produkItem['nama_produk']); ?></h5>
                     <p><strong>Description:</strong> <?= esc($produkItem['deskripsi_produk']); ?></p>
                     <p><strong>Price:</strong> Rp <?= number_format($produkItem['harga_produk'], 0, ',', '.'); ?></p>
-                    <p><strong>Availability:</strong> <?= esc($produkItem['ketersediaan_produk']); ?></p>
                 </div>
             <?php endforeach; ?>
         <?php else: ?>
