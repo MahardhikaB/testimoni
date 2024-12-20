@@ -42,6 +42,13 @@ class LegalitasModel extends Model
                     ->findAll();
     }
 
+    public function getLegalitasFirstByUserId(int $userId)
+    {
+        return $this->where('user_id_legalitas', $userId)
+                    ->where('file_legalitas !=', '')    
+                    ->first();
+    }
+
     /**
      * Mendapatkan legalitas yang belum diverifikasi.
      *

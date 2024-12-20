@@ -56,12 +56,21 @@ class legalitasController extends BaseController
         // dd($namaFile);
 
         $legalitasModel = new \App\Models\LegalitasModel();
+
+        if($legalitasModel->getLegalitasFirstByUserId(session()->get('user_id'))) {
+            $tipe = $this->request->getPost('tipe');
+        }else {
+            $tipe = '2';
+        }
+
+        // dd($tipe);
+
         $legalitasModel->insert([
             // 'user_id_legalitas' => 2,
             'user_id_legalitas' => session()->get('user_id'),
             'legalitas' => $this->request->getPost('legalitas'),
             'file_legalitas' => $namaFile,
-            'tipe' => $this->request->getPost('tipe'),
+            'tipe' => $tipe,
         ]);
 
         return redirect()->to('user/profile')->with('success_legalitas', 'Legalitas berhasil ditambahkan dan sedang dalam proses verifikasi.');

@@ -27,11 +27,11 @@ window.onload = function() {
         <?php if (!empty($legalitas) && is_array($legalitas)): 
                 $found = false;    
                 foreach ($legalitas as $item):
-                    if (in_array($item['tipe'], [0, 3])):
+                    if (in_array($item['tipe'], [0, 2])):
                         $found=true;
         ?>
         <div class="content-result-card">
-            <b style="color: #ffc107;">
+            <b style="color: #ffc107; display:block; margin-bottom: 1rem;">
                 <?= $item['status_verifikasi'] === 'pending' ? 'Sedang diverifikasi' : '' ?>
             </b>
             <div class="content-result-info">
@@ -80,11 +80,11 @@ window.onload = function() {
         <?php if (!empty($legalitas) && is_array($legalitas)): 
                 $found = false;    
                 foreach ($legalitas as $item):
-                    if (in_array($item['tipe'], [1, 3])):
+                    if (in_array($item['tipe'], [1, 2])):
                         $found=true;
         ?>
         <div class="content-result-card">
-            <b style="color: #ffc107;">
+            <b style="color: #ffc107; display:block; margin-bottom: 1rem;">
                 <?= $item['status_verifikasi'] === 'pending' ? 'Sedang diverifikasi' : '' ?>
             </b>
             <div class="content-result-info">
