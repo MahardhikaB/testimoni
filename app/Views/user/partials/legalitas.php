@@ -27,7 +27,7 @@ window.onload = function() {
         <?php if (!empty($legalitas) && is_array($legalitas)): 
                 $found = false;    
                 foreach ($legalitas as $item):
-                    if (in_array($item['tipe'], [0, 3])):
+                    if (in_array($item['tipe'], [0, 2])):
                         $found=true;
         ?>
         <div class="content-result-card">
@@ -80,7 +80,7 @@ window.onload = function() {
         <?php if (!empty($legalitas) && is_array($legalitas)): 
                 $found = false;    
                 foreach ($legalitas as $item):
-                    if (in_array($item['tipe'], [1, 3])):
+                    if (in_array($item['tipe'], [1, 2])):
                         $found=true;
         ?>
         <div class="content-result-card">
