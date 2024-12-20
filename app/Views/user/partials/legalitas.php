@@ -270,7 +270,6 @@ function editData(action, legalitas, fileLegalitas) {
 }
 
 btnTambahLegalitasBefore.onclick = function() {
-    console.log("TEEST")
     modalAdd.style.display = "block";
     titleModal.innerHTML = "Tambah Legalitas Before";
     tipe_input.value = "0";
