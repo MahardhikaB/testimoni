@@ -31,7 +31,7 @@ window.onload = function() {
                         $found=true;
         ?>
         <div class="content-result-card">
-            <b style="color: #ffc107;">
+            <b style="color: #ffc107; display:block; margin-bottom: 1rem;">
                 <?= $item['status_verifikasi'] === 'pending' ? 'Sedang diverifikasi' : '' ?>
             </b>
             <div class="content-result-info">
@@ -84,7 +84,7 @@ window.onload = function() {
                         $found=true;
         ?>
         <div class="content-result-card">
-            <b style="color: #ffc107;">
+            <b style="color: #ffc107; display:block; margin-bottom: 1rem;">
                 <?= $item['status_verifikasi'] === 'pending' ? 'Sedang diverifikasi' : '' ?>
             </b>
             <div class="content-result-info">

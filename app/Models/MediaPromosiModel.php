@@ -29,7 +29,9 @@ class MediaPromosiModel extends Model
      */
     public function getMediaByUserId(int $userId)
     {
-        return $this->where('user_id_media', $userId)->findAll();
+        return $this->select('id_media, nama_media, tahun_media, deskripsi_media, tipe, status_verifikasi')
+                    ->where('user_id_media', $userId)
+                    ->findAll();
     }
 
     /**
