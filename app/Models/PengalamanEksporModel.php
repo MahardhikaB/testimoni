@@ -25,28 +25,33 @@ class PengalamanEksporModel extends Model
         'bukti_ekspor',
     ];
 
-    /**
-     * Mendapatkan pengalaman ekspor yang hanya diterima (status 'accepted').
-     *
-     * @return array
-     */
-    public function getAcceptedEkspor(): array
-    {
-        return $this->where('status_verifikasi', 'accepted')->findAll();
-    }
+/**
+ * Mendapatkan pengalaman ekspor yang hanya diterima (status 'accepted'),
+ * diurutkan berdasarkan tanggal (dari yang paling lama).
+ *
+ * @return array
+ */
+public function getAcceptedEkspor(): array
+{
+    return $this->where('status_verifikasi', 'accepted')
+                ->orderBy('tanggal', 'ASC') // Urutkan berdasarkan tanggal
+                ->findAll();
+}
 
-    /**
-     * Mendapatkan semua pengalaman ekspor milik user tertentu.
-     *
-     * @param int $userId
-     * @return array
-     */
-    public function getEksporByUserId(int $userId)
-    {
-        return $this->where('user_id_ekspor', $userId)
-                    ->where('status_verifikasi', 'accepted') // Filter only accepted
-                    ->findAll();
-    }
+/**
+ * Mendapatkan semua pengalaman ekspor milik user tertentu,
+ * diurutkan berdasarkan tanggal (dari yang paling lama).
+ *
+ * @param int $userId
+ * @return array
+ */
+public function getEksporByUserId(int $userId)
+{
+    return $this->where('user_id_ekspor', $userId)
+                ->where('status_verifikasi', 'accepted')
+                ->orderBy('tanggal', 'ASC') // Urutkan berdasarkan tanggal
+                ->findAll();
+}
 
     /**
      * Memperbarui status verifikasi untuk pengalaman ekspor tertentu.
@@ -83,18 +88,19 @@ class PengalamanEksporModel extends Model
         return $this->insert($data);
     }
 
-        /**
-     * Mendapatkan pengalaman ekspor yang belum diverifikasi.
-     *
-     * @return array
-     */
-    public function getUnverifiedEkspor(): array
-    {
-        return $this->select('pengalaman_ekspor.id_ekspor, pengalaman_ekspor.negara_tujuan, pengalaman_ekspor.tanggal, pengalaman_ekspor.produk_ekspor, perusahaan.nama_perusahaan')
-                    ->join('users', 'users.user_id = pengalaman_ekspor.user_id_ekspor')
-                    ->join('perusahaan', 'perusahaan.user_id_perusahaan = users.user_id')
-                    ->where('pengalaman_ekspor.status_verifikasi', 'pending')
-                    ->findAll();
-    }
-
+/**
+ * Mendapatkan pengalaman ekspor yang belum diverifikasi,
+ * diurutkan berdasarkan tanggal (dari yang paling lama).
+ *
+ * @return array
+ */
+public function getUnverifiedEkspor(): array
+{
+    return $this->select('pengalaman_ekspor.id_ekspor, pengalaman_ekspor.negara_tujuan, pengalaman_ekspor.tanggal, pengalaman_ekspor.produk_ekspor, perusahaan.nama_perusahaan')
+                ->join('users', 'users.user_id = pengalaman_ekspor.user_id_ekspor')
+                ->join('perusahaan', 'perusahaan.user_id_perusahaan = users.user_id')
+                ->where('pengalaman_ekspor.status_verifikasi', 'pending')
+                ->orderBy('pengalaman_ekspor.tanggal', 'ASC') // Urutkan berdasarkan tanggal
+                ->findAll();
+}
 }
