@@ -27,11 +27,11 @@ window.onload = function() {
         <?php if (!empty($legalitas) && is_array($legalitas)): 
                 $found = false;    
                 foreach ($legalitas as $item):
-                    if (in_array($item['tipe'], [0, 3])):
+                    if (in_array($item['tipe'], [0, 2])):
                         $found=true;
         ?>
         <div class="content-result-card">
-            <b style="color: #ffc107;">
+            <b style="color: #ffc107; display:block; margin-bottom: 1rem;">
                 <?= $item['status_verifikasi'] === 'pending' ? 'Sedang diverifikasi' : '' ?>
             </b>
             <div class="content-result-info">
@@ -80,11 +80,11 @@ window.onload = function() {
         <?php if (!empty($legalitas) && is_array($legalitas)): 
                 $found = false;    
                 foreach ($legalitas as $item):
-                    if (in_array($item['tipe'], [1, 3])):
+                    if (in_array($item['tipe'], [1, 2])):
                         $found=true;
         ?>
         <div class="content-result-card">
-            <b style="color: #ffc107;">
+            <b style="color: #ffc107; display:block; margin-bottom: 1rem;">
                 <?= $item['status_verifikasi'] === 'pending' ? 'Sedang diverifikasi' : '' ?>
             </b>
             <div class="content-result-info">
@@ -126,7 +126,7 @@ window.onload = function() {
 </div>
 
 <!-- Modal Edit Legalitas -->
-<div id="myModal" class="modal">
+<div id="modalLegalitasEdit" class="modal">
     <div class="modal-content">
         <div class="modal-header">
             <span class="close">&times;</span>
@@ -171,7 +171,7 @@ window.onload = function() {
 
 <!-- Modal Hapus Legalitas -->
 
-<div class="modal" id="myModalDelete">
+<div class="modal" id="modalLegalitasDelete">
     <div class="modal-content">
         <div class="modal-header">
             <span class="close">&times;</span>
@@ -189,13 +189,13 @@ window.onload = function() {
     </div>
 </div>
 
-<!-- Modal Tambah Legalitas Before -->
-<div id="myModalAdd" class="modal">
+<!-- Modal Tambah Legalitas -->
+<div id="modalLegalitasAdd" class="modal">
     <div class="modal-content">
         <div class="modal-header">
             <span class="close">&times;</span>
         </div>
-        <h2 id="titleModal">Tambah Legalitas Before</h2>
+        <h2 id="titleModalLegalitas">Tambah Legalitas Before</h2>
         <div class="form-container">
             <?php if (session()->get('errors')): ?>
             <div class="alert-error">
@@ -219,7 +219,7 @@ window.onload = function() {
                         <input type="file" class="form-control" id="fileLegalitas" name="file_legalitas" accept=".pdf"
                             placeholder="Upload file legalitas">
                     </div>
-                    <input id="tipe_input" type="hidden" name="tipe" value="0">
+                    <input id="tipeInputLegalitas" type="hidden" name="tipe" value="0">
                 </div>
                 <div class="d-flex justify-content-center gap-3 mt-4">
                     <button type="submit" class="btn btn-submit">Simpan</button>
@@ -230,12 +230,12 @@ window.onload = function() {
 </div>
 
 <script>
-let modal = document.getElementById("myModal");
-let modalDelete = document.getElementById("myModalDelete");
-let modalAdd = document.getElementById("myModalAdd");
+let modalLegalitasEdit = document.getElementById("modalLegalitasEdit");
+let modalLegalitasDelete = document.getElementById("modalLegalitasDelete");
+let modalLegalitasAdd = document.getElementById("modalLegalitasAdd");
 
-let titleModal = document.getElementById("titleModal");
-let tipe_input = document.getElementById("tipe_input")
+let titleModalLegalitas = document.getElementById("titleModalLegalitas");
+let tipeInputLegalitas = document.getElementById("tipeInputLegalitas")
 
 let legalitasEditInput = document.getElementById("legalitasEditInput");
 let hyperlinkToFile = document.getElementById("hyperlinkToFile");
@@ -254,12 +254,12 @@ let alert = document.getElementById("myAlert");
 
 function hapusData(action) {
     console.log(action);
-    modalDelete.style.display = "block";
+    modalLegalitasDelete.style.display = "block";
     formDelete.action = action;
 }
 
 function editData(action, legalitas, fileLegalitas) {
-    modal.style.display = "block";
+    modalLegalitasEdit.style.display = "block";
     formEdit.action = action;
     formEdit.method = "post";
     legalitasEditInput.value = legalitas;
@@ -270,38 +270,30 @@ function editData(action, legalitas, fileLegalitas) {
 }
 
 btnTambahLegalitasBefore.onclick = function() {
-    modalAdd.style.display = "block";
-    titleModal.innerHTML = "Tambah Legalitas Before";
-    tipe_input.value = "0";
+    modalLegalitasAdd.style.display = "block";
+    titleModalLegalitas.innerHTML = "Tambah Legalitas Before";
+    // tipe_input.value = "0";
 }
 
 btnTambahLegalitasAfter.onclick = function() {
-    modalAdd.style.display = "block";
-    titleModal.innerHTML = "Tambah Legalitas After";
-    tipe_input.value = "1";
+    modalLegalitasAdd.style.display = "block";
+    titleModalLegalitas.innerHTML = "Tambah Legalitas After";
+    // tipe_input.value = "1";
 }
 
 span[0].onclick = function() {
-    modal.style.display = "none";
+    modalLegalitasEdit.style.display = "none";
 }
 
 span[1].onclick = function() {
-    modalDelete.style.display = "none";
+    modalLegalitasDelete.style.display = "none";
 }
 
 span[2].onclick = function() {
-    modalAdd.style.display = "none";
+    modalLegalitasAdd.style.display = "none";
 }
 
 btnClose.onclick = function() {
-    modalDelete.style.display = "none";
+    modalLegalitasDelete.style.display = "none";
 }
-
-window.onclick = function(event) {
-    if (event.target === modal || event.target === modalAdd || event.target === modalDelete) {
-        modal.style.display = "none";
-        modalAdd.style.display = "none";
-        modalDelete.style.display = "none";
-    }
-};
 </script>

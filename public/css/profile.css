@@ -192,9 +192,9 @@
 }
 
 .content-container .content-result-container .content-result-card .content-result-info {
-    margin-top: 1rem;
     display: flex;
     justify-content: space-between;
+    align-items: start;
 }
 
 .content-container .content-result-container .content-result-card .content-result-info button {
@@ -204,6 +204,24 @@
     color: white;
     border: none;
     border-radius: 0.2rem;
+}
+
+.content-container .content-result-container .content-result-card .content-result-info h5,
+.content-container .content-result-container .content-result-card .content-result-text h5 {
+    margin-bottom: 0.2rem;
+    font-size: 1.1rem;
+}
+
+.content-container .content-result-container .content-result-card .content-result-text {
+    margin-top: 0.6rem;
+}
+
+.content-container .content-result-container .content-result-card .content-result-text p {
+    font-size: 16px;
+}
+
+.content-container .content-result-container .content-result-card .content-result-text .content-text-container {
+    margin-bottom: 0.4rem;
 }
 
 .btnEdit {
@@ -275,7 +293,8 @@
     background-color: rgba(0,0,0,0.4);
 }
   
-.close {
+.close,
+.mediaClose {
     color: #aaa;
     float: right;
     font-size: 28px;
@@ -283,7 +302,9 @@
 }
   
 .close:hover,
-.close:focus {
+.close:focus,
+.mediaClose:hover,
+.mediaClose:focus {
     color: red;
     text-decoration: none;
     cursor: pointer;
@@ -336,12 +357,12 @@
 .modal-content .form-container .input-container .input-group {
     display: flex;
     flex-direction: column;
-    margin-bottom: 0.8rem;
+    margin-bottom: 1rem;
 }
 
 .modal-content .form-container .input-container .input-group label, .modal-content .form-container .input-container .input-group p {
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 16px;
+    font-weight: 600;
     cursor: default;
     margin-bottom: 0.4rem;
 }
@@ -356,6 +377,14 @@
     padding: 0.6rem;
     border-radius: 0.2rem;
     border: 1px solid #ccc;
+}
+
+.modal-content .form-container .input-container .input-group textarea {
+    font-size: 0.9rem;
+    padding: 0.6rem;
+    border-radius: 0.2rem;
+    border: 1px solid #ccc;
+    height: 120px;
 }
 
 .modal-content .form-container button {
