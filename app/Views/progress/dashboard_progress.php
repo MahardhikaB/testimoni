@@ -320,7 +320,7 @@ Tambah Pencapaian Ekspor
                 <div class="Group48">
                     <div class="No">No</div>
                     <div class="TanggalEkspor">Tanggal Ekspor</div>
-                    <div class="NegaraEkspor">Negara Ekspor</div>
+                    <div class="NegaraEkspor">Negara Tujuan</div>
                     <div class="ProdukEkspor">Produk Ekspor</div>
                     <div class="KuantitasEkspor">Kuantitas Ekspor</div>
                     <div class="BuktiEkspor">Bukti Ekspor</div>
