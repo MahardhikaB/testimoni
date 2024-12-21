@@ -11,6 +11,7 @@ class ProgressModel extends Model
     
     // Kolom yang boleh diisi (fillable)
     protected $allowedFields = [
+        'user_id',
         'id_perusahaan',
         'tanggal_ekspor',
         'nilai_ekspor_rp',
@@ -21,8 +22,9 @@ class ProgressModel extends Model
         'produk_ekspor',
         'bukti_ekspor',
         'nama_importir',
+        'deskripsi_ekspor',
         'created_at',
-        'updated_at'
+        'updated_at',
     ];
 
     // Tanggal yang akan otomatis diatur
@@ -43,6 +45,7 @@ class ProgressModel extends Model
         'produk_ekspor'       => 'required',
         'bukti_ekspor'        => 'required|string',
         'nama_importir'       => 'required|max_length[255]',
+        'deskripsi_ekspor' => 'permit_empty|string|max_length[1000]',
     ];
 
     // Pesan kesalahan untuk validasi
@@ -86,6 +89,10 @@ class ProgressModel extends Model
             'alpha_numeric' => 'Nama importir harus berupa teks dan angka.',
             'max_length' => 'Nama importir maksimal 255 karakter.'
         ],
+        'deskripsi_ekspor' => [
+            'string' => 'Deskripsi ekspor harus berupa teks.',
+            'max_length' => 'Deskripsi ekspor maksimal 1000 karakter.',
+        ],
     ];
 
     // Menambahkan pengaturan untuk menghandle waktu secara otomatis
@@ -117,4 +124,13 @@ class ProgressModel extends Model
 
         return $this->where(['id' => $id])->first();
     }
+
+    public function getUser()
+{
+    return $this->join('users', 'users.id = progress.user_id')
+                ->select('users.*, progress.*')
+                ->findAll();
 }
+
+}
+
