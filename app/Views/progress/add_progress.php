@@ -9,6 +9,7 @@ Tambah Pencapaian Ekspor
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
+<link rel="stylesheet" href="<?= base_url('css/notifikasi.css') ?>">
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
 <script>
@@ -74,6 +75,7 @@ Tambah Pencapaian Ekspor
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
+<?= $this->include('layout/notifikasi'); ?>
 <script>
     $(document).ready(function() {
         // Input mask untuk "Nilai Ekspor (Rp)"

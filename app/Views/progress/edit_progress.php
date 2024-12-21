@@ -8,6 +8,7 @@ Edit Pencapaian Ekspor
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="<?= base_url('css/notifikasi.css') ?>">
 <link rel="stylesheet" href="/resources/demos/style.css">
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
@@ -100,6 +101,7 @@ Edit Pencapaian Ekspor
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
+<?= $this->include('layout/notifikasi'); ?>
 <div class="container px-md-0 px-4">
     <div class="form-container mt-5 px-5 py-5">
         <h1 class="text-center">Edit Pencapaian Ekspor</h1>

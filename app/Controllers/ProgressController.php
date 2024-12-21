@@ -129,7 +129,7 @@ class ProgressController extends BaseController
             // Save corresponding data in PengalamanEkspor table
             $this->pengalamanEksporModel->addFromProgress($dataToSave);
 
-            session()->setFlashdata('message', 'Progress berhasil ditambahkan.');
+            session()->setFlashdata('success', value: 'Progress berhasil ditambahkan.');
             return redirect()->to('/user/progress');
         }
     } else {
@@ -139,7 +139,7 @@ class ProgressController extends BaseController
             // Save corresponding data in PengalamanEkspor table
             $this->pengalamanEksporModel->addFromProgress($dataToSave);
 
-            session()->setFlashdata('message', 'Progress berhasil diubah.');
+            session()->setFlashdata('success', 'Progress berhasil diubah.');
             return redirect()->to('/user/progress');
         }
     }
@@ -231,7 +231,7 @@ public function update($id)
         'deskripsi_ekspor' => $deskripsiEkspor,  // Menambahkan deskripsi ekspor
     ]);
 
-    session()->setFlashdata('message', 'Progress berhasil diubah.');
+    session()->setFlashdata('success', 'Progress berhasil diubah.');
     return redirect()->to('/user/progress');
 }
 

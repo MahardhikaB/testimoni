@@ -6,6 +6,7 @@ Detail Pencapaian Ekspor
 
 <?= $this->section('head') ?>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="<?= base_url('css/notifikasi.css') ?>">
 <style>
     .form-container {
         background-color: #FFF7D4;
@@ -33,6 +34,7 @@ Detail Pencapaian Ekspor
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
+<?= $this->include('layout/notifikasi'); ?>
 <div class="container px-md-0 px-4">
     <div class="form-container mt-5 px-5 py-5">
         <h1 class="text-center">Detail Pencapaian Ekspor</h1>
