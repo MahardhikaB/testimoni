@@ -12,90 +12,89 @@ Edit Pencapaian Ekspor
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
 <script>
-
-$(function() {
-    $("#tanggal_ekspor").datepicker({
-        dateFormat: 'dd/mm/yy',
-        maxDate: "+0D"
-    });
-});
-
-$(document).ready(function() {
-    // Input mask untuk "Nilai Ekspor (Rp)"
-    $('#nilai_ekspor_rp').on('input', function() {
-        var value = $(this).val();
-        // Hapus karakter non-angka, dan pastikan simbol "Rp" muncul di depan
-        value = value.replace(/[^0-9]/g, '');
-        if (value) {
-            $(this).val('Rp ' + value);
-        } else {
-            $(this).val('');
-        }
+    $(function() {
+        $("#tanggal_ekspor").datepicker({
+            dateFormat: 'dd/mm/yy',
+            maxDate: "+0D"
+        });
     });
 
-    // Input mask untuk "Nilai Ekspor (USD)"
-    $('#nilai_ekspor_usd').on('input', function() {
-        var value = $(this).val();
-        // Hapus karakter non-angka, dan pastikan simbol "$" muncul di depan
-        value = value.replace(/[^0-9]/g, '');
-        if (value) {
-            $(this).val('$ ' + value);
-        } else {
-            $(this).val('');
-        }
-    });
+    $(document).ready(function() {
+        // Input mask untuk "Nilai Ekspor (Rp)"
+        $('#nilai_ekspor_rp').on('input', function() {
+            var value = $(this).val();
+            // Hapus karakter non-angka, dan pastikan simbol "Rp" muncul di depan
+            value = value.replace(/[^0-9]/g, '');
+            if (value) {
+                $(this).val('Rp ' + value);
+            } else {
+                $(this).val('');
+            }
+        });
 
-    // Input mask untuk "Kuantitas Ekspor"
-    $('#kuantitas_ekspor').on('input', function() {
-        var value = $(this).val();
-        // Hapus karakter non-angka, dan pastikan simbol "kg" muncul di belakang
-        value = value.replace(/[^0-9]/g, '');
-        if (value) {
-            $(this).val(value + ' kg');
-        } else {
-            $(this).val('');
-        }
+        // Input mask untuk "Nilai Ekspor (USD)"
+        $('#nilai_ekspor_usd').on('input', function() {
+            var value = $(this).val();
+            // Hapus karakter non-angka, dan pastikan simbol "$" muncul di depan
+            value = value.replace(/[^0-9]/g, '');
+            if (value) {
+                $(this).val('$ ' + value);
+            } else {
+                $(this).val('');
+            }
+        });
+
+        // Input mask untuk "Kuantitas Ekspor"
+        $('#kuantitas_ekspor').on('input', function() {
+            var value = $(this).val();
+            // Hapus karakter non-angka, dan pastikan simbol "kg" muncul di belakang
+            value = value.replace(/[^0-9]/g, '');
+            if (value) {
+                $(this).val(value + ' kg');
+            } else {
+                $(this).val('');
+            }
+        });
     });
-});
 </script>
 <style>
-.form-container {
-    background-color: #FFF7D4;
-}
-
-.form-container .form input {
-    background-color: #FFF7D4;
-}
-
-.form-container .btn-primary {
-    background-color: #4C3D3D;
-    width: 45%;
-}
-
-#img_bukti {
-    height: 200px;
-    margin: 0 auto;
-}
-
-@media (max-width: 576px) {
-    .form-container .btn-primary {
-        width: 100%;
+    .form-container {
+        background-color: #FFF7D4;
     }
-}
 
-/* Remove Up and Down Arrow */
-/* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
+    .form-container .form input {
+        background-color: #FFF7D4;
+    }
 
-/* Firefox */
-input[type=number] {
-    appearance: textfield;
-    -moz-appearance: textfield;
-}
+    .form-container .btn-primary {
+        background-color: #4C3D3D;
+        width: 45%;
+    }
+
+    #img_bukti {
+        height: 200px;
+        margin: 0 auto;
+    }
+
+    @media (max-width: 576px) {
+        .form-container .btn-primary {
+            width: 100%;
+        }
+    }
+
+    /* Remove Up and Down Arrow */
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+        appearance: textfield;
+        -moz-appearance: textfield;
+    }
 </style>
 
 <?= $this->endSection() ?>
@@ -118,7 +117,7 @@ input[type=number] {
                     </p>
                 </div>
                 <div class="input-form mb-3">
-                    <label class="form-label" for="negara_ekspor">Negara Ekspor</label>
+                    <label class="form-label" for="negara_ekspor">Negara Tujuan</label>
                     <input class="form-control border border-dark border-2" type="text" id="negara_ekspor" name="negara"
                         value="<?= $progress['negara_ekspor'] ?>">
                     <p class="mt-1 text-danger">
@@ -163,8 +162,8 @@ input[type=number] {
                 <div class="mb-3 flex flex-column">
                     <p class="form-label" for="bukti_ekspor">Bukti Ekspor</p>
                     <?php
-                        $filePath = '/bukti_ekspor/' . $progress['bukti_ekspor'];
-                        $fileName = pathinfo($progress['bukti_ekspor'], PATHINFO_FILENAME); // Ambil nama file tanpa ekstensi
+                    $filePath = '/bukti_ekspor/' . $progress['bukti_ekspor'];
+                    $fileName = pathinfo($progress['bukti_ekspor'], PATHINFO_FILENAME); // Ambil nama file tanpa ekstensi
                     ?>
                     <a href="<?= $filePath ?>" class="btn btn-link" download><?= $fileName ?>.pdf</a>
                     <input aria-describedby="file_input_help" type="file"
@@ -173,6 +172,16 @@ input[type=number] {
                         <?= isset($errorsImage['bukti_ekspor']) ? $errorsImage['bukti_ekspor'] : ''; ?>
                     </p>
                 </div>
+                <div class="col-md px-5">
+                    <div class="input-form mb-3">
+                        <label class="form-label" for="deskripsi_ekspor">Deskripsi Ekspor</label>
+                        <textarea class="form-control border border-dark border-2" id="deskripsi_ekspor" name="deskripsi" rows="3"><?= $progress['deskripsi_ekspor'] ?></textarea>
+                        <p class="mt-1 text-danger">
+                            <?= isset($errors['deskripsi_ekspor']) ? $errors['deskripsi_ekspor'] : ''; ?>
+                        </p>
+                    </div>
+                </div>
+
                 <div
                     class="input-form mb-3 d-flex flex-md-row flex-column justify-content-between align-items-center mt-5">
                     <a class="btn btn-primary border border-dark border-2" href="/user/progress">Kembali</a>
