@@ -3,17 +3,20 @@ namespace App\Controllers;
 
 use App\Models\ProgressModel;
 use App\Models\PerusahaanModel;
+use App\Models\PengalamanEksporModel;
 use DateTime;
 
 class ProgressController extends BaseController
 {
     protected $progressModel;
     protected $perusahaanModel;
+    protected $pengalamanEksporModel; 
 
     public function __construct()
     {
         $this->progressModel = new ProgressModel();
         $this->perusahaanModel = new PerusahaanModel();
+        $this->pengalamanEksporModel = new PengalamanEksporModel(); 
     }
 
     public function index()
@@ -47,78 +50,105 @@ class ProgressController extends BaseController
     }
 
     public function save()
-    {
-        $userId = session()->get('user_id');
-        if (!$userId) {
-            return redirect()->to('/login')->with('error', 'Harap login terlebih dahulu.');
+{
+    $userId = session()->get('user_id');
+    if (!$userId) {
+        return redirect()->to('/login')->with('error', 'Harap login terlebih dahulu.');
+    }
+
+    // Check if the user belongs to a company
+    $perusahaan = $this->perusahaanModel->getCompanyByUserId($userId);
+    if (!$perusahaan) {
+        return redirect()->to('/user/profile')->with('error', 'Anda belum terdaftar pada perusahaan manapun.');
+    }
+
+    // Get the id_progress (if any) from the post request
+    $idProgress = $this->request->getPost('id_progress');
+
+    // If there's an id_progress, we are updating, else we are adding a new record
+    $progressData = [];
+    if ($idProgress) {
+        $progressData = $this->progressModel->find($idProgress);
+        if (!$progressData || $progressData['id_perusahaan'] !== $perusahaan['id_perusahaan']) {
+            return redirect()->to('/user/progress')->with('error', 'Data tidak ditemukan atau Anda tidak memiliki akses.');
         }
-    
-        $perusahaan = $this->perusahaanModel->getCompanyByUserId($userId);
-    
-        if (!$perusahaan) {
-            return redirect()->to('/user/profile')->with('error', 'Anda belum terdaftar pada perusahaan manapun.');
-        }
-    
-        if (!$this->validate([
-            'bukti_ekspor' => [
-                'rules' => 'uploaded[bukti_ekspor]|max_size[bukti_ekspor,10240]|mime_in[bukti_ekspor,application/pdf]',
-                'errors' => [
-                    'max_size' => 'Ukuran file bukti ekspor terlalu besar. Maksimal 10MB.',
-                    'mime_in' => 'File yang Anda pilih bukan PDF.',
-                    'uploaded' => 'Harap pilih file bukti ekspor.',
-                ]
+    }
+
+    // Validation
+    if (!$this->validate([
+        'bukti_ekspor' => [
+            'rules' => 'uploaded[bukti_ekspor]|max_size[bukti_ekspor,10240]|mime_in[bukti_ekspor,application/pdf]',
+            'errors' => [
+                'max_size' => 'Ukuran file bukti ekspor terlalu besar. Maksimal 10MB.',
+                'mime_in' => 'File yang Anda pilih bukan PDF.',
+                'uploaded' => 'Harap pilih file bukti ekspor.',
             ]
-        ])) {
-            // Jika validasi gagal, kembalikan form dengan error dan input lama
-            return view('progress/add_progress', [
-                'errors' => $this->validator->getErrors(),
-                'old' => $this->request->getPost()
-            ]);
-        }
-    
-        // Debugging - cek apakah file terunggah
-        $fileBukti = $this->request->getFile('bukti_ekspor');
-        if (!$fileBukti->isValid()) {
-            return redirect()->back()->with('error', 'File bukti ekspor tidak valid.');
-        }
-    
-        // Proses file bukti ekspor
-        $namaBukti = $fileBukti->getRandomName();
-        $fileBukti->move('bukti_ekspor', $namaBukti);
-    
-        // Proses tanggal ekspor
-        $tanggalEkspor = $this->request->getPost('tanggal');
-        if ($tanggalEkspor) {
-            $dateObject = DateTime::createFromFormat('d/m/Y', $tanggalEkspor);
-            $tanggalEkspor = $dateObject->format('Y-m-d');
-        }
-    
-        // Debugging - cek data yang akan disimpan
-        $dataToSave = [
-            'id_perusahaan' => $perusahaan['id_perusahaan'],
-            'tanggal_ekspor' => $tanggalEkspor,
-            'negara_ekspor' => $this->request->getPost('negara'),
-            'jenis_ekspor' => $this->request->getPost('jenis'),
-            'produk_ekspor' => $this->request->getPost('produk'),
-            'nama_importir' => $this->request->getPost('nama_importir'),
-            'nilai_ekspor_rp' => preg_replace('/[^0-9]/', '', $this->request->getPost('nilai_ekspor_rp')),
-            'nilai_ekspor_usd' => preg_replace('/[^0-9]/', '', $this->request->getPost('nilai_ekspor_usd')),
-            'kuantitas_ekspor' => preg_replace('/[^0-9]/', '', $this->request->getPost('kuantitas')),
-            'bukti_ekspor' => $namaBukti,
-        ];
-    
-        // Debugging - cek apakah data sudah lengkap
-        log_message('debug', 'Data yang akan disimpan: ' . json_encode($dataToSave));
-    
-        // Simpan data ekspor
+        ],
+    ])) {
+        // If validation fails, return the form with errors and old input
+        return view('progress/add_progress', [
+            'errors' => $this->validator->getErrors(),
+            'old' => $this->request->getPost()
+        ]);
+    }
+
+    // Process the export file
+    $fileBukti = $this->request->getFile('bukti_ekspor');
+    $namaBukti = $fileBukti->getRandomName();
+    $fileBukti->move('bukti_ekspor', $namaBukti);
+
+    // Process export date
+    $tanggalEkspor = $this->request->getPost('tanggal');
+    if ($tanggalEkspor) {
+        $dateObject = DateTime::createFromFormat('d/m/Y', $tanggalEkspor);
+        $tanggalEkspor = $dateObject->format('Y-m-d');
+    }
+
+    // Get export description
+    $deskripsiEkspor = $this->request->getPost('deskripsi');
+
+    // Prepare the data for save/update
+    $dataToSave = [
+        'user_id' => $userId,  // Menambahkan user_id
+        'id_perusahaan' => $perusahaan['id_perusahaan'],
+        'tanggal_ekspor' => $tanggalEkspor,
+        'negara_ekspor' => $this->request->getPost('negara'),
+        'jenis_ekspor' => $this->request->getPost('jenis'),
+        'produk_ekspor' => $this->request->getPost('produk'),
+        'nama_importir' => $this->request->getPost('nama_importir'),
+        'nilai_ekspor_rp' => preg_replace('/[^0-9]/', '', $this->request->getPost('nilai_ekspor_rp')),
+        'nilai_ekspor_usd' => preg_replace('/[^0-9]/', '', $this->request->getPost('nilai_ekspor_usd')),
+        'kuantitas_ekspor' => preg_replace('/[^0-9]/', '', $this->request->getPost('kuantitas')),
+        'bukti_ekspor' => $namaBukti,
+        'deskripsi_ekspor' => $deskripsiEkspor,
+    ];
+
+    // If it's a new entry, save it
+    if (!$idProgress) {
         if ($this->progressModel->save($dataToSave)) {
+            // Save corresponding data in PengalamanEkspor table
+            $this->pengalamanEksporModel->addFromProgress($dataToSave);
+
             session()->setFlashdata('message', 'Progress berhasil ditambahkan.');
             return redirect()->to('/user/progress');
-        } else {
-            session()->setFlashdata('error', 'Terjadi kesalahan saat menyimpan data.');
+        }
+    } else {
+        // If updating an existing entry
+        $dataToSave['id'] = $idProgress;
+        if ($this->progressModel->save($dataToSave)) {
+            // Save corresponding data in PengalamanEkspor table
+            $this->pengalamanEksporModel->addFromProgress($dataToSave);
+
+            session()->setFlashdata('message', 'Progress berhasil diubah.');
             return redirect()->to('/user/progress');
         }
     }
+
+    session()->setFlashdata('error', 'Terjadi kesalahan saat menyimpan data.');
+    return redirect()->to('/user/progress');
+}
+
+    
     
     
 
@@ -182,6 +212,9 @@ public function update($id)
         $tanggalEkspor = $dateObject->format('Y-m-d');
     }
 
+    // Ambil deskripsi ekspor
+    $deskripsiEkspor = $this->request->getPost('deskripsi');
+
     // Simpan data progress
     $this->progressModel->save([
         'id' => $id,
@@ -195,11 +228,13 @@ public function update($id)
         'nilai_ekspor_usd' => $this->request->getPost('nilai_ekspor_usd'),
         'kuantitas_ekspor' => $this->request->getPost('kuantitas'),
         'bukti_ekspor' => $namaBukti,
+        'deskripsi_ekspor' => $deskripsiEkspor,  // Menambahkan deskripsi ekspor
     ]);
 
     session()->setFlashdata('message', 'Progress berhasil diubah.');
     return redirect()->to('/user/progress');
 }
+
 
 
     public function detail($id): string
