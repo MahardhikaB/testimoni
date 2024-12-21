@@ -26,7 +26,7 @@ class PerusahaanSeeder extends Seeder
 
         // Data perusahaan
         $data = [
-            'user_id_perusahaan' => $userId,
+            'user_id_perusahaan' => 2,
             'nama_perusahaan'    => 'PT Maju Sejahtera',
             'jenis_perusahaan'   => 'Manufaktur',
             'alamat'             => 'Jl. Mawar No. 123, Jakarta',
