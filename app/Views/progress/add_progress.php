@@ -25,7 +25,7 @@ Tambah Pencapaian Ekspor
         box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.22);
         border-radius: 10px;
         padding: 100px;
-        margin-bottom: 165px;
+        margin-bottom: 60px;
     }
 
     .form-container .form input {
@@ -134,7 +134,7 @@ Tambah Pencapaian Ekspor
                     </p>
                 </div>
                 <div class="input-form mb-3">
-                    <label class="form-label" for="negara_ekspor">Negara Ekspor</label>
+                    <label class="form-label" for="negara_ekspor">Negara Tujuan</label>
                     <input class="form-control border border-dark border-2" type="text" id="negara_ekspor"
                         name="negara" value="<?= old('negara') ?>">
                     <p class="mt-1 text-danger"><?= isset($errors['negara_ekspor']) ? $errors['negara_ekspor'] : ''; ?></p>
@@ -184,6 +184,11 @@ Tambah Pencapaian Ekspor
                     <input aria-describedby="file_input_help" type="file" class="form-control border border-dark border-2"
                         id="bukti_ekspor" name="bukti_ekspor">
                     <p class="mt-1 text-danger"><?= isset($errorsImage['bukti_ekspor']) ? $errorsImage['bukti_ekspor'] : ''; ?></p>
+                </div>
+                <div class="input-form mb-3">
+                    <label class="form-label" for="deskripsi_ekspor">Deskripsi Ekspor</label>
+                    <textarea class="form-control border border-dark border-2" id="deskripsi_ekspor" name="deskripsi" rows="4" placeholder="Masukkan deskripsi ekspor"><?= old('deskripsi') ?></textarea>
+                    <p class="mt-1 text-danger"><?= isset($errors['deskripsi_ekspor']) ? $errors['deskripsi_ekspor'] : ''; ?></p>
                 </div>
                 <div class="input-form mb-3 d-flex flex-md-row flex-column justify-content-between align-items-center mt-5">
                     <a class="btn btn-primary border border-dark border-2" href="/user/progress">Kembali</a>
