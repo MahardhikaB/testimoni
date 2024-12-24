@@ -19,6 +19,7 @@ class SertifikatModel extends Model
         'no_sertifikat',
         'tanggal_terbit_sertifikat',
         'penerbit_sertifikat',
+        'file_sertifikat',
         'tipe',
         'status_verifikasi',
         'created_at',
