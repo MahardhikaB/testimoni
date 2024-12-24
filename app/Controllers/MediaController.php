@@ -25,11 +25,23 @@ class MediaController extends BaseController
 
     public function store()
     {
+        // dd($this->request->getPost());
         $validation = \Config\Services::validation();
         $validation->setRules([
             'nama_media' => 'required',
-            'tahun_media' => 'required',
+            'tahun_media' => 'required|numeric',
             'deskripsi_media' => 'required',
+            'tipe' => 'required',
+        ],[
+            'nama_media' => [
+                'required' => 'Media harus diiisi.'
+            ],
+            'tahun_media' => [
+                'required' => 'Tahun harus diisi.'
+            ],
+            'deskripsi' => [
+                'required' => 'Deskripsi harus diisi.'
+            ],
         ]);
 
         if (!$validation->withRequest($this->request)->run()) {
@@ -38,14 +50,14 @@ class MediaController extends BaseController
 
         $mediaModel = new \App\Models\MediaPromosiModel();
         $mediaModel->insert([
-            // 'user_id_media' => session()->get('user_id'),
-            'user_id_media' => 2,
+            'user_id_media' => session()->get('user_id'),
             'nama_media' => $this->request->getPost('nama_media'),
             'tahun_media' => $this->request->getPost('tahun_media'),
             'deskripsi_media' => $this->request->getPost('deskripsi_media'),
+            'tipe' => $this->request->getPost('tipe'),
         ]);
 
-        return redirect()->to('/media')->with('success', 'Media promosi berhasil ditambahkan');
+        return redirect()->to('user/profile')->with('success_media', 'Media promosi berhasil ditambahkan');
     }
 
     public function edit($id_media)
@@ -64,18 +76,24 @@ class MediaController extends BaseController
 
     public function update($id_media)
     {
+        // dd($this->request->getPost());
         $mediaModel = new \App\Models\MediaPromosiModel();
-        $media = $mediaModel->find($id_media);
-
-        if (!$media) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException("Media promosi dengan ID $id_media tidak ditemukan.");
-        }
 
         $validation = \Config\Services::validation();
         $validation->setRules([
             'nama_media' => 'required',
-            'tahun_media' => 'required',
+            'tahun_media' => 'required|numeric',
             'deskripsi_media' => 'required',
+        ],[
+            'nama_media' => [
+                'required' => 'Media harus diiisi.'
+            ],
+            'tahun_media' => [
+                'required' => 'Tahun harus diisi.'
+            ],
+            'deskripsi' => [
+                'required' => 'Deskripsi harus diisi.'
+            ],
         ]);
 
         if (!$validation->withRequest($this->request)->run()) {
@@ -88,6 +106,20 @@ class MediaController extends BaseController
             'deskripsi_media' => $this->request->getPost('deskripsi_media'),
         ]);
 
-        return redirect()->to('/media')->with('success', 'Media promosi berhasil diubah');
+        return redirect()->to('user/profile')->with('success_media', 'Media promosi berhasil diubah');
+    }
+
+    public function delete($id_media)
+    {
+        $mediaModel = new \App\Models\MediaPromosiModel();
+        $media = $mediaModel->find($id_media);
+
+        if (!$media) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException("Media promosi dengan ID $id_media tidak ditemukan.");
+        }
+
+        $mediaModel->delete($id_media);
+
+        return redirect()->to('user/profile')->with('success_media', 'Media promosi berhasil dihapus');
     }
 }

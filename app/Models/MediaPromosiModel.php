@@ -19,6 +19,7 @@ class MediaPromosiModel extends Model
         'tahun_media',          // Tahun penggunaan media promosi
         'deskripsi_media',      // Deskripsi media promosi
         'status_verifikasi',    // Status verifikasi
+        'tipe',                 // Tipe media promosi
     ];
 
     /**
@@ -29,7 +30,9 @@ class MediaPromosiModel extends Model
      */
     public function getMediaByUserId(int $userId)
     {
-        return $this->where('user_id_media', $userId)->findAll();
+        return $this->select('id_media, nama_media, tahun_media, deskripsi_media, tipe, status_verifikasi')
+                    ->where('user_id_media', $userId)
+                    ->findAll();
     }
 
     /**

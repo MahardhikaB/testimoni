@@ -6,33 +6,35 @@ Detail Pencapaian Ekspor
 
 <?= $this->section('head') ?>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="<?= base_url('css/notifikasi.css') ?>">
 <style>
-.form-container {
-    background-color: #FFF7D4;
-}
+    .form-container {
+        background-color: #FFF7D4;
+    }
 
-.form-container .form input {
-    background-color: #FFF7D4;
-}
+    .form-container .form input {
+        background-color: #FFF7D4;
+    }
 
-.form-container .btn-primary {
-    background-color: #4C3D3D;
-}
+    .form-container .btn-primary {
+        background-color: #4C3D3D;
+    }
 
-#img_bukti {
-    transition: transform 0.5s;
-    height: 200px;
-    margin: 0 auto;
-    cursor: zoom-in;
-}
+    #img_bukti {
+        transition: transform 0.5s;
+        height: 200px;
+        margin: 0 auto;
+        cursor: zoom-in;
+    }
 
-#img_bukti:hover {
-    transform: scale(1.5);
-}
+    #img_bukti:hover {
+        transform: scale(1.5);
+    }
 </style>
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
+<?= $this->include('layout/notifikasi'); ?>
 <div class="container px-md-0 px-4">
     <div class="form-container mt-5 px-5 py-5">
         <h1 class="text-center">Detail Pencapaian Ekspor</h1>
@@ -45,7 +47,7 @@ Detail Pencapaian Ekspor
                         name="tanggal">
                 </div>
                 <div class="input-form mb-3">
-                    <label class="form-label" for="negara_ekspor">Negara Ekspor</label>
+                    <label class="form-label" for="negara_ekspor">Negara Tujuan</label>
                     <input readonly class="form-control border border-dark border-2" type="text" id="negara_ekspor"
                         name="negara" value="<?= $progress['negara_ekspor'] ?>" readonly>
                 </div>
@@ -81,13 +83,24 @@ Detail Pencapaian Ekspor
                     <input readonly class="form-control border border-dark border-2" type="text" id="kuantitas_ekspor"
                         name="kuantitas" value="<?= $progress['kuantitas_ekspor'] ?>" readonly>
                 </div>
+
                 <div class="mb-3 flex flex-column">
                     <p class="form-label" for="bukti_ekspor">Bukti Ekspor</p>
-                    <!-- <input readonly class="form-control border border-dark border-2" type="text" id="bukti_ekspor"
-                        name="bukti"> -->
-                    <img src="/bukti_ekspor/<?= $progress['bukti_ekspor'] ?>" id="img_bukti" alt="Bukti Ekspor">
+                    <?php
+                    $filePath = '/bukti_ekspor/' . $progress['bukti_ekspor'];
+                    $fileName = pathinfo($progress['bukti_ekspor'], PATHINFO_FILENAME); // Ambil nama file tanpa ekstensi
+                    ?>
+                    <a href="<?= $filePath ?>" class="btn btn-link" download><?= $fileName ?>.pdf</a>
                 </div>
+                <div class="col-md px-5">
+                    <div class="input-form mb-3">
+                        <label class="form-label" for="deskripsi_ekspor">Deskripsi Ekspor</label>
+                        <textarea readonly class="form-control border border-dark border-2" id="deskripsi_ekspor" name="deskripsi" rows="3"><?= $progress['deskripsi_ekspor'] ?></textarea>
+                    </div>
+                </div>
+
             </div>
+
             <div class="input-form mb-3-button d-flex justify-content-center mt-5 mb-3">
                 <a class="btn btn-primary w-25" href="/user/progress">Kembali</a>
             </div>
@@ -95,9 +108,9 @@ Detail Pencapaian Ekspor
     </div>
 </div>
 <script type="text/javascript">
-src = document.getElementById("img_bukti").src;
-document.getElementById("img_bukti").onclick = function() {
-    window.open(src, '_blank').focus();
-};
+    src = document.getElementById("img_bukti").src;
+    document.getElementById("img_bukti").onclick = function() {
+        window.open(src, '_blank').focus();
+    };
 </script>
 <?= $this->endSection() ?>
