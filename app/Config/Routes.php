@@ -71,11 +71,6 @@ $routes->group('user', ['filter' => 'role:user'], function ($routes) {
     $routes->post('legalitas/update/(:num)', 'LegalitasController::update/$1');
     $routes->post('legalitas/delete/(:num)', 'LegalitasController::delete/$1');
 
-    // Route Ekspor
-    $routes->get('ekspor', 'EksporController::index');
-    $routes->get('ekspor/create', 'EksporController::create');
-    $routes->post('ekspor/store', 'EksporController::store');
-
     // Route Sertifikat
     $routes->get('sertifikat', 'SertifikatController::index');
     $routes->get('sertifikat/create', 'SertifikatController::create');
@@ -112,6 +107,7 @@ $routes->group('user', ['filter' => 'role:user'], function ($routes) {
     $routes->post('ekspor/store', 'EksporController::store');
     $routes->get('ekspor/edit/(:num)', 'EksporController::edit/$1');
     $routes->post('ekspor/update/(:num)', 'EksporController::update/$1');
+    $routes->post('ekspor/delete/(:num)', 'EksporController::delete/$1');
 
     // Route Media Promosi
     $routes->get('media', 'MediaController::index');
@@ -127,4 +123,5 @@ $routes->group('user', ['filter' => 'role:user'], function ($routes) {
     $routes->post('program/store', 'ProgramController::store');
     $routes->get('program/edit/(:num)', 'ProgramController::edit/$1');
     $routes->post('program/update/(:num)', 'ProgramController::update/$1');
+    $routes->post('program/delete/(:num)', 'ProgramController::delete/$1');
 });
