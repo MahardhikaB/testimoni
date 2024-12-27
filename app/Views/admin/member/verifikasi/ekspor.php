@@ -20,8 +20,8 @@
                 <tr>
                     <td class="align-middle"><?= $index + 1; ?></td>
                     <td class="align-middle"><?= esc($item['nama_perusahaan']); ?></td>
-                    <td class="align-middle"><?= esc($item['destinasi_ekspor']); ?></td>
-                    <td class="align-middle"><?= esc($item['tahun_ekspor']); ?></td>
+                    <td class="align-middle"><?= esc($item['negara_tujuan']); ?></td>
+                    <td class="align-middle"><?= esc($item['tanggal']); ?></td>
                     <td class="align-middle"><?= esc($item['produk_ekspor']); ?></td>
                     <td class="align-middle">
                         <div class="d-flex">

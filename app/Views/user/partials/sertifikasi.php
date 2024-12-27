@@ -21,16 +21,21 @@
                         <p><strong>Issuer:</strong> <?= esc($sertifikatItem['penerbit_sertifikat']); ?></p>
                         <div>
                             <button class="btnEdit"
-                                onclick="editSertifikasi('<?= base_url('/user/sertifikasi/update/') . $sertifikatItem['id_sertifikat'] ?>', '<?= $sertifikatItem['judul_sertifikat'] ?>')"
+                                onclick="editSertifikasi('<?= base_url('/user/sertifikat/update/') . $sertifikatItem['id_sertifikat'] ?>', '<?= $sertifikatItem['judul_sertifikat'] ?>')"
                                 title="Edit">
                                 <i class="fa-regular fa-pen-to-square"></i>
                             </button>
                             <button class="btnHapus"
-                                onclick="hapusSertifikasi('<?= base_url('/user/sertifikasi/delete/') . $sertifikatItem['id_sertifikat'] ?>')"
+                                onclick="hapusSertifikasi('<?= base_url('/user/sertifikat/delete/') . $sertifikatItem['id_sertifikat'] ?>')"
                                 title="Hapus">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </div>
+                    </div>
+                    <!-- show files with i frame-->
+                    <div class="content-result-file">
+                            <iframe src="<?= base_url('storage/sertifikat/' . $sertifikatItem['file_sertifikat']) ?>"
+                                width="100%" height="300px"></iframe>
                     </div>
                 </div>
             <?php endforeach; ?>
@@ -61,21 +66,26 @@
                         <p><strong>Issuer:</strong> <?= esc($sertifikatItem['penerbit_sertifikat']); ?></p>
                         <div>
                             <button class="btnEdit"
-                                onclick="editSertifikasi('<?= base_url('/user/sertifikasi/update/') . $sertifikatItem['id_sertifikat'] ?>', '<?= $sertifikatItem['judul_sertifikat'] ?>')"
+                                onclick="editSertifikasi('<?= base_url('/user/sertifikat/update/') . $sertifikatItem['id_sertifikat'] ?>', '<?= $sertifikatItem['judul_sertifikat'] ?>')"
                                 title="Edit">
                                 <i class="fa-regular fa-pen-to-square"></i>
                             </button>
                             <button class="btnHapus"
-                                onclick="hapusSertifikasi('<?= base_url('/user/sertifikasi/delete/') . $sertifikatItem['id_sertifikat'] ?>')"
+                                onclick="hapusSertifikasi('<?= base_url('/user/sertifikat/delete/') . $sertifikatItem['id_sertifikat'] ?>')"
                                 title="Hapus">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </div>
                     </div>
+                    <!-- show files with i frame-->
+                    <div class="content-result-file">
+                            <iframe src="<?= base_url('storage/sertifikat/' . $sertifikatItem['file_sertifikat']) ?>"
+                                width="100%" height="300px"></iframe>
+                    </div>
                 </div>
             <?php endforeach; ?>
         <?php else: ?>
-            <p style="margin-top: 1rem;">Belum ada sertifikasi akhir yang ditambahkan.</p>
+            <p style="margin-top: 1rem;">Belum ada sertifikasi awal yang ditambahkan.</p>
         <?php endif; ?>
     </div>
 </div>
@@ -84,11 +94,11 @@
 <div id="modalTambahSertifikasi" class="modal">
     <div class="modal-content">
         <div class="modal-header">
-            <span class="close">&times;</span>
+            <span class="sertifikatClose">&times;</span>
         </div>
         <h2 id="titleModalSertifikasi">Tambah Sertifikasi</h2>
         <div class="form-container">
-            <form action="<?= base_url('user/sertifikat/store/') ?>" method="post">
+            <form action="<?= base_url('user/sertifikat/store/') ?>" method="post" enctype="multipart/form-data">
                 <?= csrf_field() ?>
                 <div class="col-md-6 mx-auto input-container">
                     <div class="mb-3 input-group">
@@ -111,6 +121,10 @@
                         <input type="text" class="form-control" id="penerbitSertifikat" name="penerbit_sertifikat"
                             placeholder="Masukkan penerbit sertifikat">
                     </div>
+                    <div class="mb-3 input-group">
+                        <label for="fileSertifikat" class="form-label">File Sertifikat</label>
+                        <input type="file" class="form-control" id="fileSertifikat" name="file_sertifikat">
+                    </div>
                     <input id="tipeSertifikasiInput" type="hidden" name="tipe" value="0">
                 </div>
                 <div class="d-flex justify-content-center gap-3 mt-4">
@@ -125,7 +139,7 @@
 <div id="modalSertifikasi" class="modal">
     <div class="modal-content">
         <div class="modal-header">
-            <span class="close">&times;</span>
+            <span class="sertifikatClose">&times;</span>
         </div>
         <h2>Edit Sertifikasi</h2>
         <div class="form-container">
@@ -152,6 +166,10 @@
                         <input type="text" class="form-control" id="penerbitSertifikat" name="penerbit_sertifikat"
                             placeholder="Masukkan penerbit sertifikat">
                     </div>
+                    <div class="mb-3 input-group">
+                        <label for="fileSertifikat" class="form-label">File Sertifikat</label>
+                        <input type="file" class="form-control" id="fileSertifikat" name="file_sertifikat">
+                    </div>
                 </div>
                 <div class="d-flex justify-content-center gap-3 mt-4">
                     <button type="submit" class="btn btn-submit">Simpan</button>
@@ -161,20 +179,42 @@
     </div>
 </div>
 
+<!-- Modal Delete -->
+<div id="modalDelete" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="sertifikatClose">&times;</span>
+        </div>
+        <h2>Hapus Sertifikasi</h2>
+        <div class="form-container">
+            <p>Apakah Anda yakin ingin menghapus sertifikasi ini?</p>
+            <div class="d-flex justify-content-center gap-3 mt-4">
+                <form id="formDeleteSertifikasi" action="" method="post">
+                    <?= csrf_field() ?>
+                    <button type="submit" class="btn btn-submit">Ya</button>
+                </form>
+                <button class="btn btn-cancel">Tidak</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     let modalSertifikasi = document.getElementById("modalSertifikasi");
     let modalTambahSertifikasi = document.getElementById("modalTambahSertifikasi");
+    let modalDeleteSertifikasi = document.getElementById("modalDelete");
     let titleModalSertifikasi = document.getElementById("titleModalSertifikasi");
     let tipeSertifikasiInput = document.getElementById("tipeSertifikasiInput");
     let btnTambahSertifikasiAwal = document.getElementById("btnTambahSertifikasiAwal");
     let btnTambahSertifikasiAkhir = document.getElementById("btnTambahSertifikasiAkhir");
-    let spanCloseModalSertifikasi = modalSertifikasi.querySelector(".close");
-    let spanCloseModalTambah = modalTambahSertifikasi.querySelector(".close");
+    let spanCloseModalTambah = document.getElementsByClassName("sertifikatClose")[0];
+    let spanCloseModalSertifikasi = document.getElementsByClassName("sertifikatClose")[1];
+    let spanCloseModalDelete = document.getElementsByClassName("sertifikatClose")[2];
 
     // Fungsi untuk membuka modal edit/hapus
     function hapusSertifikasi(action) {
-        modalSertifikasi.style.display = "block";
-        document.getElementById("formEditSertifikasi").action = action;
+        modalDeleteSertifikasi.style.display = "block";
+        document.getElementById("formDeleteSertifikasi").action = action;
     }
 
     function editSertifikasi(action, judul) {
@@ -198,11 +238,16 @@
 
     // Tutup modal saat klik tombol 'x'
     spanCloseModalSertifikasi.onclick = function () {
+        console.log('close');
         modalSertifikasi.style.display = "none";
     };
 
     spanCloseModalTambah.onclick = function () {
         modalTambahSertifikasi.style.display = "none";
+    };
+
+    spanCloseModalDelete.onclick = function () {
+        modalDeleteSertifikasi.style.display = "none";
     };
 
     // Tutup modal saat klik di luar modal
@@ -212,6 +257,9 @@
         }
         if (event.target == modalTambahSertifikasi) {
             modalTambahSertifikasi.style.display = "none";
+        }
+        if (event.target == modalDeleteSertifikasi) {
+            modalDeleteSertifikasi.style.display = "none";
         }
     };
 </script>

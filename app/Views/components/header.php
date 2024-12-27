@@ -41,11 +41,10 @@
         dropdown.classList.toggle('active');
     }
 
-    document.querySelector('.user-image').addEventListener('click', function() {
-    const dropdownMenu = document.querySelector('.user-menu .dropdown-menu');
-    dropdownMenu.classList.toggle('show');
-});
-
+    // document.querySelector('.user-image').addEventListener('click', function() {
+    // const dropdownMenu = document.querySelector('.user-menu .dropdown-menu');
+    // dropdownMenu.classList.toggle('show');
+    // });
 </script>
 </nav>
 
