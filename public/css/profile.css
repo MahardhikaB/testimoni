@@ -207,13 +207,39 @@
 }
 
 .content-container .content-result-container .content-result-card .content-result-info h5,
-.content-container .content-result-container .content-result-card .content-result-text h5 {
+.content-container .content-result-container .content-result-card .content-result-text h5,
+.content-container .content-result-container .content-result-card .content-result-image-produk h5 {
     margin-bottom: 0.2rem;
     font-size: 1.1rem;
 }
 
-.content-container .content-result-container .content-result-card .content-result-text {
+.content-container .content-result-container .content-result-card .content-result-text, 
+.content-container .content-result-container .content-result-card .content-result-image-produk {
     margin-top: 0.6rem;
+}
+
+.content-container .content-result-container .content-result-card .content-result-image-produk .produk-image-container {
+    display: flex;
+    align-items: center;
+    margin-top: 0.4rem;
+}
+
+.content-container .content-result-container .content-result-card .content-result-image-produk .produk-image-container img {
+    width: 88px;
+    margin-right: 16px;
+    height: 88px;
+    object-fit: cover;
+    border: 1px solid #ccc;
+    border-radius: 0.4rem;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2),0 2px 8px 0 rgba(0,0,0,0.19);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.content-container .content-result-container .content-result-card .content-result-image-produk .produk-image-container img:hover {
+    transform: scale(1.1);
+    opacity: 0.8;
+    transition: 0.3s;
 }
 
 .content-container .content-result-container .content-result-card .content-result-text p {
@@ -294,7 +320,8 @@
 }
   
 .close,
-.mediaClose {
+.mediaClose,
+.produkClose {
     color: #aaa;
     float: right;
     font-size: 28px;
@@ -303,6 +330,8 @@
   
 .close:hover,
 .close:focus,
+.produkClose:hover,
+.produkClose:focus,
 .mediaClose:hover,
 .mediaClose:focus {
     color: red;
@@ -499,13 +528,81 @@
     background-color: #f44336;
 }
 
-/* #myModalDelete button:nth-child(1) {
-    background-color: #4CAF50;
-}
+/* Modal Image */
+  
+  /* The Modal (background) */
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 125px;
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+  }
 
-#myModalDelete button:nth-child(2) {
-    background-color: #f44336;
-} */
+  .prev,
+  .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -50px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none; 
+  }
+
+  .prev {
+    left: 15%;
+  }
+
+  .next {
+    right: 15%;
+  }
+  
+  /* Modal Content (Image) */
+  .imageModalContent {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 800px;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+  }
+  
+  @keyframes zoom {
+    from {transform:scale(0)}
+    to {transform:scale(1)}
+  }
+  
+  /* The Close Button */
+  .imageClose {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+  
+  .imageClose:hover,
+  .imageClose:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+/* Modal Image */
 
 .content-before-content-one,
 .content-before-content-two,

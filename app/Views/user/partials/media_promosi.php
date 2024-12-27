@@ -166,3 +166,4 @@ window.onload = function() {
 <?= $this->include('user/partials/modals/media_promosi/delete') ?>
 
 <script src="../../../../js/mediaModal.js"></script>
+<script src="../../../../js/modal.js"></script>

@@ -18,7 +18,11 @@ class ProdukModel extends Model
         'nama_produk',    // Nama produk
         'deskripsi_produk',      // Deskripsi produk
         'harga_produk',          // Harga produk
-        'ketersediaan_produk',   // Status ketersediaan
+        'foto_1',                // Foto produk 1
+        'foto_2',                // Foto produk 2
+        'foto_3',                // Foto produk 3
+        'foto_4',                // Foto produk 4
+        'foto_5',                // Foto produk 5
         'tipe',                  // Befor After identifier
         'status_verifikasi',     // Status verifikasi
     ];
@@ -31,7 +35,14 @@ class ProdukModel extends Model
      */
     public function getProdukByUserId(int $userId)
     {
-        return $this->where('user_id_produk', $userId)->findAll();
+        return $this->select('id_produk, nama_produk, deskripsi_produk, harga_produk, foto_1, foto_2, foto_3, foto_4, foto_5, tipe, status_verifikasi')
+                    ->where('user_id_produk', $userId)
+                    ->Where('foto_1 !=', null)
+                    ->orWhere('foto_2 !=', null)
+                    ->orWhere('foto_3 !=', null)
+                    ->orWhere('foto_4 !=', null)
+                    ->orWhere('foto_5 !=', null)
+                    ->findAll();
     }
 
     /**
