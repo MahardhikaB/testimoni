@@ -64,24 +64,3 @@ mediaClose[2].onclick = function() {
 btnCloseMedia.onclick = function() {
     modalMediaDelete.style.display = "none";
 }
-
-window.onclick = function(event) {
-    if (event.target === modalMediaAdd) {
-        modalMediaAdd.style.display = "none";
-    }
-    if (event.target === modalMediaEdit) {
-        modalMediaEdit.style.display = "none";
-    }
-    if (event.target === modalMediaDelete) {
-        modalMediaDelete.style.display = "none";
-    }
-    if (event.target === modalLegalitasAdd) {
-        modalLegalitasAdd.style.display = "none";
-    }
-    if (event.target === modalLegalitasEdit) {
-        modalLegalitasEdit.style.display = "none";
-    }
-    if (event.target === modalLegalitasDelete) {
-        modalLegalitasDelete.style.display = "none";
-    }
-};

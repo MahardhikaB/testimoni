@@ -88,7 +88,7 @@ class UserController extends BaseController
         $pembinaan = $pembinaanModel->getPembinaanByUserId($userId);
 
 
-        // dd($mediaPromosi);
+        // dd($produk);
 
         // Data yang akan dikirim ke view
         $userData = [
