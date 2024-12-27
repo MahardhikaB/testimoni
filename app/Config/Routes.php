@@ -62,7 +62,7 @@ $routes->group('user', ['filter' => 'role:user'], function ($routes) {
     $routes->get('dashboard', 'UserController::dashboard');
     $routes->get('profile', 'UserController::profile');
     $routes->get('pameran', 'PameranController::index');
-
+    
     // Route Legalitas
     $routes->get('legalitas', 'LegalitasController::index');
     $routes->get('legalitas/create', 'LegalitasController::create');
@@ -70,6 +70,14 @@ $routes->group('user', ['filter' => 'role:user'], function ($routes) {
     $routes->get('legalitas/edit/(:num)', 'LegalitasController::edit/$1');
     $routes->post('legalitas/update/(:num)', 'LegalitasController::update/$1');
     $routes->post('legalitas/delete/(:num)', 'LegalitasController::delete/$1');
+
+    // Route Ekspor
+    $routes->get('ekspor', 'EksporController::index');
+    $routes->get('ekspor/create', 'EksporController::create');
+    $routes->post('ekspor/store', 'EksporController::store');
+    $routes->get('ekspor/edit/(:num)', 'EksporController::edit/$1');
+    $routes->post('ekspor/update/(:num)', 'EksporController::update/$1');
+    $routes->post('ekspor/delete/(:num)', 'EksporController::delete/$1');
 
     // Route Sertifikat
     $routes->get('sertifikat', 'SertifikatController::index');
@@ -101,13 +109,6 @@ $routes->group('user', ['filter' => 'role:user'], function ($routes) {
     $routes->get('pameran/edit/(:num)', 'PameranController::edit/$1');
     $routes->post('pameran/update/(:num)', 'PameranController::update/$1');
 
-    // Route Ekspor
-    $routes->get('ekspor', 'EksporController::index');
-    $routes->get('ekspor/create', 'EksporController::create');
-    $routes->post('ekspor/store', 'EksporController::store');
-    $routes->get('ekspor/edit/(:num)', 'EksporController::edit/$1');
-    $routes->post('ekspor/update/(:num)', 'EksporController::update/$1');
-    $routes->post('ekspor/delete/(:num)', 'EksporController::delete/$1');
 
     // Route Media Promosi
     $routes->get('media', 'MediaController::index');
