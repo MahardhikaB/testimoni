@@ -33,26 +33,79 @@ class ProdukController extends BaseController
      */
     public function store()
     {
+        // dd($this->request->getPost());
         $validation = \Config\Services::validation();
+
+        // Define validation rules and messages
         $validation->setRules([
             'nama_produk' => 'required',
             'deskripsi_produk' => 'required',
-            'harga_produk' => 'required',
-            'tipe' => 'required',
+            'harga_produk' => 'required|numeric',
             'foto_1' => 'uploaded[foto_1]|max_size[foto_1,2048]|is_image[foto_1]',
             'foto_2' => 'max_size[foto_2,2048]|is_image[foto_2]',
             'foto_3' => 'max_size[foto_3,2048]|is_image[foto_3]',
             'foto_4' => 'max_size[foto_4,2048]|is_image[foto_4]',
             'foto_5' => 'max_size[foto_5,2048]|is_image[foto_5]',
+            'tipe' => 'required',
+        ], [
+            'nama_produk' => [
+                'required' => 'Nama produk wajib diisi'
+            ],
+            'harga_produk' => [
+                'numeric' => 'Harga harus berupa angka'
+            ],
+            'deskripsi_produk' => [
+                'required' => 'Deskripsi produk wajib diisi'
+            ],
+            'foto_1' => [
+                'uploaded' => 'Foto produk 1 wajib diisi',
+                'max_size' => 'Ukuran foto terlalu besar',
+                'is_image' => 'File harus berupa gambar'
+            ],
+            'foto_2' => [
+                'max_size' => 'Ukuran foto terlalu besar',
+                'is_image' => 'File harus berupa gambar'
+            ],
+            'foto_3' => [
+                'max_size' => 'Ukuran foto terlalu besar',
+                'is_image' => 'File harus berupa gambar'
+            ],
+            'foto_4' => [
+                'max_size' => 'Ukuran foto terlalu besar',
+                'is_image' => 'File harus berupa gambar'
+            ],
+            'foto_5' => [
+                'max_size' => 'Ukuran foto terlalu besar',
+                'is_image' => 'File harus berupa gambar'
+            ],
+            'tipe' => [
+                'required' => 'Tipe produk wajib diisi'
+            ],
         ]);
 
+        // Run validation
         if (!$validation->withRequest($this->request)->run()) {
-            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+            return redirect()->back()->withInput()->with('produk_errors', $validation->getErrors());
         }
 
-        $userId = session()->get('user_id'); // Ambil ID user dari session
-        $uploadedFiles = $this->uploadFiles(['foto_1', 'foto_2', 'foto_3', 'foto_4', 'foto_5'], [], $userId);
+        // Get user ID from session
+        $userId = session()->get('user_id');
 
+        // Handle file uploads
+        $uploadedFiles = [];
+        $photoFields = ['foto_1', 'foto_2', 'foto_3', 'foto_4', 'foto_5'];
+        foreach ($photoFields as $field) {
+            $file = $this->request->getFile($field);
+            if ($file && $file->isValid() && !$file->hasMoved()) {
+                $randomName = $file->getRandomName();
+                $file->move('storage/photos', $randomName); // Save in 'storage/photos' directory
+                $uploadedFiles[$field] = $randomName; // Store the random filename
+            } else {
+                $uploadedFiles[$field] = null; // No file uploaded for this field
+            }
+        }
+
+        // Save product data
         $produkModel = new \App\Models\ProdukModel();
         $produkModel->insert([
             'user_id_produk' => $userId,
@@ -67,8 +120,11 @@ class ProdukController extends BaseController
             'foto_5' => $uploadedFiles['foto_5'],
         ]);
 
-        return redirect()->to('/produk')->with('success', 'Produk berhasil ditambahkan');
+        // Redirect to product list with success message
+        return redirect()->to('/user/profile')->with('success_produk', 'Produk berhasil ditambahkan');
     }
+
+
 
     /**
      * Tampilkan form edit produk.
@@ -131,7 +187,7 @@ class ProdukController extends BaseController
             'foto_5' => $uploadedFiles['foto_5'],
         ]);
 
-        return redirect()->to('/produk')->with('success', 'Produk berhasil diubah');
+        return redirect()->to('/user/profile')->with('success_produk', 'Produk berhasil diubah');
     }
 
     /**
