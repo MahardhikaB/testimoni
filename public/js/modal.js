@@ -29,4 +29,13 @@ window.onclick = function(event) {
     if (event.target === modalImage) {
         modalImage.style.display = "none";
     }
+    if (event.target == modalEditPembinaan) {
+        modalEditPembinaan.style.display = "none";
+    }
+    if (event.target == modalTambahPembinaan) {
+        modalTambahPembinaan.style.display = "none";
+    }
+    if (event.target == modalDeletePembinaan) {
+        modalDeletePembinaan.style.display = "none";
+    }
 };

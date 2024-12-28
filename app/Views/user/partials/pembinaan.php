@@ -6,45 +6,45 @@
             <button id="btnTambahPembinaan">Tambah Program Pembinaan</button>
         </div>
         <?php if (!empty($programs)): ?>
-            <?php foreach ($programs as $programItem): ?>
-                <div class="content-result-card">
-                    <b style="color: #ffc107;">
-                        <?= $programItem['status_verifikasi'] === 'pending' ? 'Sedang diverifikasi' : '' ?>
-                    </b>
-                    <div class="content-result-info">
-                        <div class="row">
-                            <div class="col">
-                                <p><strong>Program: </strong> <?= esc($programItem['nama_program']); ?></p>
-                            </div>
-                            <div class="col">
-                                <p><strong>Tahun: </strong> <?= esc($programItem['tahun_program']) ?> </p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <p><strong>Penyelenggara: </strong> <?= esc($programItem['penyelenggara_program']) ?> </p>
-                            </div>
-                            <div class="col">
-                                <p><strong>Deskripsi:</strong> <?= esc($programItem['deskripsi_program']); ?></p>
-                            </div>
-                        </div>
-                        <div>
-                            <button class="btnEdit"
-                                onclick="editPembinaan('<?= base_url('user/program/update/') . $programItem['id_program'] ?>', '<?= $programItem['nama_program'] ?>', '<?= $programItem['tahun_program'] ?>', '<?= $programItem['penyelenggara_program'] ?>', '<?= $programItem['deskripsi_program'] ?>')"
-                                title="Edit">
-                                <i class="fa-regular fa-pen-to-square"></i>
-                            </button>
-                            <button class="btnHapus"
-                                onclick="hapusPembinaan('<?= base_url('user/program/delete/') . $programItem['id_program'] ?>')"
-                                title="Hapus">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </div>
+        <?php foreach ($programs as $programItem): ?>
+        <div class="content-result-card">
+            <b style="color: #ffc107;">
+                <?= $programItem['status_verifikasi'] === 'pending' ? 'Sedang diverifikasi' : '' ?>
+            </b>
+            <div class="content-result-info">
+                <div class="row">
+                    <div class="col">
+                        <p><strong>Program: </strong> <?= esc($programItem['nama_program']); ?></p>
+                    </div>
+                    <div class="col">
+                        <p><strong>Tahun: </strong> <?= esc($programItem['tahun_program']) ?> </p>
                     </div>
                 </div>
-            <?php endforeach; ?>
+                <div class="row">
+                    <div class="col">
+                        <p><strong>Penyelenggara: </strong> <?= esc($programItem['penyelenggara_program']) ?> </p>
+                    </div>
+                    <div class="col">
+                        <p><strong>Deskripsi:</strong> <?= esc($programItem['deskripsi_program']); ?></p>
+                    </div>
+                </div>
+                <div>
+                    <button class="btnEdit"
+                        onclick="editPembinaan('<?= base_url('user/program/update/') . $programItem['id_program'] ?>', '<?= $programItem['nama_program'] ?>', '<?= $programItem['tahun_program'] ?>', '<?= $programItem['penyelenggara_program'] ?>', '<?= $programItem['deskripsi_program'] ?>')"
+                        title="Edit">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                    </button>
+                    <button class="btnHapus"
+                        onclick="hapusPembinaan('<?= base_url('user/program/delete/') . $programItem['id_program'] ?>')"
+                        title="Hapus">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <?php endforeach; ?>
         <?php else: ?>
-            <p style="margin-top: 1rem;">Belum ada program pembinaan yang ditambahkan.</p>
+        <p style="margin-top: 1rem;">Belum ada program pembinaan yang ditambahkan.</p>
         <?php endif; ?>
     </div>
 </div>
@@ -112,8 +112,8 @@
                     </div>
                     <div class="mb-3 input-group">
                         <label for="penyelenggaraProgramEdit" class="form-label">Penyelenggara Program</label>
-                        <input type="text" class="form-control" id="penyelenggaraProgramEdit" name="penyelenggara_program"
-                            placeholder="Masukkan penyelenggara program">
+                        <input type="text" class="form-control" id="penyelenggaraProgramEdit"
+                            name="penyelenggara_program" placeholder="Masukkan penyelenggara program">
                     </div>
                     <div class="mb-3 input-group">
                         <label for="deskripsiProgramEdit" class="form-label">Deskripsi Program</label>
@@ -150,60 +150,47 @@
 </div>
 
 <script>
-    let modalTambahPembinaan = document.getElementById("modalTambahPembinaan");
-    let modalEditPembinaan = document.getElementById("modalEditPembinaan");
-    let modalDeletePembinaan = document.getElementById("modalDeletePembinaan");
-    let titleModalPembinaan = document.getElementById("titleModalPembinaan");
-    let btnTambahPembinaan = document.getElementById("btnTambahPembinaan");
-    let spanCloseModalTambahPembinaan = document.getElementsByClassName("pembinaanClose")[0];
-    let spanCloseModalEditPembinaan = document.getElementsByClassName("pembinaanClose")[1];
-    let spanCloseModalDeletePembinaan = document.getElementsByClassName("pembinaanClose")[2];
+let modalTambahPembinaan = document.getElementById("modalTambahPembinaan");
+let modalEditPembinaan = document.getElementById("modalEditPembinaan");
+let modalDeletePembinaan = document.getElementById("modalDeletePembinaan");
+let titleModalPembinaan = document.getElementById("titleModalPembinaan");
+let btnTambahPembinaan = document.getElementById("btnTambahPembinaan");
+let spanCloseModalTambahPembinaan = document.getElementsByClassName("pembinaanClose")[0];
+let spanCloseModalEditPembinaan = document.getElementsByClassName("pembinaanClose")[1];
+let spanCloseModalDeletePembinaan = document.getElementsByClassName("pembinaanClose")[2];
 
-    // Fungsi untuk membuka modal edit/hapus
-    function hapusPembinaan(action) {
-        modalDeletePembinaan.style.display = "block";
-        document.getElementById("formDeletePembinaan").action = action;
-    }
+// Fungsi untuk membuka modal edit/hapus
+function hapusPembinaan(action) {
+    modalDeletePembinaan.style.display = "block";
+    document.getElementById("formDeletePembinaan").action = action;
+}
 
-    function editPembinaan(action, nama, tahun, penyelenggara, deskripsi) {
-        modalEditPembinaan.style.display = "block";
-        document.getElementById("formEditPembinaan").action = action;
-        document.getElementById("namaProgramEdit").value = nama;
-        document.getElementById("tahunProgramEdit").value = tahun;
-        document.getElementById("penyelenggaraProgramEdit").value = penyelenggara;
-        document.getElementById("deskripsiProgramEdit").value = deskripsi;
-    }
+function editPembinaan(action, nama, tahun, penyelenggara, deskripsi) {
+    modalEditPembinaan.style.display = "block";
+    document.getElementById("formEditPembinaan").action = action;
+    document.getElementById("namaProgramEdit").value = nama;
+    document.getElementById("tahunProgramEdit").value = tahun;
+    document.getElementById("penyelenggaraProgramEdit").value = penyelenggara;
+    document.getElementById("deskripsiProgramEdit").value = deskripsi;
+}
 
-    // Fungsi untuk membuka modal tambah
-    btnTambahPembinaan.onclick = function () {
-        console.log("tambah");
-        modalTambahPembinaan.style.display = "block";
-        titleModalPembinaan.innerHTML = "Tambah Program Pembinaan";
-    };
+// Fungsi untuk membuka modal tambah
+btnTambahPembinaan.onclick = function() {
+    console.log("tambah");
+    modalTambahPembinaan.style.display = "block";
+    titleModalPembinaan.innerHTML = "Tambah Program Pembinaan";
+};
 
-    // Tutup modal saat klik tombol 'x'
-    spanCloseModalTambahPembinaan.onclick = function () {
-        modalTambahPembinaan.style.display = "none";
-    };
+// Tutup modal saat klik tombol 'x'
+spanCloseModalTambahPembinaan.onclick = function() {
+    modalTambahPembinaan.style.display = "none";
+};
 
-    spanCloseModalEditPembinaan.onclick = function () {
-        modalEditPembinaan.style.display = "none";
-    };
+spanCloseModalEditPembinaan.onclick = function() {
+    modalEditPembinaan.style.display = "none";
+};
 
-    spanCloseModalDeletePembinaan.onclick = function () {
-        modalDeletePembinaan.style.display = "none";
-    };
-
-    // Tutup modal saat klik di luar modal
-    window.onclick = function (event) {
-        if (event.target == modalPembinaan) {
-            modalEditPembinaan.style.display = "none";
-        }
-        if (event.target == modalTambahPembinaan) {
-            modalTambahPembinaan.style.display = "none";
-        }
-        if (event.target == modalDeletePembinaan) {
-            modalDeletePembinaan.style.display = "none";
-        }
-    };
+spanCloseModalDeletePembinaan.onclick = function() {
+    modalDeletePembinaan.style.display = "none";
+};
 </script>
