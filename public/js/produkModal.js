@@ -6,10 +6,16 @@ let modalImage = document.getElementById("imageModal");
 let titleModalProduk = document.getElementById("titleModalProduk");
 let tipeInputProduk = document.getElementById("tipeInputProduk");
 
-let produk = document.getElementById("edit_media_promosi");
-let hargaProduk = document.getElementById("edit_tahun_media");
-let deskripsiProduk = document.getElementById("edit_deskripsi_media");
+let produk = document.getElementById("edit_nama_produk");
+let hargaProduk = document.getElementById("edit_harga_produk");
+let deskripsiProduk = document.getElementById("edit_deskripsi_produk");
 let fotoContent = document.getElementById("img01");
+
+let edit_foto_1_preview = document.getElementById("edit_foto_1_preview");
+let edit_foto_2_preview = document.getElementById("edit_foto_2_preview");
+let edit_foto_3_preview = document.getElementById("edit_foto_3_preview");
+let edit_foto_4_preview = document.getElementById("edit_foto_4_preview");
+let edit_foto_5_preview = document.getElementById("edit_foto_5_preview");
 
 // Image
 let imageSource = document.getElementsByClassName("foto");
@@ -35,6 +41,7 @@ function openImageModal(src, index){
 }
 
 function nextImage(){
+    console.log("Next");    
     indexFoto++;
     if(indexFoto >= imageSource.length){
         indexFoto = 0;
@@ -47,6 +54,7 @@ function prevImage(){
     if(indexFoto < 0){
         indexFoto = imageSource.length - 1;
     }
+    console.log("change to " + indexFoto);
     fotoContent.src = imageSource[indexFoto].src;
 }
 
@@ -60,14 +68,38 @@ function hapusDataProduk(action) {
     formDeleteProduk.action = action;
 }
 
-function editDataProduk(action, nama_media, tahun_media, deskripsi_media) {
+function editDataProduk(action, nama_produk, harga_produk, deskripsi_produk, foto_1, foto_2, foto_3, foto_4, foto_5) {
+    console.log(action, nama_produk, harga_produk, deskripsi_produk, foto_1, foto_2, foto_3, foto_4, foto_5);
     modalProdukEdit.style.display = "block";
     formEditProduk.action = action;
-    produk.value = nama_media;
-    hargaProduk.value = tahun_media;
-    deskripsiProduk.value = deskripsi_media;
-    formEditProduk.method = "post";
-    console.log(action + " " + nama_media + " " + tahun_media + " " + deskripsi_media); 
+    produk.value = nama_produk;
+    hargaProduk.value = harga_produk;
+    deskripsiProduk.value = deskripsi_produk;
+    if(foto_1){
+        edit_foto_1_preview.src = '/storage/photos/' + foto_1;
+        edit_foto_1_preview.style.display = "block";
+        document.getElementById("edit_foto_1_old").value = foto_1;
+    }
+    if(foto_2){
+        edit_foto_2_preview.src = '/storage/photos/' + foto_2;
+        edit_foto_2_preview.style.display = "block";
+        document.getElementById("edit_foto_2_old").value = foto_2;
+    }
+    if(foto_3){
+        edit_foto_3_preview.src = '/storage/photos/' + foto_3;
+        edit_foto_3_preview.style.display = "block";
+        document.getElementById("edit_foto_3_old").value = foto_3;
+    }
+    if(foto_4){
+        edit_foto_4_preview.src = '/storage/photos/' + foto_4;
+        edit_foto_4_preview.style.display = "block";
+        document.getElementById("edit_foto_4_old").value = foto_4;
+    }
+    if(foto_5){
+        edit_foto_5_preview.src = '/storage/photos/' + foto_5;
+        edit_foto_5_preview.style.display = "block";
+        document.getElementById("edit_foto_5_old").value = foto_5;
+    }
 }
 
 btnTambahProdukBefore.onclick = function() {
@@ -87,14 +119,14 @@ produkClose[0].onclick = function() {
     modalProdukAdd.style.display = "none";
 }
 
-// produkClose[1].onclick = function() {
-//     modalProdukEdit.style.display = "none";
-// }
+produkClose[1].onclick = function() {
+    modalProdukEdit.style.display = "none";
+}
 
-// produkClose[2].onclick = function() {
-//     modalProdukDelete.style.display = "none";
-// }
+produkClose[2].onclick = function() {
+    modalProdukDelete.style.display = "none";
+}
 
-// btnCloseProduk.onclick = function() {
-//     modalProdukDelete.style.display = "none";
-// }
+btnCloseProduk.onclick = function() {
+    modalProdukDelete.style.display = "none";
+}

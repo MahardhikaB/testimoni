@@ -47,11 +47,13 @@ window.onload = function() {
                     </p>
                 </div>
                 <div>
-                    <button class="btnEdit" title="Edit Produk">
+                    <button
+                        onclick="editDataProduk('<?= base_url('/user/produk/update/') . $item['id_produk'] ?>', '<?= $item['nama_produk'] ?>', '<?= $item['harga_produk'] ?>', '<?= $item['deskripsi_produk'] ?>', '<?= $item['foto_1'] ?>', '<?= $item['foto_2'] ?>', '<?= $item['foto_3'] ?>', '<?= $item['foto_4'] ?>', '<?= $item['foto_5'] ?>')"
+                        class="btnEdit" title="Edit Produk">
                         <i class="fa-regular fa-pen-to-square"></i>
                     </button>
                     <button class="btnHapus"
-                        onclick="hapusDataMedia('<?= base_url('/user/media/delete/') . $item['id_produk'] ?>')"
+                        onclick="hapusDataProduk('<?= base_url('/user/produk/delete/') . $item['id_produk'] ?>')"
                         title="Hapus Produk">
                         <i class="fa-solid fa-trash"></i>
                     </button>
@@ -81,31 +83,31 @@ window.onload = function() {
                 <div class="produk-image-container">
                     <?php if (!empty($item['foto_1'])): ?>
                     <div class="produk-image">
-                        <img onclick="openImageModal('<?= base_url('/storage/photos/') . $item['foto_1'] ?>', '1')"
+                        <img onclick="openImageModal('<?= base_url('/storage/photos/') . $item['foto_1'] ?>', '0')"
                             class="foto" src="<?= base_url('/storage/photos/') . $item['foto_1']  ?>" alt="">
                     </div>
                     <?php endif; ?>
                     <?php if (!empty($item['foto_2'])): ?>
                     <div class="produk-image">
-                        <img onclick="openImageModal('<?= base_url('/storage/photos/') . $item['foto_2'] ?>', '2')"
+                        <img onclick="openImageModal('<?= base_url('/storage/photos/') . $item['foto_2'] ?>', '1')"
                             class="foto" src="<?= base_url('/storage/photos/') . $item['foto_2']  ?>" alt="">
                     </div>
                     <?php endif; ?>
                     <div class="produk-image">
                         <?php if (!empty($item['foto_3'])): ?>
-                        <img onclick="openImageModal('<?= base_url('/storage/photos/') . $item['foto_3'] ?>', '3')"
+                        <img onclick="openImageModal('<?= base_url('/storage/photos/') . $item['foto_3'] ?>', '2')"
                             class="foto" src="<?= base_url('/storage/photos/') . $item['foto_3']  ?>" alt="">
                         <?php endif; ?>
                     </div>
                     <?php if (!empty($item['foto_4'])): ?>
                     <div class="produk-image">
-                        <img onclick="openImageModal('<?= base_url('/storage/photos/') . $item['foto_4'] ?>', '4')"
+                        <img onclick="openImageModal('<?= base_url('/storage/photos/') . $item['foto_4'] ?>', '3')"
                             class="foto" src="<?= base_url('/storage/photos/') . $item['foto_4']  ?>" alt="">
                     </div>
                     <?php endif; ?>
                     <?php if (!empty($item['foto_5'])): ?>
                     <div class="produk-image">
-                        <img onclick="openImageModal('<?= base_url('/storage/photos/') . $item['foto_5'] ?>', '5')"
+                        <img onclick="openImageModal('<?= base_url('/storage/photos/') . $item['foto_5'] ?>', '4')"
                             class="foto" src="<?= base_url('/storage/photos/') . $item['foto_5']  ?>" alt="">
                     </div>
                     <?php endif; ?>
@@ -153,11 +155,13 @@ window.onload = function() {
                     </p>
                 </div>
                 <div>
-                    <button class="btnEdit" title="Edit Produk">
+                    <button class="btnEdit"
+                        onclick="editDataProduk('<?= base_url('/user/produk/update/') . $item['id_produk'] ?>', '<?= $item['nama_produk'] ?>', '<?= $item['harga_produk'] ?>', '<?= $item['deskripsi_produk'] ?>', '<?= $item['foto_1'] ?>', '<?= $item['foto_2'] ?>', '<?= $item['foto_3'] ?>', '<?= $item['foto_4'] ?>', '<?= $item['foto_5'] ?>')"
+                        title="Edit Produk">
                         <i class="fa-regular fa-pen-to-square"></i>
                     </button>
                     <button class="btnHapus"
-                        onclick="hapusDataMedia('<?= base_url('/user/media/delete/') . $item['id_produk'] ?>')"
+                        onclick="hapusDataProduk('<?= base_url('/user/produk/delete/') . $item['id_produk'] ?>')"
                         title="Hapus Produk">
                         <i class="fa-solid fa-trash"></i>
                     </button>

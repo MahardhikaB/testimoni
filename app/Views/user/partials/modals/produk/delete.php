@@ -1,13 +1,13 @@
-<!-- Modal Hapus Media Promosi -->
-<div class="modal" id="myModalDelete">
+<!-- Modal Hapus Produk -->
+<div class="modal" id="modalProdukDelete">
     <div class="modal-content">
         <div class="modal-header">
-            <span class="close">&times;</span>
+            <span class="produkClose">&times;</span>
         </div>
-        <h2>Hapus Media Promosi</h2>
-        <p style="margin-top: 0.4rem;">Apakah Anda yakin ingin menghapus media_promosi ini?</p>
+        <h2>Hapus Produk</h2>
+        <p style="margin-top: 0.4rem;">Apakah Anda yakin ingin menghapus produk ini?</p>
         <div class="btn-delete-container">
-            <form id="formDelete" action="<?= base_url('user/media_promosi/delete/')?>" method="post">
+            <form id="formDeleteProduk" action="<?= base_url('user/produk/delete/')?>" method="post">
                 <?= csrf_field() ?>
                 <button type="submit">Ya</button>
             </form>

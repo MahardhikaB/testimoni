@@ -148,12 +148,12 @@ class ProdukController extends BaseController
      */
     public function update($id_produk)
     {
+        // dd($this->request->getPost());
         $validation = \Config\Services::validation();
         $validation->setRules([
             'nama_produk' => 'required',
             'deskripsi_produk' => 'required',
             'harga_produk' => 'required',
-            'tipe' => 'required',
             'foto_1' => 'max_size[foto_1,2048]|is_image[foto_1]',
             'foto_2' => 'max_size[foto_2,2048]|is_image[foto_2]',
             'foto_3' => 'max_size[foto_3,2048]|is_image[foto_3]',
@@ -162,7 +162,7 @@ class ProdukController extends BaseController
         ]);
 
         if (!$validation->withRequest($this->request)->run()) {
-            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+            return redirect()->back()->withInput()->with('produk_errors', $validation->getErrors());
         }
 
         $produkModel = new \App\Models\ProdukModel();
@@ -173,46 +173,74 @@ class ProdukController extends BaseController
         }
 
         $userId = session()->get('user_id'); // Ambil ID user dari session
-        $uploadedFiles = $this->uploadFiles(['foto_1', 'foto_2', 'foto_3', 'foto_4', 'foto_5'], $produk, $userId);
+
+        $foto_1 = $this->request->getFile('foto_1');
+        $foto_2 = $this->request->getFile('foto_2');
+        $foto_3 = $this->request->getFile('foto_3');
+        $foto_4 = $this->request->getFile('foto_4');
+        $foto_5 = $this->request->getFile('foto_5');
+        $photoFields = [$foto_1, $foto_2, $foto_3, $foto_4, $foto_5];
+        $photoArray = ['foto_1', 'foto_2', 'foto_3', 'foto_4', 'foto_5'];
+        $photoName = ['', '', '', '', ''];
+
+        foreach ($photoFields as $key => $photo) {
+            if($photo->getError() == 4) {
+                $photoName[$key] = $this->request->getPost($photoArray[$key] . '_old');
+            } else {
+                unlink('storage/photos/' . $this->request->getPost($photoArray[$key] . '_old'));
+                $photoName[$key] = $photo->getRandomName();
+                $photo->move('storage/photos', $photoName[$key]);
+            }
+        }
 
         $produkModel->update($id_produk, [
             'nama_produk' => $this->request->getPost('nama_produk'),
             'deskripsi_produk' => $this->request->getPost('deskripsi_produk'),
             'harga_produk' => $this->request->getPost('harga_produk'),
-            'tipe' => $this->request->getPost('tipe'),
-            'foto_1' => $uploadedFiles['foto_1'],
-            'foto_2' => $uploadedFiles['foto_2'],
-            'foto_3' => $uploadedFiles['foto_3'],
-            'foto_4' => $uploadedFiles['foto_4'],
-            'foto_5' => $uploadedFiles['foto_5'],
+            'foto_1' => $photoName[0],
+            'foto_2' => $photoName[1],
+            'foto_3' => $photoName[2],
+            'foto_4' => $photoName[3],
+            'foto_5' => $photoName[4],
         ]);
 
         return redirect()->to('/user/profile')->with('success_produk', 'Produk berhasil diubah');
     }
 
     /**
-     * Upload file dan simpan di folder user tertentu.
+     * Hapus produk.
      */
-    private function uploadFiles(array $fields, $existingData = [], $userId)
+    public function delete($id_produk)
     {
-        $uploadedFiles = [];
-        $uploadPath = WRITEPATH . 'uploads/users/' . $userId;
+        $produkModel = new \App\Models\ProdukModel();
+        $produk = $produkModel->find($id_produk);
 
-        // Buat folder user jika belum ada
-        if (!is_dir($uploadPath)) {
-            mkdir($uploadPath, 0777, true);
+        if (!$produk) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException("Produk dengan ID $id_produk tidak ditemukan.");
         }
 
-        foreach ($fields as $field) {
-            $file = $this->request->getFile($field);
-            if ($file && $file->isValid()) {
-                $fileName = $file->getRandomName();
-                $file->move($uploadPath, $fileName);
-                $uploadedFiles[$field] = 'users/' . $userId . '/' . $fileName;
-            } else {
-                $uploadedFiles[$field] = $existingData[$field] ?? null;
-            }
+        if(!empty($produk['foto_1'])) {
+            unlink('storage/photos/' . $produk['foto_1']);
+        } 
+        
+        if (!empty($produk['foto_2'])) {
+            unlink('storage/photos/' . $produk['foto_2']);
         }
-        return $uploadedFiles;
+        
+        if (!empty($produk['foto_3'])) {
+            unlink('storage/photos/' . $produk['foto_3']);
+        } 
+        
+        if (!empty($produk['foto_4'])) {
+            unlink('storage/photos/' . $produk['foto_4']);
+        }
+        
+        if (!empty($produk['foto_5'])) {
+            unlink('storage/photos/' . $produk['foto_5']);
+        }
+
+        $produkModel->delete($id_produk);
+
+        return redirect()->to('/user/profile')->with('success_produk', 'Produk berhasil dihapus');
     }
 }

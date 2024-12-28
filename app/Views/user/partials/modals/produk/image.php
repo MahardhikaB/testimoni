@@ -1,7 +1,7 @@
 <!-- The Modal -->
 <div id="imageModal" class="modal">
     <!-- Modal previous image -->
-    <span class="prev" onclick="nextImage()">&#10094;</span>
+    <span class="prev" onclick="prevImage()">&#10094;</span>
 
     <!-- The Close Button -->
     <span class="imageClose">&times;</span>
@@ -10,5 +10,5 @@
     <img class="imageModalContent" id="img01" src="">
 
     <!-- Modal next image -->
-    <span class="next" onclick="plusSlides(1)">&#10095;</span>
+    <span class="next" onclick="nextImage()">&#10095;</span>
 </div>
