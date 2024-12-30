@@ -127,4 +127,6 @@ $routes->group('user', ['filter' => 'role:user'], function ($routes) {
     $routes->post('program/store', 'ProgramController::store');
     $routes->get('program/edit/(:num)', 'ProgramController::edit/$1');
     $routes->post('program/update/(:num)', 'ProgramController::update/$1');
+
+    $routes->get('lainnya', 'PencapaianEksporController::index');
 });

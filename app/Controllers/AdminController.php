@@ -11,6 +11,7 @@ use App\Models\ProdukModel;
 use App\Models\ProgramPembinaanModel;
 use App\Models\SertifikatModel;
 use App\Models\UserModel;
+use App\Models\PencapaianEksporModel;
 
 class AdminController extends BaseController
 {
@@ -23,6 +24,7 @@ class AdminController extends BaseController
     protected $pengalamanEksporModel;
     protected $mediaPromosiModel;
     protected $programPembinaanModel;
+    protected $pencapaianEksporModel;
 
     public function __construct()
     {
@@ -34,6 +36,7 @@ class AdminController extends BaseController
         $this->pengalamanEksporModel = new PengalamanEksporModel();
         $this->mediaPromosiModel = new MediaPromosiModel();
         $this->programPembinaanModel = new ProgramPembinaanModel();
+        $this->pencapaianEksporModel = new PencapaianEksporModel();
         helper('form');
     }
 
@@ -73,7 +76,7 @@ class AdminController extends BaseController
 
         $verifikasiData = [];
 
-        if (!in_array($tipe, ['legalitas', 'produk', 'sertifikat', 'pengalaman-pameran', 'pengalaman-ekspor', 'media-promosi', 'program-pembinaan', 'verifikasi-user'])) {
+        if (!in_array($tipe, ['legalitas', 'produk', 'sertifikat', 'pengalaman-pameran', 'pengalaman-ekspor', 'media-promosi', 'program-pembinaan', 'verifikasi-user', 'lainnya'])) {
             return redirect()->back()->with('error', 'Tipe verifikasi tidak valid.');
         } else {
             if ($tipe == 'legalitas') {
@@ -92,6 +95,8 @@ class AdminController extends BaseController
                 $verifikasiData = $this->programPembinaanModel->getUnverifiedProgramPembinaan();
             } else if ($tipe == 'verifikasi-user') {
                 $verifikasiData = $this->userModel->getUnverifiedUser();
+            } else if ($tipe == 'lainnya') {
+                $verifikasiData = $this->pencapaianEksporModel->getUnverifiedLainnya();
             }
         }
 
@@ -144,7 +149,7 @@ class AdminController extends BaseController
                 ]
             ],
             'section' => [
-                'rules' => 'required|in_list[legalitas,produk,sertifikat,pengalaman-pameran,pengalaman-ekspor,media-promosi,program-pembinaan,verifikasi-user]',
+                'rules' => 'required|in_list[legalitas,produk,sertifikat,pengalaman-pameran,pengalaman-ekspor,media-promosi,program-pembinaan,verifikasi-user,lainnya]',
                 'errors' => [
                     'required' => 'Section harus ada.'
                 ]
@@ -203,6 +208,9 @@ class AdminController extends BaseController
                 break;
             case 'verifikasi-user':
                 $model = $this->userModel;
+                break;
+            case 'lainnya':
+                $model = $this->pencapaianEksporModel;
                 break;    
         }
 

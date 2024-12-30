@@ -11,6 +11,8 @@ use App\Models\PengalamanPameranModel;
 use App\Models\PengalamanEksporModel;
 use App\Models\MediaPromosiModel;
 use App\Models\ProgramPembinaanModel;
+use App\Models\PencapaianEksporModel;
+ // Tambahkan model pencapaian ekspor
 
 class UserController extends BaseController
 {
@@ -70,6 +72,7 @@ class UserController extends BaseController
         $eksporModel = new PengalamanEksporModel();
         $mediaPromosiModel = new MediaPromosiModel();
         $pembinaanModel = new ProgramPembinaanModel();
+        $pencapaianEksporModel = new PencapaianEksporModel(); // Tambahkan model pencapaian ekspor
 
         // Ambil data pengguna dari database
         $user = $userModel->find($userId);
@@ -86,9 +89,7 @@ class UserController extends BaseController
         $ekspor = $eksporModel->getEksporByUserId($userId);
         $mediaPromosi = $mediaPromosiModel->getMediaByUserId($userId);
         $pembinaan = $pembinaanModel->getPembinaanByUserId($userId);
-
-
-        // dd($mediaPromosi);
+        $pencapaianEkspor = $pencapaianEksporModel->getPencapaianByUserId($userId); // Ambil data pencapaian ekspor
 
         // Data yang akan dikirim ke view
         $userData = [
@@ -101,6 +102,7 @@ class UserController extends BaseController
             'ekspor' => $ekspor,
             'mediaPromosi' => $mediaPromosi,
             'pembinaan' => $pembinaan,
+            'pencapaianEkspor' => $pencapaianEkspor, // Kirim ke view
         ];
 
         // Return view
