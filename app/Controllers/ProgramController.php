@@ -13,7 +13,7 @@ class ProgramController extends BaseController
         $programModel = new ProgramPembinaanModel();
         $programs = $programModel->getAllProgramsByUserId(session()->get('user_id'));
 
-        return view('user/partials/pembinaan', [
+        return view('user/profile', [
             'programs' => $programs,
         ]);
     }
@@ -88,7 +88,7 @@ class ProgramController extends BaseController
 
         $programModel->update($id_program, $data);
 
-        return redirect()->to('/program')->with('success', 'Program berhasil diubah.');
+        return redirect()->to('user/profile')->with('success', 'Program berhasil diubah.');
     }
 
     public function delete($id_program)
@@ -102,7 +102,7 @@ class ProgramController extends BaseController
 
         $programModel->delete($id_program);
 
-        return redirect()->to('/program')->with('success', 'Program berhasil dihapus.');
+        return redirect()->to('user/profile')->with('success', 'Program berhasil dihapus.');
     }
 
     public function unverified()
