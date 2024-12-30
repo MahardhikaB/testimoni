@@ -83,32 +83,37 @@ window.onload = function() {
                 <div class="produk-image-container">
                     <?php if (!empty($item['foto_1'])): ?>
                     <div class="produk-image">
-                        <img onclick="openImageModal('<?= base_url('/storage/photos/') . $item['foto_1'] ?>', '0')"
-                            class="foto" src="<?= base_url('/storage/photos/') . $item['foto_1']  ?>" alt="">
+                        <img onclick="openImageModal('<?= base_url('/storage/photos/') . $item['foto_1'] ?>', '0', <?= $item['id_produk'] ?>)"
+                            data-index="<?= $item['id_produk'] ?>" class="foto"
+                            src="<?= base_url('/storage/photos/') . $item['foto_1']  ?>" alt="">
                     </div>
                     <?php endif; ?>
                     <?php if (!empty($item['foto_2'])): ?>
                     <div class="produk-image">
-                        <img onclick="openImageModal('<?= base_url('/storage/photos/') . $item['foto_2'] ?>', '1')"
-                            class="foto" src="<?= base_url('/storage/photos/') . $item['foto_2']  ?>" alt="">
+                        <img onclick="openImageModal('<?= base_url('/storage/photos/') . $item['foto_2'] ?>', '1', <?= $item['id_produk'] ?>)"
+                            data-index="<?= $item['id_produk'] ?>" class="foto"
+                            src="<?= base_url('/storage/photos/') . $item['foto_2']  ?>" alt="">
                     </div>
                     <?php endif; ?>
                     <div class="produk-image">
                         <?php if (!empty($item['foto_3'])): ?>
-                        <img onclick="openImageModal('<?= base_url('/storage/photos/') . $item['foto_3'] ?>', '2')"
-                            class="foto" src="<?= base_url('/storage/photos/') . $item['foto_3']  ?>" alt="">
+                        <img onclick="openImageModal('<?= base_url('/storage/photos/') . $item['foto_3'] ?>', '2', <?= $item['id_produk'] ?>)"
+                            data-index="<?= $item['id_produk'] ?>" class="foto"
+                            src="<?= base_url('/storage/photos/') . $item['foto_3']  ?>" alt="">
                         <?php endif; ?>
                     </div>
                     <?php if (!empty($item['foto_4'])): ?>
                     <div class="produk-image">
-                        <img onclick="openImageModal('<?= base_url('/storage/photos/') . $item['foto_4'] ?>', '3')"
-                            class="foto" src="<?= base_url('/storage/photos/') . $item['foto_4']  ?>" alt="">
+                        <img onclick="openImageModal('<?= base_url('/storage/photos/') . $item['foto_4'] ?>', '3', <?= $item['id_produk'] ?>)"
+                            data-index="<?= $item['id_produk'] ?>" class="foto"
+                            src="<?= base_url('/storage/photos/') . $item['foto_4']  ?>" alt="">
                     </div>
                     <?php endif; ?>
                     <?php if (!empty($item['foto_5'])): ?>
                     <div class="produk-image">
-                        <img onclick="openImageModal('<?= base_url('/storage/photos/') . $item['foto_5'] ?>', '4')"
-                            class="foto" src="<?= base_url('/storage/photos/') . $item['foto_5']  ?>" alt="">
+                        <img onclick="openImageModal('<?= base_url('/storage/photos/') . $item['foto_5'] ?>', '4', <?= $item['id_produk'] ?>)"
+                            data-index="<?= $item['id_produk'] ?>" class="foto"
+                            src="<?= base_url('/storage/photos/') . $item['foto_5']  ?>" alt="">
                     </div>
                     <?php endif; ?>
                 </div>
@@ -191,32 +196,37 @@ window.onload = function() {
                 <div class="produk-image-container">
                     <?php if (!empty($item['foto_1'])): ?>
                     <div class="produk-image">
-                        <img onclick="openImageModal('<?= base_url('/storage/photos/') . $item['foto_1'] ?>', '1')"
-                            class="foto" src="<?= base_url('/storage/photos/') . $item['foto_1']  ?>" alt="">
+                        <img onclick="openImageModal('<?= base_url('/storage/photos/') . $item['foto_1'] ?>', '0', <?= $item['id_produk'] ?>)"
+                            data-index="<?= $item['id_produk'] ?>" class="foto"
+                            src="<?= base_url('/storage/photos/') . $item['foto_1']  ?>" alt="">
                     </div>
                     <?php endif; ?>
                     <?php if (!empty($item['foto_2'])): ?>
                     <div class="produk-image">
-                        <img onclick="openImageModal('<?= base_url('/storage/photos/') . $item['foto_2'] ?>', '2')"
-                            class="foto" src="<?= base_url('/storage/photos/') . $item['foto_2']  ?>" alt="">
+                        <img onclick="openImageModal('<?= base_url('/storage/photos/') . $item['foto_2'] ?>', '1', <?= $item['id_produk'] ?>)"
+                            data-index="<?= $item['id_produk'] ?>" class="foto"
+                            src="<?= base_url('/storage/photos/') . $item['foto_2']  ?>" alt="">
                     </div>
                     <?php endif; ?>
                     <div class="produk-image">
                         <?php if (!empty($item['foto_3'])): ?>
-                        <img onclick="openImageModal('<?= base_url('/storage/photos/') . $item['foto_3'] ?>', '3')"
-                            class="foto" src="<?= base_url('/storage/photos/') . $item['foto_3']  ?>" alt="">
+                        <img onclick="openImageModal('<?= base_url('/storage/photos/') . $item['foto_3'] ?>', '2', <?= $item['id_produk'] ?>)"
+                            data-index="<?= $item['id_produk'] ?>" class="foto"
+                            src="<?= base_url('/storage/photos/') . $item['foto_3']  ?>" alt="">
                         <?php endif; ?>
                     </div>
                     <?php if (!empty($item['foto_4'])): ?>
                     <div class="produk-image">
-                        <img onclick="openImageModal('<?= base_url('/storage/photos/') . $item['foto_4'] ?>', '4')"
-                            class="foto" src="<?= base_url('/storage/photos/') . $item['foto_4']  ?>" alt="">
+                        <img onclick="openImageModal('<?= base_url('/storage/photos/') . $item['foto_4'] ?>', '3', <?= $item['id_produk'] ?>)"
+                            data-index="<?= $item['id_produk'] ?>" class="foto"
+                            src="<?= base_url('/storage/photos/') . $item['foto_4']  ?>" alt="">
                     </div>
                     <?php endif; ?>
                     <?php if (!empty($item['foto_5'])): ?>
                     <div class="produk-image">
-                        <img onclick="openImageModal('<?= base_url('/storage/photos/') . $item['foto_5'] ?>', '5')"
-                            class="foto" src="<?= base_url('/storage/photos/') . $item['foto_5']  ?>" alt="">
+                        <img onclick="openImageModal('<?= base_url('/storage/photos/') . $item['foto_5'] ?>', '4', <?= $item['id_produk'] ?>)"
+                            data-index="<?= $item['id_produk'] ?>" class="foto"
+                            src="<?= base_url('/storage/photos/') . $item['foto_5']  ?>" alt="">
                     </div>
                     <?php endif; ?>
                 </div>
