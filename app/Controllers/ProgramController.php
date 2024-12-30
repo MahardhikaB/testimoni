@@ -11,9 +11,9 @@ class ProgramController extends BaseController
     public function index()
     {
         $programModel = new ProgramPembinaanModel();
-        $programs = $programModel->findAll();
+        $programs = $programModel->getAllProgramsByUserId(session()->get('user_id'));
 
-        return view('program/index', [
+        return view('user/profile', [
             'programs' => $programs,
         ]);
     }
@@ -39,14 +39,15 @@ class ProgramController extends BaseController
 
         $programModel = new ProgramPembinaanModel();
         $programModel->insert([
-            'user_id_pembinaan' => 2,
+            'user_id_pembinaan' => session()->get('user_id'),
             'nama_program' => $this->request->getPost('nama_program'),
             'tahun_program' => $this->request->getPost('tahun_program'),
             'penyelenggara_program' => $this->request->getPost('penyelenggara_program'),
             'deskripsi_program' => $this->request->getPost('deskripsi_program'),
+            'status_verifikasi' => 'pending',
         ]);
 
-        return redirect()->to('/program')->with('success', 'Program berhasil ditambahkan');
+        return redirect()->to('user/profile')->with('success', 'Program berhasil ditambahkan dan sedang dalam proses verifikasi.');
     }
 
     public function edit($id_program)
@@ -78,13 +79,39 @@ class ProgramController extends BaseController
         }
 
         $programModel = new ProgramPembinaanModel();
-        $programModel->update($id_program, [
+        $data = [
             'nama_program' => $this->request->getPost('nama_program'),
             'tahun_program' => $this->request->getPost('tahun_program'),
             'penyelenggara_program' => $this->request->getPost('penyelenggara_program'),
             'deskripsi_program' => $this->request->getPost('deskripsi_program'),
-        ]);
+        ];
 
-        return redirect()->to('/program')->with('success', 'Program berhasil diubah');
+        $programModel->update($id_program, $data);
+
+        return redirect()->to('user/profile')->with('success', 'Program berhasil diubah.');
+    }
+
+    public function delete($id_program)
+    {
+        $programModel = new ProgramPembinaanModel();
+        $program = $programModel->find($id_program);
+
+        if (!$program) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException("Program dengan ID $id_program tidak ditemukan.");
+        }
+
+        $programModel->delete($id_program);
+
+        return redirect()->to('user/profile')->with('success', 'Program berhasil dihapus.');
+    }
+
+    public function unverified()
+    {
+        $programModel = new ProgramPembinaanModel();
+        $unverifiedPrograms = $programModel->getUnverifiedProgramPembinaan();
+
+        return view('program/unverified', [
+            'programs' => $unverifiedPrograms,
+        ]);
     }
 }

@@ -11,12 +11,5 @@ class DatabaseSeeder extends Seeder
         $this->call('UserSeeder');
         $this->call('PerusahaanSeeder');
         $this->call('ProgressSeeder');
-        $this->call('UserLegalitasSeeder');
-        $this->call('UserMediaPromosiSeeder');
-        $this->call('UserPengalamanEksporSeeder');
-        $this->call('UserPengalamanPameranSeeder');
-        $this->call('PencapaianEksporSeeder');
-        $this->call('UserProgramPembinaanSeeder');
-        $this->call('UserSertifikatSeeder');
     }
 }

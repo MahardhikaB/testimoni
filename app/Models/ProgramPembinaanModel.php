@@ -34,6 +34,19 @@ class ProgramPembinaanModel extends Model
     }
 
     /**
+     * Mendapatkan semua program pembinaan milik user tertentu, termasuk yang sudah diverifikasi.
+     *
+     * @param int $userId
+     * @return array
+     */
+    public function getAllProgramsByUserId(int $userId)
+    {
+        return $this->where('user_id_pembinaan', $userId)
+                    ->whereIn('status_verifikasi', ['pending', 'accepted'])
+                    ->findAll();
+    }
+
+    /**
      * Mendapatkan program pembinaan yang belum diverifikasi.
      *
      * @return array

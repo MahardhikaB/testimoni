@@ -88,9 +88,8 @@ class UserController extends BaseController
         $pameran = $pameranModel->getPameranByUserId($userId);
         $ekspor = $eksporModel->getEksporByUserId($userId);
         $mediaPromosi = $mediaPromosiModel->getMediaByUserId($userId);
-        $pembinaan = $pembinaanModel->getPembinaanByUserId($userId);
-        $pencapaianEkspor = $pencapaianEksporModel->getPencapaianByUserId($userId); // Ambil data pencapaian ekspor
-
+        $pembinaan = $pembinaanModel->getAllProgramsByUserId($userId);
+        $pencapaianEkspor = $pencapaianEksporModel->getPencapaianByUserId($userId); // Ambil data pencapaian ekspor berdasarkan user_id
         // Data yang akan dikirim ke view
         $userData = [
             'user' => $user,

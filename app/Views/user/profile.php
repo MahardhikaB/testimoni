@@ -65,7 +65,7 @@ Dashboard Perusahaan
                 <a href="#" class="tab-button" data-tab="pengalaman-pameran">Pengalaman Pameran</a>
             </div>
             <div class="tabs-btn">
-                <a href="#" class="tab-button" data-tab="pengalaman-ekspor">Pengalaman Ekspor</a>
+                <a href="#" class="tab-button" data-tab="pengalaman-ekspor">Pencapaian Ekspor</a>
             </div>
             <div class="tabs-btn">
                 <a href="#" class="tab-button" data-tab="media-promosi">Media Promosi</a>
