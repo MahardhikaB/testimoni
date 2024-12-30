@@ -5,8 +5,8 @@
             <h4>Program Pembinaan</h4>
             <button id="btnTambahPembinaan">Tambah Program Pembinaan</button>
         </div>
-        <?php if (!empty($programs)): ?>
-        <?php foreach ($programs as $programItem): ?>
+        <?php if (!empty($pembinaan)): ?>
+        <?php foreach ($pembinaan as $programItem): ?>
         <div class="content-result-card">
             <b style="color: #ffc107;">
                 <?= $programItem['status_verifikasi'] === 'pending' ? 'Sedang diverifikasi' : '' ?>
