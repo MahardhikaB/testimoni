@@ -272,13 +272,13 @@ function editData(action, legalitas, fileLegalitas) {
 btnTambahLegalitasBefore.onclick = function() {
     modalLegalitasAdd.style.display = "block";
     titleModalLegalitas.innerHTML = "Tambah Legalitas Before";
-    // tipe_input.value = "0";
+    tipeInputLegalitas.value = "0";
 }
 
 btnTambahLegalitasAfter.onclick = function() {
     modalLegalitasAdd.style.display = "block";
     titleModalLegalitas.innerHTML = "Tambah Legalitas After";
-    // tipe_input.value = "1";
+    tipeInputLegalitas.value = "1";
 }
 
 span[0].onclick = function() {

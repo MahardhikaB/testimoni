@@ -32,30 +32,43 @@ let formEditProduk = document.getElementById("formEditProduk");
 let produkClose = document.getElementsByClassName("produkClose");
 
 let indexFoto = 0;
+let indexProduk = 0;
+let imageSourceIndexed = [];
 
-function openImageModal(src, index){
-    console.log(src, index);
+for (let i = 0; i < imageSource.length; i++) {
+    let index = imageSource[i].getAttribute('data-index');
+    if (!imageSourceIndexed[index]) {
+        imageSourceIndexed[index] = [];
+    }
+    imageSourceIndexed[index].push(imageSource[i]);
+}
+
+function openImageModal(src, index, id_produk){
+    indexProduk = id_produk;
     indexFoto = index;
     modalImage.style.display = "block";
     fotoContent.src = src;
+    console.log(src, index, id_produk);
+    console.log(imageSourceIndexed);
+    console.log(imageSourceIndexed[indexProduk][indexFoto]);
 }
 
-function nextImage(){
-    console.log("Next");    
+function nextImage(){ 
     indexFoto++;
-    if(indexFoto >= imageSource.length){
+    if (indexFoto >= imageSourceIndexed[indexProduk].length) {
         indexFoto = 0;
     }
-    fotoContent.src = imageSource[indexFoto].src;
+    console.log("change to " + indexFoto + ", " + indexProduk);
+    fotoContent.src = imageSourceIndexed[indexProduk][indexFoto].src;
 }
 
 function prevImage(){
     indexFoto--;
     if(indexFoto < 0){
-        indexFoto = imageSource.length - 1;
+        indexFoto = imageSourceIndexed[indexProduk].length - 1;
     }
-    console.log("change to " + indexFoto);
-    fotoContent.src = imageSource[indexFoto].src;
+    console.log("change to " + indexFoto + ", " + indexProduk);
+    fotoContent.src = imageSourceIndexed[indexProduk][indexFoto].src;
 }
 
 imageClose.onclick = function() {
