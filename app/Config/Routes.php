@@ -109,7 +109,7 @@ $routes->group('user', ['filter' => 'role:user'], function ($routes) {
     $routes->post('pameran/store', 'PameranController::store');
     $routes->get('pameran/edit/(:num)', 'PameranController::edit/$1');
     $routes->post('pameran/update/(:num)', 'PameranController::update/$1');
-
+    $routes->post('pameran/delete/(:num)', 'PameranController::delete/$1');
 
     // Route Media Promosi
     $routes->get('media', 'MediaController::index');
