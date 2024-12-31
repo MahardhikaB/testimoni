@@ -104,6 +104,7 @@ class MediaController extends BaseController
             'nama_media' => $this->request->getPost('nama_media'),
             'tahun_media' => $this->request->getPost('tahun_media'),
             'deskripsi_media' => $this->request->getPost('deskripsi_media'),
+            'status_verifikasi' => 'pending'
         ]);
 
         return redirect()->to('user/profile')->with('success_media', 'Media promosi berhasil diubah');

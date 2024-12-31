@@ -187,7 +187,9 @@ class ProdukController extends BaseController
             if($photo->getError() == 4) {
                 $photoName[$key] = $this->request->getPost($photoArray[$key] . '_old');
             } else {
-                unlink('storage/photos/' . $this->request->getPost($photoArray[$key] . '_old'));
+                if(!empty($this->request->getPost($photoArray[$key] . '_old'))) {
+                    unlink('storage/photos/' . $this->request->getPost($photoArray[$key] . '_old'));
+                }
                 $photoName[$key] = $photo->getRandomName();
                 $photo->move('storage/photos', $photoName[$key]);
             }
@@ -202,6 +204,7 @@ class ProdukController extends BaseController
             'foto_3' => $photoName[2],
             'foto_4' => $photoName[3],
             'foto_5' => $photoName[4],
+            'status_verifikasi' => 'pending',
         ]);
 
         return redirect()->to('/user/profile')->with('success_produk', 'Produk berhasil diubah');
