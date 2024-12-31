@@ -11,7 +11,7 @@
                 <?= csrf_field() ?>
                 <button type="submit">Ya</button>
             </form>
-            <button id="btnClose">Tidak</button>
+            <button id="btnCloseProduk">Tidak</button>
         </div>
 
     </div>
