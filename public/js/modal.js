@@ -38,4 +38,13 @@ window.onclick = function(event) {
     if (event.target == modalDeletePembinaan) {
         modalDeletePembinaan.style.display = "none";
     }
+    if (event.target === modalLainnyaAdd) {
+        modalLainnyaAdd.style.display = "none";
+    }
+    if (event.target === modalLainnyaEdit) {
+        modalLainnyaEdit.style.display = "none";
+    }
+    if (event.target === modalLainnyaDelete) {
+        modalLainnyaDelete.style.display = "none";
+    }
 };

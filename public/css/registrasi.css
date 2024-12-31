@@ -153,4 +153,61 @@ span a:hover{
         max-width:420px;
         width: 100%;
     }
+
+    @media only screen and (max-width: 768px) {
+        .side-image {
+            display: none; /* Hilangkan side image besar */
+        }
+    
+        .row {
+            max-width: 100%;
+            width: 90%;
+            height: auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }    
+        .input-box {
+            width: 100%;
+            padding: 10px;
+            margin-top: 40px; /* Beri ruang untuk logo */
+        }
+    
+        .input {
+            height: 40px;
+            font-size: 14px;
+            padding: 5px;
+        }
+    
+        .input-field label {
+            font-size: 12px;
+        }
+    
+        .submit {
+            height: 40px;
+            font-size: 14px;
+            background: #4c3d3d;
+        }
+    
+        .submit:hover {
+            background: rgba(37, 95, 156, 0.937);
+        }
+    
+        .signin {
+            font-size: 14px;
+            margin-top: 15px;
+        }
+    
+        .signin span a {
+            font-size: 14px;
+            color: #4c3d3d; /* Sesuaikan warna link */
+        }
+    
+        .signin span a:hover {
+            color: rgba(37, 95, 156, 0.937);
+            text-decoration: underline;
+        }
+    }
+    
 }

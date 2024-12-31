@@ -126,4 +126,13 @@ $routes->group('user', ['filter' => 'role:user'], function ($routes) {
     $routes->get('program/edit/(:num)', 'ProgramController::edit/$1');
     $routes->post('program/update/(:num)', 'ProgramController::update/$1');
     $routes->post('program/delete/(:num)', 'ProgramController::delete/$1');
+
+    $routes->get('progress-lainnya', 'ProgressLainnyaController::index'); // Menampilkan semua data
+    $routes->get('progress-lainnya/store', 'ProgressLainnyaController::store'); // Form untuk tambah data
+    $routes->post('progress-lainnya/store', 'ProgressLainnyaController::store'); // Proses tambah data
+    $routes->get('progress-lainnya/edit/(:num)', 'ProgressLainnyaController::edit/$1'); // Form untuk edit data
+    $routes->post('progress-lainnya/update/(:num)', 'ProgressLainnyaController::update/$1'); // Proses update data
+    $routes->post('progress-lainnya/delete/(:num)', 'ProgressLainnyaController::delete/$1'); // Proses hapus data
+    
+
 });

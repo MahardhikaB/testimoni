@@ -73,6 +73,9 @@ Dashboard Perusahaan
             <div class="tabs-btn">
                 <a href="#" class="tab-button" data-tab="pembinaan">Pembinaan</a>
             </div>
+            <div class="tabs-btn">
+                <a href="#" class="tab-button" data-tab="progress-lainnya">Progress Lainnya</a>
+            </div>
         </div>
 
         <div class="content">
@@ -109,6 +112,10 @@ Dashboard Perusahaan
             <!-- Pembinaan -->
             <div class="tab-content pembinaan">
                 <?= $this->include('user/partials/pembinaan') ?>
+            </div>
+            <!-- Pembinaan -->
+            <div class="tab-content progress-lainnya">
+                <?= $this->include('user/partials/progress_lainnya') ?>
             </div>
         </div>
     </div>
