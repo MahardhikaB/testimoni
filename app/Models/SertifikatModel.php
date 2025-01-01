@@ -52,6 +52,11 @@ class SertifikatModel extends Model
                     ->findAll();
     }
 
+    public function isDoubleFileSertifikat(string $fileSertifikat): bool
+    {
+        return $this->where('file_sertifikat', $fileSertifikat)->countAllResults() > 1;
+    }
+
     public function updateVerifikasi(int $id, string $status): bool
     {
         return $this->update($id, ['status_verifikasi' => $status]);

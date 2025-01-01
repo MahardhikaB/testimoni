@@ -151,8 +151,10 @@ class SertifikatController extends BaseController
             throw new \CodeIgniter\Exceptions\PageNotFoundException("Sertifikat dengan ID $id tidak ditemukan.");
         }
 
-        if (!empty($sertifikat['file_sertifikat'])) {
-            unlink('storage/sertifikat/' . $sertifikat['file_sertifikat']);
+        if(!$sertifikatModel->isDoubleFileSertifikat($sertifikat['file_sertifikat'])) {
+            if(!empty($sertifikat['file_sertifikat'])) {
+                unlink('storage/sertifikat/' . $sertifikat['file_sertifikat']);
+            }
         }
 
         $sertifikatModel->delete($id);
