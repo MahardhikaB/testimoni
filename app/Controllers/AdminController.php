@@ -100,7 +100,6 @@ class AdminController extends BaseController
             }
         }
 
-        // Kirim data pengguna dan sertifikat ke tampilan
         return view('admin/member/verifikasi', [
             'user' => $userData,
             'verifikasiData' => $verifikasiData,
@@ -108,39 +107,8 @@ class AdminController extends BaseController
             'tipeTitle' => $tipeTitle
         ]);
     }
-//     public function updateVerifikasi($id, $status)
-// {
-
-//     log_message('info', "updateVerifikasi called with ID: {$id}, Status: {$status}");
-
-//     $sertifikatModel = new SertifikatModel();
-
-//     // Pastikan status valid
-//     if (!in_array($status, ['accepted', 'rejected'])) {
-//         log_message('error', "Invalid status: {$status}");
-//         return redirect()->back()->with('error', 'Status tidak valid.');
-//     }
-
-//     // Periksa apakah ID ada di database
-//     $sertifikat = $sertifikatModel->find($id);
-//     if (!$sertifikat) {
-//         log_message('error', "Sertifikat with ID {$id} not found");
-//         return redirect()->back()->with('error', 'Sertifikat tidak ditemukan.');
-//     }
-
-//     // Update status
-//     $update = $sertifikatModel->update($id, ['status_verifikasi' => $status]);
-//     if (!$update) {
-//         log_message('error', "Failed to update status for ID: {$id}");
-//         return redirect()->back()->with('error', 'Gagal memperbarui status verifikasi.');
-//     }
-
-//     log_message('info', "Status updated successfully for ID: {$id}");
-//     return redirect()->to('/admin/dashboard/verifikasi')->with('success', 'Status verifikasi berhasil diperbarui.');
-// }
-
+    
     public function updateVerifikasi(){
-        // dd($this->request->getVar('id') . ', ' . $this->request->getVar('aksi') . ', ' . $this->request->getVar('section'));
         if(!$this->validate([
             'aksi' => [
                 'rules' => 'required|in_list[accepted,rejected]',
@@ -171,7 +139,13 @@ class AdminController extends BaseController
         $section = $this->request->getVar('section');
 
         $model = $this->getModelBySection($section);
-        $hasil = $model->updateVerifikasi($id, $aksi);
+        $controller = $this->getControllerBySection($section);
+
+        if($aksi == 'accepted'){
+            $hasil = $model->updateVerifikasi($id, $aksi);
+        } else if($aksi == 'rejected'){
+            $hasil = $controller->delete($id);
+        }
 
         // dd($hasil);
 
@@ -215,6 +189,41 @@ class AdminController extends BaseController
         }
 
         return $model;
+    }
+
+    public function getControllerBySection($section){
+        $controller = null;
+        switch($section){
+            case 'legalitas':
+                $controller = new LegalitasController();
+                break;
+            case 'produk':
+                $controller = new ProdukController();
+                break;
+            case 'sertifikat':
+                $controller = new SertifikatController();
+                break;
+            case 'pengalaman-pameran':
+                $controller = new PameranController();
+                break;
+            case 'pengalaman-ekspor':
+                $controller = new EksporController();
+                break;
+            case 'media-promosi':
+                $controller = new MediaController();
+                break;
+            case 'program-pembinaan':
+                $controller = new ProgramController();
+                break;
+            case 'verifikasi-user':
+                $controller = new UserController();
+                break;
+            case 'lainnya':
+                $controller = new ProgressLainnyaController();
+                break;
+        }
+
+        return $controller;
     }
 
     public function memberList(){

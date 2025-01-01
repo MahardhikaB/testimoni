@@ -107,4 +107,18 @@ class UserController extends BaseController
         // Return view
         return view('user/profile', $userData);
     }
+
+    public function delete ($id_user)
+    {
+        $userModel = new \App\Models\userModel();
+        $user = $userModel->find($id_user);
+
+        if (!$user) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException("user dengan ID $id_user tidak ditemukan.");
+        }
+
+        $userModel->delete($id_user);
+
+        return redirect()->to('/admin/member/verifikasi/verifikasi-user')->with('success', 'user berhasil dihapus.');
+    }
 }
