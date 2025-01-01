@@ -50,18 +50,43 @@ class SertifikatController extends BaseController
         $fileSertifikat->move('storage/sertifikat', $namaFile);
 
         $sertifikatModel = new SertifikatModel();
-        $sertifikatModel->insert([
-            'user_id_sertifikat' => $userId,
-            'judul_sertifikat' => $this->request->getPost('judul_sertifikat'),
-            'no_sertifikat' => $this->request->getPost('no_sertifikat'),
-            'tanggal_terbit_sertifikat' => $this->request->getPost('tanggal_terbit_sertifikat'),
-            'penerbit_sertifikat' => $this->request->getPost('penerbit_sertifikat'),
-            'tipe' => $this->request->getPost('tipe'),
-            'file_sertifikat' => $namaFile,
-            'status_verifikasi' => 'waiting',
-        ]);
+        $tipe = $this->request->getPost('tipe');
 
-        return redirect()->to('user/profile')->with('success', 'Sertifikat berhasil ditambahkan.');
+        if ($tipe == '0') {
+            $sertifikatModel->insert([
+                'user_id_sertifikat' => $userId,
+                'judul_sertifikat' => $this->request->getPost('judul_sertifikat'),
+                'no_sertifikat' => $this->request->getPost('no_sertifikat'),
+                'tanggal_terbit_sertifikat' => $this->request->getPost('tanggal_terbit_sertifikat'),
+                'penerbit_sertifikat' => $this->request->getPost('penerbit_sertifikat'),
+                'tipe' => '0',
+                'file_sertifikat' => $namaFile,
+                'status_verifikasi' => 'waiting',
+            ]);
+            $sertifikatModel->insert([
+                'user_id_sertifikat' => $userId,
+                'judul_sertifikat' => $this->request->getPost('judul_sertifikat'),
+                'no_sertifikat' => $this->request->getPost('no_sertifikat'),
+                'tanggal_terbit_sertifikat' => $this->request->getPost('tanggal_terbit_sertifikat'),
+                'penerbit_sertifikat' => $this->request->getPost('penerbit_sertifikat'),
+                'tipe' => '1',
+                'file_sertifikat' => $namaFile,
+                'status_verifikasi' => 'waiting',
+            ]);
+        } else if ($tipe == '1') {
+            $sertifikatModel->insert([
+                'user_id_sertifikat' => $userId,
+                'judul_sertifikat' => $this->request->getPost('judul_sertifikat'),
+                'no_sertifikat' => $this->request->getPost('no_sertifikat'),
+                'tanggal_terbit_sertifikat' => $this->request->getPost('tanggal_terbit_sertifikat'),
+                'penerbit_sertifikat' => $this->request->getPost('penerbit_sertifikat'),
+                'tipe' => $tipe,
+                'file_sertifikat' => $namaFile,
+                'status_verifikasi' => 'waiting',
+            ]);
+        }
+
+        return redirect()->to('user/profile')->with('success_sertifikat', 'Sertifikat berhasil ditambahkan.');
     }
 
     public function edit($id)

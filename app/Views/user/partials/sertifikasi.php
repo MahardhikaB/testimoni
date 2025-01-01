@@ -1,3 +1,22 @@
+<?php if (session()->get('success_sertifikat')): ?>
+<script>
+document.querySelector('.legalitas').classList.remove('active');
+document.querySelector('.sertifikasi').classList.add('active');
+</script>
+<div id="myAlert" class="alert">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    <?= session()->get('success_sertifikat') ?>
+</div>
+<?php endif; ?>
+<?php if (session()->get('sertifikat_errors')): ?>
+<script>
+document.querySelector('.legalitas').classList.remove('active');
+document.querySelector('.sertifikasi').classList.add('active');
+window.onload = function() {
+    document.getElementById("modalTambahSertifikasi").style.display = "block";
+};
+</script>
+<?php endif; ?>
 <div class="content-container">
     <!-- Sertifikasi Awal -->
     <div class="before-content content-result-container">
@@ -9,38 +28,38 @@
         $sertifikasiAwal = array_filter($sertifikat, fn($s) => $s['tipe'] == 0);
         ?>
         <?php if (!empty($sertifikasiAwal)): ?>
-            <?php foreach ($sertifikasiAwal as $sertifikatItem): ?>
-                <div class="content-result-card">
-                    <b style="color: #ffc107;">
-                        <?= $sertifikatItem['status_verifikasi'] === 'pending' ? 'Sedang diverifikasi' : '' ?>
-                    </b>
-                    <div class="content-result-info">
-                        <p>Certification Title: <?= esc($sertifikatItem['judul_sertifikat']); ?></p>
-                        <p><strong>Certificate Number:</strong> <?= esc($sertifikatItem['no_sertifikat']); ?></p>
-                        <p><strong>Issue Date:</strong> <?= esc($sertifikatItem['tanggal_terbit_sertifikat']); ?></p>
-                        <p><strong>Issuer:</strong> <?= esc($sertifikatItem['penerbit_sertifikat']); ?></p>
-                        <div>
-                            <button class="btnEdit"
-                                onclick="editSertifikasi('<?= base_url('/user/sertifikat/update/') . $sertifikatItem['id_sertifikat'] ?>', '<?= $sertifikatItem['judul_sertifikat'] ?>')"
-                                title="Edit">
-                                <i class="fa-regular fa-pen-to-square"></i>
-                            </button>
-                            <button class="btnHapus"
-                                onclick="hapusSertifikasi('<?= base_url('/user/sertifikat/delete/') . $sertifikatItem['id_sertifikat'] ?>')"
-                                title="Hapus">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <!-- show files with i frame-->
-                    <div class="content-result-file">
-                            <iframe src="<?= base_url('storage/sertifikat/' . $sertifikatItem['file_sertifikat']) ?>"
-                                width="100%" height="300px"></iframe>
-                    </div>
+        <?php foreach ($sertifikasiAwal as $sertifikatItem): ?>
+        <div class="content-result-card">
+            <b style="color: #ffc107;">
+                <?= $sertifikatItem['status_verifikasi'] === 'pending' ? 'Sedang diverifikasi' : '' ?>
+            </b>
+            <div class="content-result-info">
+                <p>Certification Title: <?= esc($sertifikatItem['judul_sertifikat']); ?></p>
+                <p><strong>Certificate Number:</strong> <?= esc($sertifikatItem['no_sertifikat']); ?></p>
+                <p><strong>Issue Date:</strong> <?= esc($sertifikatItem['tanggal_terbit_sertifikat']); ?></p>
+                <p><strong>Issuer:</strong> <?= esc($sertifikatItem['penerbit_sertifikat']); ?></p>
+                <div>
+                    <button class="btnEdit"
+                        onclick="editSertifikasi('<?= base_url('/user/sertifikat/update/') . $sertifikatItem['id_sertifikat'] ?>', '<?= $sertifikatItem['judul_sertifikat'] ?>')"
+                        title="Edit">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                    </button>
+                    <button class="btnHapus"
+                        onclick="hapusSertifikasi('<?= base_url('/user/sertifikat/delete/') . $sertifikatItem['id_sertifikat'] ?>')"
+                        title="Hapus">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
                 </div>
-            <?php endforeach; ?>
+            </div>
+            <!-- show files with i frame-->
+            <div class="content-result-file">
+                <iframe src="<?= base_url('storage/sertifikat/' . $sertifikatItem['file_sertifikat']) ?>" width="100%"
+                    height="300px"></iframe>
+            </div>
+        </div>
+        <?php endforeach; ?>
         <?php else: ?>
-            <p style="margin-top: 1rem;">Belum ada sertifikasi awal yang ditambahkan.</p>
+        <p style="margin-top: 1rem;">Belum ada sertifikasi awal yang ditambahkan.</p>
         <?php endif; ?>
     </div>
 
@@ -54,38 +73,38 @@
         $sertifikasiAkhir = array_filter($sertifikat, fn($s) => $s['tipe'] == 1);
         ?>
         <?php if (!empty($sertifikasiAkhir)): ?>
-            <?php foreach ($sertifikasiAkhir as $sertifikatItem): ?>
-                <div class="content-result-card">
-                    <b style="color: #ffc107;">
-                        <?= $sertifikatItem['status_verifikasi'] === 'pending' ? 'Sedang diverifikasi' : '' ?>
-                    </b>
-                    <div class="content-result-info">
-                        <p>Certification Title: <?= esc($sertifikatItem['judul_sertifikat']); ?></p>
-                        <p><strong>Certificate Number:</strong> <?= esc($sertifikatItem['no_sertifikat']); ?></p>
-                        <p><strong>Issue Date:</strong> <?= esc($sertifikatItem['tanggal_terbit_sertifikat']); ?></p>
-                        <p><strong>Issuer:</strong> <?= esc($sertifikatItem['penerbit_sertifikat']); ?></p>
-                        <div>
-                            <button class="btnEdit"
-                                onclick="editSertifikasi('<?= base_url('/user/sertifikat/update/') . $sertifikatItem['id_sertifikat'] ?>', '<?= $sertifikatItem['judul_sertifikat'] ?>')"
-                                title="Edit">
-                                <i class="fa-regular fa-pen-to-square"></i>
-                            </button>
-                            <button class="btnHapus"
-                                onclick="hapusSertifikasi('<?= base_url('/user/sertifikat/delete/') . $sertifikatItem['id_sertifikat'] ?>')"
-                                title="Hapus">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <!-- show files with i frame-->
-                    <div class="content-result-file">
-                            <iframe src="<?= base_url('storage/sertifikat/' . $sertifikatItem['file_sertifikat']) ?>"
-                                width="100%" height="300px"></iframe>
-                    </div>
+        <?php foreach ($sertifikasiAkhir as $sertifikatItem): ?>
+        <div class="content-result-card">
+            <b style="color: #ffc107;">
+                <?= $sertifikatItem['status_verifikasi'] === 'pending' ? 'Sedang diverifikasi' : '' ?>
+            </b>
+            <div class="content-result-info">
+                <p>Certification Title: <?= esc($sertifikatItem['judul_sertifikat']); ?></p>
+                <p><strong>Certificate Number:</strong> <?= esc($sertifikatItem['no_sertifikat']); ?></p>
+                <p><strong>Issue Date:</strong> <?= esc($sertifikatItem['tanggal_terbit_sertifikat']); ?></p>
+                <p><strong>Issuer:</strong> <?= esc($sertifikatItem['penerbit_sertifikat']); ?></p>
+                <div>
+                    <button class="btnEdit"
+                        onclick="editSertifikasi('<?= base_url('/user/sertifikat/update/') . $sertifikatItem['id_sertifikat'] ?>', '<?= $sertifikatItem['judul_sertifikat'] ?>')"
+                        title="Edit">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                    </button>
+                    <button class="btnHapus"
+                        onclick="hapusSertifikasi('<?= base_url('/user/sertifikat/delete/') . $sertifikatItem['id_sertifikat'] ?>')"
+                        title="Hapus">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
                 </div>
-            <?php endforeach; ?>
+            </div>
+            <!-- show files with i frame-->
+            <div class="content-result-file">
+                <iframe src="<?= base_url('storage/sertifikat/' . $sertifikatItem['file_sertifikat']) ?>" width="100%"
+                    height="300px"></iframe>
+            </div>
+        </div>
+        <?php endforeach; ?>
         <?php else: ?>
-            <p style="margin-top: 1rem;">Belum ada sertifikasi awal yang ditambahkan.</p>
+        <p style="margin-top: 1rem;">Belum ada sertifikasi awal yang ditambahkan.</p>
         <?php endif; ?>
     </div>
 </div>
@@ -113,8 +132,8 @@
                     </div>
                     <div class="mb-3 input-group">
                         <label for="tanggalTerbitSertifikat" class="form-label">Tanggal Terbit Sertifikat</label>
-                        <input type="date" class="form-control" id="tanggalTerbitSertifikat" name="tanggal_terbit_sertifikat"
-                            placeholder="Masukkan tanggal terbit sertifikat">
+                        <input type="date" class="form-control" id="tanggalTerbitSertifikat"
+                            name="tanggal_terbit_sertifikat" placeholder="Masukkan tanggal terbit sertifikat">
                     </div>
                     <div class="mb-3 input-group">
                         <label for="penerbitSertifikat" class="form-label">Penerbit Sertifikat</label>
@@ -158,8 +177,8 @@
                     </div>
                     <div class="mb-3 input-group">
                         <label for="tanggalTerbitSertifikat" class="form-label">Tanggal Terbit Sertifikat</label>
-                        <input type="date" class="form-control" id="tanggalTerbitSertifikat" name="tanggal_terbit_sertifikat"
-                            placeholder="Masukkan tanggal terbit sertifikat">
+                        <input type="date" class="form-control" id="tanggalTerbitSertifikat"
+                            name="tanggal_terbit_sertifikat" placeholder="Masukkan tanggal terbit sertifikat">
                     </div>
                     <div class="mb-3 input-group">
                         <label for="penerbitSertifikat" class="form-label">Penerbit Sertifikat</label>
@@ -200,66 +219,66 @@
 </div>
 
 <script>
-    let modalSertifikasi = document.getElementById("modalSertifikasi");
-    let modalTambahSertifikasi = document.getElementById("modalTambahSertifikasi");
-    let modalDeleteSertifikasi = document.getElementById("modalDelete");
-    let titleModalSertifikasi = document.getElementById("titleModalSertifikasi");
-    let tipeSertifikasiInput = document.getElementById("tipeSertifikasiInput");
-    let btnTambahSertifikasiAwal = document.getElementById("btnTambahSertifikasiAwal");
-    let btnTambahSertifikasiAkhir = document.getElementById("btnTambahSertifikasiAkhir");
-    let spanCloseModalTambah = document.getElementsByClassName("sertifikatClose")[0];
-    let spanCloseModalSertifikasi = document.getElementsByClassName("sertifikatClose")[1];
-    let spanCloseModalDelete = document.getElementsByClassName("sertifikatClose")[2];
+let modalSertifikasi = document.getElementById("modalSertifikasi");
+let modalTambahSertifikasi = document.getElementById("modalTambahSertifikasi");
+let modalDeleteSertifikasi = document.getElementById("modalDelete");
+let titleModalSertifikasi = document.getElementById("titleModalSertifikasi");
+let tipeSertifikasiInput = document.getElementById("tipeSertifikasiInput");
+let btnTambahSertifikasiAwal = document.getElementById("btnTambahSertifikasiAwal");
+let btnTambahSertifikasiAkhir = document.getElementById("btnTambahSertifikasiAkhir");
+let spanCloseModalTambah = document.getElementsByClassName("sertifikatClose")[0];
+let spanCloseModalSertifikasi = document.getElementsByClassName("sertifikatClose")[1];
+let spanCloseModalDelete = document.getElementsByClassName("sertifikatClose")[2];
 
-    // Fungsi untuk membuka modal edit/hapus
-    function hapusSertifikasi(action) {
-        modalDeleteSertifikasi.style.display = "block";
-        document.getElementById("formDeleteSertifikasi").action = action;
-    }
+// Fungsi untuk membuka modal edit/hapus
+function hapusSertifikasi(action) {
+    modalDeleteSertifikasi.style.display = "block";
+    document.getElementById("formDeleteSertifikasi").action = action;
+}
 
-    function editSertifikasi(action, judul) {
-        modalSertifikasi.style.display = "block";
-        document.getElementById("formEditSertifikasi").action = action;
-        document.getElementById("judulSertifikatEdit").value = judul;
-    }
+function editSertifikasi(action, judul) {
+    modalSertifikasi.style.display = "block";
+    document.getElementById("formEditSertifikasi").action = action;
+    document.getElementById("judulSertifikatEdit").value = judul;
+}
 
-    // Fungsi untuk membuka modal tambah
-    btnTambahSertifikasiAwal.onclick = function () {
-        modalTambahSertifikasi.style.display = "block";
-        titleModalSertifikasi.innerHTML = "Tambah Sertifikasi Awal";
-        tipeSertifikasiInput.value = "0";
-    };
+// Fungsi untuk membuka modal tambah
+btnTambahSertifikasiAwal.onclick = function() {
+    modalTambahSertifikasi.style.display = "block";
+    titleModalSertifikasi.innerHTML = "Tambah Sertifikasi Awal";
+    tipeSertifikasiInput.value = "0";
+};
 
-    btnTambahSertifikasiAkhir.onclick = function () {
-        modalTambahSertifikasi.style.display = "block";
-        titleModalSertifikasi.innerHTML = "Tambah Sertifikasi Akhir";
-        tipeSertifikasiInput.value = "1";
-    };
+btnTambahSertifikasiAkhir.onclick = function() {
+    modalTambahSertifikasi.style.display = "block";
+    titleModalSertifikasi.innerHTML = "Tambah Sertifikasi Akhir";
+    tipeSertifikasiInput.value = "1";
+};
 
-    // Tutup modal saat klik tombol 'x'
-    spanCloseModalSertifikasi.onclick = function () {
-        console.log('close');
+// Tutup modal saat klik tombol 'x'
+spanCloseModalSertifikasi.onclick = function() {
+    console.log('close');
+    modalSertifikasi.style.display = "none";
+};
+
+spanCloseModalTambah.onclick = function() {
+    modalTambahSertifikasi.style.display = "none";
+};
+
+spanCloseModalDelete.onclick = function() {
+    modalDeleteSertifikasi.style.display = "none";
+};
+
+// Tutup modal saat klik di luar modal
+window.onclick = function(event) {
+    if (event.target == modalSertifikasi) {
         modalSertifikasi.style.display = "none";
-    };
-
-    spanCloseModalTambah.onclick = function () {
+    }
+    if (event.target == modalTambahSertifikasi) {
         modalTambahSertifikasi.style.display = "none";
-    };
-
-    spanCloseModalDelete.onclick = function () {
+    }
+    if (event.target == modalDeleteSertifikasi) {
         modalDeleteSertifikasi.style.display = "none";
-    };
-
-    // Tutup modal saat klik di luar modal
-    window.onclick = function (event) {
-        if (event.target == modalSertifikasi) {
-            modalSertifikasi.style.display = "none";
-        }
-        if (event.target == modalTambahSertifikasi) {
-            modalTambahSertifikasi.style.display = "none";
-        }
-        if (event.target == modalDeleteSertifikasi) {
-            modalDeleteSertifikasi.style.display = "none";
-        }
-    };
+    }
+};
 </script>
