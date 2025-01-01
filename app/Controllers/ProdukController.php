@@ -105,22 +105,49 @@ class ProdukController extends BaseController
             }
         }
 
-        // Save product data
         $produkModel = new \App\Models\ProdukModel();
-        $produkModel->insert([
-            'user_id_produk' => $userId,
-            'nama_produk' => $this->request->getPost('nama_produk'),
-            'deskripsi_produk' => $this->request->getPost('deskripsi_produk'),
-            'harga_produk' => $this->request->getPost('harga_produk'),
-            'tipe' => $this->request->getPost('tipe'),
-            'foto_1' => $uploadedFiles['foto_1'],
-            'foto_2' => $uploadedFiles['foto_2'],
-            'foto_3' => $uploadedFiles['foto_3'],
-            'foto_4' => $uploadedFiles['foto_4'],
-            'foto_5' => $uploadedFiles['foto_5'],
-        ]);
+        $tipe = $this->request->getPost('tipe');
 
-        // Redirect to product list with success message
+        if($tipe == '0'){
+            $produkModel->insert([
+                'user_id_produk' => $userId,
+                'nama_produk' => $this->request->getPost('nama_produk'),
+                'deskripsi_produk' => $this->request->getPost('deskripsi_produk'),
+                'harga_produk' => $this->request->getPost('harga_produk'),
+                'tipe' => '0',
+                'foto_1' => $uploadedFiles['foto_1'],
+                'foto_2' => $uploadedFiles['foto_2'],
+                'foto_3' => $uploadedFiles['foto_3'],
+                'foto_4' => $uploadedFiles['foto_4'],
+                'foto_5' => $uploadedFiles['foto_5'],
+            ]);
+            $produkModel->insert([
+                'user_id_produk' => $userId,
+                'nama_produk' => $this->request->getPost('nama_produk'),
+                'deskripsi_produk' => $this->request->getPost('deskripsi_produk'),
+                'harga_produk' => $this->request->getPost('harga_produk'),
+                'tipe' => '1',
+                'foto_1' => $uploadedFiles['foto_1'],
+                'foto_2' => $uploadedFiles['foto_2'],
+                'foto_3' => $uploadedFiles['foto_3'],
+                'foto_4' => $uploadedFiles['foto_4'],
+                'foto_5' => $uploadedFiles['foto_5'],
+            ]);
+        } else if ($tipe == '1'){
+            $produkModel->insert([
+                'user_id_produk' => $userId,
+                'nama_produk' => $this->request->getPost('nama_produk'),
+                'deskripsi_produk' => $this->request->getPost('deskripsi_produk'),
+                'harga_produk' => $this->request->getPost('harga_produk'),
+                'tipe' => $tipe,
+                'foto_1' => $uploadedFiles['foto_1'],
+                'foto_2' => $uploadedFiles['foto_2'],
+                'foto_3' => $uploadedFiles['foto_3'],
+                'foto_4' => $uploadedFiles['foto_4'],
+                'foto_5' => $uploadedFiles['foto_5'],
+            ]);
+        }
+        
         return redirect()->to('/user/profile')->with('success_produk', 'Produk berhasil ditambahkan');
     }
 
