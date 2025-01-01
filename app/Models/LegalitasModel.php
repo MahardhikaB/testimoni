@@ -64,6 +64,12 @@ class LegalitasModel extends Model
                     ->findAll();
     }
 
+    public function isDoubleFileLegalitas(string $fileLegalitas): bool
+    {
+        return $this->where('file_legalitas', $fileLegalitas)->countAllResults() > 1;
+        
+    }
+
     public function updateVerifikasi(int $id, string $status): bool
     {
         return $this->update($id, ['status_verifikasi' => $status]);

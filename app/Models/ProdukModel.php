@@ -59,4 +59,9 @@ class ProdukModel extends Model
     {
         return $this->update($id, ['status_verifikasi' => $status]);
     }
+
+    public function isDoubleFotoProduk(string $fotoProduk, string $fotoIndex): bool
+    {
+        return $this->where($fotoIndex, $fotoProduk)->countAllResults() > 1;
+    }
 }

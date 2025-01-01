@@ -3,13 +3,9 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use CodeIgniter\HTTP\ResponseInterface;
 
 class ProdukController extends BaseController
 {
-    /**
-     * Tampilkan semua produk.
-     */
     public function index()
     {
         $produkModel = new \App\Models\ProdukModel();
@@ -20,23 +16,15 @@ class ProdukController extends BaseController
         ]);
     }
 
-    /**
-     * Tampilkan form tambah produk.
-     */
     public function create()
     {
         return view('produk/add_produk');
     }
 
-    /**
-     * Simpan produk baru.
-     */
     public function store()
     {
-        // dd($this->request->getPost());
         $validation = \Config\Services::validation();
 
-        // Define validation rules and messages
         $validation->setRules([
             'nama_produk' => 'required',
             'deskripsi_produk' => 'required',
@@ -83,25 +71,22 @@ class ProdukController extends BaseController
             ],
         ]);
 
-        // Run validation
         if (!$validation->withRequest($this->request)->run()) {
             return redirect()->back()->withInput()->with('produk_errors', $validation->getErrors());
         }
 
-        // Get user ID from session
         $userId = session()->get('user_id');
 
-        // Handle file uploads
         $uploadedFiles = [];
         $photoFields = ['foto_1', 'foto_2', 'foto_3', 'foto_4', 'foto_5'];
         foreach ($photoFields as $field) {
             $file = $this->request->getFile($field);
             if ($file && $file->isValid() && !$file->hasMoved()) {
                 $randomName = $file->getRandomName();
-                $file->move('storage/photos', $randomName); // Save in 'storage/photos' directory
-                $uploadedFiles[$field] = $randomName; // Store the random filename
+                $file->move('storage/photos', $randomName);
+                $uploadedFiles[$field] = $randomName;
             } else {
-                $uploadedFiles[$field] = null; // No file uploaded for this field
+                $uploadedFiles[$field] = null;
             }
         }
 
@@ -151,11 +136,6 @@ class ProdukController extends BaseController
         return redirect()->to('/user/profile')->with('success_produk', 'Produk berhasil ditambahkan');
     }
 
-
-
-    /**
-     * Tampilkan form edit produk.
-     */
     public function edit($id_produk)
     {
         $produkModel = new \App\Models\ProdukModel();
@@ -170,12 +150,8 @@ class ProdukController extends BaseController
         ]);
     }
 
-    /**
-     * Perbarui data produk.
-     */
     public function update($id_produk)
     {
-        // dd($this->request->getPost());
         $validation = \Config\Services::validation();
         $validation->setRules([
             'nama_produk' => 'required',
@@ -199,8 +175,6 @@ class ProdukController extends BaseController
             throw new \CodeIgniter\Exceptions\PageNotFoundException("Produk dengan ID $id_produk tidak ditemukan.");
         }
 
-        $userId = session()->get('user_id'); // Ambil ID user dari session
-
         $foto_1 = $this->request->getFile('foto_1');
         $foto_2 = $this->request->getFile('foto_2');
         $foto_3 = $this->request->getFile('foto_3');
@@ -211,11 +185,15 @@ class ProdukController extends BaseController
         $photoName = ['', '', '', '', ''];
 
         foreach ($photoFields as $key => $photo) {
+            $photoTemp = $this->request->getPost($photoArray[$key] . '_old');
             if($photo->getError() == 4) {
-                $photoName[$key] = $this->request->getPost($photoArray[$key] . '_old');
+                $photoName[$key] = $photoTemp;
             } else {
-                if(!empty($this->request->getPost($photoArray[$key] . '_old'))) {
-                    unlink('storage/photos/' . $this->request->getPost($photoArray[$key] . '_old'));
+                if(!empty($photoTemp)) {
+                    if(!$produkModel->isDoubleFotoProduk($photoTemp, $photoArray[$key]) && 
+                        file_exists('storage/photos/' . $photoTemp)){
+                        unlink('storage/photos/' . $photoTemp);
+                    }
                 }
                 $photoName[$key] = $photo->getRandomName();
                 $photo->move('storage/photos', $photoName[$key]);
@@ -237,9 +215,6 @@ class ProdukController extends BaseController
         return redirect()->to('/user/profile')->with('success_produk', 'Produk berhasil diubah');
     }
 
-    /**
-     * Hapus produk.
-     */
     public function delete($id_produk)
     {
         $produkModel = new \App\Models\ProdukModel();
@@ -249,24 +224,14 @@ class ProdukController extends BaseController
             throw new \CodeIgniter\Exceptions\PageNotFoundException("Produk dengan ID $id_produk tidak ditemukan.");
         }
 
-        if(!empty($produk['foto_1'])) {
-            unlink('storage/photos/' . $produk['foto_1']);
-        } 
-        
-        if (!empty($produk['foto_2'])) {
-            unlink('storage/photos/' . $produk['foto_2']);
-        }
-        
-        if (!empty($produk['foto_3'])) {
-            unlink('storage/photos/' . $produk['foto_3']);
-        } 
-        
-        if (!empty($produk['foto_4'])) {
-            unlink('storage/photos/' . $produk['foto_4']);
-        }
-        
-        if (!empty($produk['foto_5'])) {
-            unlink('storage/photos/' . $produk['foto_5']);
+        $photoFields = ['foto_1', 'foto_2', 'foto_3', 'foto_4', 'foto_5'];
+
+        foreach ($photoFields as $field) {
+            if (!empty($produk[$field]) && 
+                !$produkModel->isDoubleFotoProduk($produk[$field], $field) && 
+                file_exists('storage/photos/' . $produk[$field])){
+                    unlink('storage/photos/' . $produk[$field]);
+            }
         }
 
         $produkModel->delete($id_produk);

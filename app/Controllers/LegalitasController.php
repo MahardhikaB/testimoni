@@ -140,8 +140,10 @@ class LegalitasController extends BaseController
             throw new \CodeIgniter\Exceptions\PageNotFoundException("legalitas dengan ID $id_legalitas tidak ditemukan.");
         }
 
-        if(!empty($legalitas['file_legalitas'])) {
-            unlink('storage/' . $legalitas['file_legalitas']);
+        if(!$legalitasModel->isDoubleFileLegalitas($legalitas['file_legalitas'])) {
+            if(!empty($legalitas['file_legalitas'])) {
+                unlink('storage/' . $legalitas['file_legalitas']);
+            }
         }
         
         $legalitasModel->delete($id_legalitas);
