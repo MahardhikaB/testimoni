@@ -5,13 +5,13 @@
             <span class="produkClose">&times;</span>
         </div>
         <h2>Hapus Produk</h2>
-        <p style="margin-top: 0.4rem;">Apakah Anda yakin ingin menghapus produk ini?</p>
-        <div class="btn-delete-container">
+        <div class="form-container">
+            <p>Apakah Anda yakin ingin menghapus produk ini?</p>
             <form id="formDeleteProduk" action="<?= base_url('user/produk/delete/')?>" method="post">
                 <?= csrf_field() ?>
-                <button type="submit">Ya</button>
+                <button type="submit" class="btn btn-submit">Ya</button>
             </form>
-            <button id="btnCloseProduk">Tidak</button>
+            <button id="btnCloseProduk" class="btn btn-cancel">Tidak</button>
         </div>
 
     </div>

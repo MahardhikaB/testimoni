@@ -177,13 +177,13 @@ window.onload = function() {
             <span class="close">&times;</span>
         </div>
         <h2>Hapus Legalitas</h2>
-        <p style="margin-top: 0.4rem;">Apakah Anda yakin ingin menghapus legalitas ini?</p>
-        <div class="btn-delete-container">
+        <div class="form-container">
+            <p>Apakah Anda yakin ingin menghapus legalitas ini?</p>
             <form id="formDelete" action="<?= base_url('user/legalitas/delete/')?>" method="post">
                 <?= csrf_field() ?>
-                <button type="submit">Ya</button>
+                <button type="submit" class="btn btn-submit">Ya</button>
             </form>
-            <button id="btnClose">Tidak</button>
+            <button id="btnClose" class="btn btn-cancel">Tidak</button>
         </div>
 
     </div>
