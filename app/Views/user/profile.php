@@ -40,7 +40,7 @@ Dashboard Perusahaan
         </div>
         <div class="address-details">
             <h4>Alamat Perusahaan</h4>
-            <p>J<?= $perusahaan['alamat'] ?></p>
+            <p><?= $perusahaan['alamat'] ?></p>
         </div>
     </div>
     <div class="edit-profile-btn">
@@ -78,16 +78,37 @@ Dashboard Perusahaan
         <div class="content">
             <!-- Legalitas -->
             <div class="tab-content legalitas active">
+                <div class="dropdown-container">
+                    <select id="legalitasDropdown" class="content-dropdown">
+                        <option value="before">Legalitas Before</option>
+                        <option value="after">Legalitas After</option>
+                        <option value="all">Tampilkan Semua</option>
+                    </select>
+                </div>
                 <?= $this->include('user/partials/legalitas') ?>
             </div>
 
             <!-- Produk -->
             <div class="tab-content produk">
+                <div class="dropdown-container">
+                    <select id="produkDropdown" class="content-dropdown">
+                        <option value="before">Produk Before</option>
+                        <option value="after">Produk After</option>
+                        <option value="all">Tampilkan Semua</option>
+                    </select>
+                </div>
                 <?= $this->include('user/partials/produk') ?>
             </div>
 
             <!-- Sertifikasi -->
             <div class="tab-content sertifikasi">
+                <div class="dropdown-container">
+                    <select id="sertifikasiDropdown" class="content-dropdown">
+                        <option value="before">Sertifikasi Awal</option>
+                        <option value="after">Sertifikasi Akhir</option>
+                        <option value="all">Tampilkan Semua</option>
+                    </select>
+                </div>
                 <?= $this->include('user/partials/sertifikasi') ?>
             </div>
 
@@ -103,6 +124,13 @@ Dashboard Perusahaan
 
             <!-- Media Promosi -->
             <div class="tab-content media-promosi">
+                <div class="dropdown-container">
+                    <select id="mediaPromosiDropdown" class="content-dropdown">
+                        <option value="before">Media Promosi Before</option>
+                        <option value="after">Media Promosi After</option>
+                        <option value="all">Tampilkan Semua</option>
+                    </select>
+                </div>
                 <?= $this->include('user/partials/media_promosi') ?>
             </div>
 
@@ -113,6 +141,7 @@ Dashboard Perusahaan
         </div>
     </div>
 </div>
+
 <script>
     // Select all tab buttons and content
     const tabButtons = document.querySelectorAll('.tab-button');
@@ -133,6 +162,25 @@ Dashboard Perusahaan
 
             // Show the selected tab content by adding 'active' class
             document.querySelector('.' + targetTab).classList.add('active');
+        });
+    });
+
+    // Add event listeners to dropdowns
+    const dropdowns = document.querySelectorAll('.content-dropdown');
+    dropdowns.forEach(dropdown => {
+        dropdown.addEventListener('change', function() {
+            const targetContent = this.value;
+            const parentTab = this.closest('.tab-content');
+            parentTab.querySelectorAll('.content-result-container').forEach(container => {
+                container.style.display = 'none';
+            });
+            if (targetContent === 'all') {
+                parentTab.querySelectorAll('.content-result-container').forEach(container => {
+                    container.style.display = 'block';
+                });
+            } else {
+                parentTab.querySelector(`.${targetContent}-content`).style.display = 'block';
+            }
         });
     });
 </script>
