@@ -325,7 +325,8 @@
 .eksporClose,
 .produkClose,
 .pameranClose,
-.pembinaanClose {
+.pembinaanClose,
+.lainnyaClose {
     color: #aaa;
     float: right;
     font-size: 28px;
@@ -346,7 +347,9 @@
 .pameranClose:hover,
 .pameranClose:focus,
 .pembinaanClose:hover,
-.pembinaanClose:focus {
+.pembinaanClose:focus,
+.lainnyaClose:hover,
+.lainnyaClose:focus {
     color: red;
     text-decoration: none;
     cursor: pointer;
@@ -982,6 +985,14 @@ input#tanggalPameran {
 
 }
 
+.btn-submit, .btn-cancel {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
 
 .tab-button {
     text-decoration: none;
