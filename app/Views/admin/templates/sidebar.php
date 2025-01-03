@@ -89,6 +89,11 @@
                                         <i class="nav-icon bi bi-check2-square"></i>
                                         <p>Verifikasi Akun User</p>
                                     </a> </li>
+                                <li class="nav-item"> <a href="/admin/member/verifikasi/lainnya"
+                                    class="nav-link <?= ($section == 'lainnya' ? 'active' : '') ?>">
+                                    <i class="nav-icon bi bi-check2-square"></i>
+                                    <p>Verifikasi Pencapaian Lainnya</p>
+                                </a> </li>
                             </ul>
                         </li>
 

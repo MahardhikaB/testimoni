@@ -54,6 +54,8 @@
                             echo view('admin/member/verifikasi/pembinaan', ['section' => $section]);
                         } elseif ($section == 'verifikasi-user'){
                             echo view('admin/member/verifikasi/akun', ['section' => $section]);
+                        } elseif ($section == 'lainnya'){
+                            echo view('admin/member/verifikasi/lainnya', ['section' => $section]);
                         }
                     ?>
                 </div> <!-- /.col -->

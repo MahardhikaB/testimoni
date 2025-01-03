@@ -4,10 +4,10 @@
     <?= session()->get('success_legalitas') ?>
 </div>
 <?php endif; ?>
-<?php if (session()->get('errors')): ?>
+<?php if (session()->get('errors_legalitas')): ?>
 <script>
 window.onload = function() {
-    document.getElementById("myModal").style.display = "block";
+    document.getElementById("modalLegalitasAdd").style.display = "block";
 };
 </script>
 <?php endif; ?>
@@ -27,7 +27,7 @@ window.onload = function() {
         <?php if (!empty($legalitas) && is_array($legalitas)): 
                 $found = false;    
                 foreach ($legalitas as $item):
-                    if (in_array($item['tipe'], [0, 2])):
+                    if (in_array($item['tipe'], [0])):
                         $found=true;
         ?>
         <div class="content-result-card">
@@ -80,7 +80,7 @@ window.onload = function() {
         <?php if (!empty($legalitas) && is_array($legalitas)): 
                 $found = false;    
                 foreach ($legalitas as $item):
-                    if (in_array($item['tipe'], [1, 2])):
+                    if (in_array($item['tipe'], [1])):
                         $found=true;
         ?>
         <div class="content-result-card">
@@ -133,10 +133,10 @@ window.onload = function() {
         </div>
         <h2>Edit Legalitas</h2>
         <div class="form-container">
-            <?php if (session()->get('errors')): ?>
+            <?php if (session()->get('errors_legalitas')): ?>
             <div class="alert-error">
                 <ul>
-                    <?php foreach (session()->get('errors') as $error): ?>
+                    <?php foreach (session()->get('errors_legalitas') as $error): ?>
                     <li><?= $error ?></li>
                     <?php endforeach; ?>
                 </ul>
@@ -197,10 +197,10 @@ window.onload = function() {
         </div>
         <h2 id="titleModalLegalitas">Tambah Legalitas Before</h2>
         <div class="form-container">
-            <?php if (session()->get('errors')): ?>
+            <?php if (session()->get('errors_legalitas')): ?>
             <div class="alert-error">
                 <ul>
-                    <?php foreach (session()->get('errors') as $error): ?>
+                    <?php foreach (session()->get('errors_legalitas') as $error): ?>
                     <li><?= $error ?></li>
                     <?php endforeach; ?>
                 </ul>

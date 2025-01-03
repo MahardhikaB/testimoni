@@ -43,35 +43,40 @@ class LegalitasController extends BaseController
         ]);
 
         if (!$validation->withRequest($this->request)->run()) {
-            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+            return redirect()->back()->withInput()->with('errors_legalitas', $validation->getErrors());
         }
-
-        // dd(session()->get('user_id'));
-
+        
         $fileLegalitas = $this->request->getFile('file_legalitas');
 
         $namaFile = $fileLegalitas->getRandomName();
 
         $fileLegalitas->move('storage', $namaFile);
-        // dd($namaFile);
 
         $legalitasModel = new \App\Models\LegalitasModel();
 
-        if($legalitasModel->getLegalitasFirstByUserId(session()->get('user_id'))) {
-            $tipe = $this->request->getPost('tipe');
-        }else {
-            $tipe = '2';
+        $tipe = $this->request->getPost('tipe');
+
+        if ($tipe == '0') {
+            $legalitasModel->insert([
+                'user_id_legalitas' => session()->get('user_id'),
+                'legalitas' => $this->request->getPost('legalitas'),
+                'file_legalitas' => $namaFile,
+                'tipe' => '0',
+            ]);
+            $legalitasModel->insert([
+                'user_id_legalitas' => session()->get('user_id'),
+                'legalitas' => $this->request->getPost('legalitas'),
+                'file_legalitas' => $namaFile,
+                'tipe' => '1',
+            ]);
+        } else if ($tipe == '1') {
+            $legalitasModel->insert([
+                'user_id_legalitas' => session()->get('user_id'),
+                'legalitas' => $this->request->getPost('legalitas'),
+                'file_legalitas' => $namaFile,
+                'tipe' => $tipe,
+            ]);
         }
-
-        // dd($tipe);
-
-        $legalitasModel->insert([
-            // 'user_id_legalitas' => 2,
-            'user_id_legalitas' => session()->get('user_id'),
-            'legalitas' => $this->request->getPost('legalitas'),
-            'file_legalitas' => $namaFile,
-            'tipe' => $tipe,
-        ]);
 
         return redirect()->to('user/profile')->with('success_legalitas', 'Legalitas berhasil ditambahkan dan sedang dalam proses verifikasi.');
     }
@@ -135,8 +140,10 @@ class LegalitasController extends BaseController
             throw new \CodeIgniter\Exceptions\PageNotFoundException("legalitas dengan ID $id_legalitas tidak ditemukan.");
         }
 
-        if(!empty($legalitas['file_legalitas'])) {
-            unlink('storage/' . $legalitas['file_legalitas']);
+        if(!$legalitasModel->isDoubleFileLegalitas($legalitas['file_legalitas'])) {
+            if(!empty($legalitas['file_legalitas'])) {
+                unlink('storage/' . $legalitas['file_legalitas']);
+            }
         }
         
         $legalitasModel->delete($id_legalitas);

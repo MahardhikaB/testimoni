@@ -154,4 +154,56 @@ span a:hover{
         width: 100%;
     }
     
+    @media only screen and (max-width: 768px) {
+        .row {
+            max-width: 100%;
+            width: 90%;
+            height: auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+    
+        .input-box {
+            width: 100%;
+            padding: 10px;
+        }
+    
+        .input {
+            height: 40px;
+            font-size: 14px;
+            padding: 5px;
+        }
+    
+        .input-field label {
+            font-size: 12px;
+        }
+    
+        .submit {
+            height: 40px;
+            font-size: 14px;
+            background: #6e5e5e; /* Warna coklat lebih cerah */
+        }
+    
+        .submit:hover {
+            background: #4c3d3d; /* Warna hover tetap */
+        }
+    
+        .signin {
+            font-size: 14px;
+            margin-top: 15px;
+        }
+    
+        .signin span a {
+            font-size: 14px;
+            color: #6e5e5e; /* Sesuaikan warna link dengan warna box */
+        }
+    
+        .signin span a:hover {
+            color: #4c3d3d;
+            text-decoration: underline;
+        }
+        
+    }
+    
 }

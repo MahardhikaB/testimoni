@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
+use DateTime;
 
 class MediaController extends BaseController
 {
@@ -27,35 +28,69 @@ class MediaController extends BaseController
     {
         // dd($this->request->getPost());
         $validation = \Config\Services::validation();
+
+        // Define validation rules and messages
         $validation->setRules([
             'nama_media' => 'required',
             'tahun_media' => 'required|numeric',
             'deskripsi_media' => 'required',
             'tipe' => 'required',
-        ],[
+        ], [
             'nama_media' => [
-                'required' => 'Media harus diiisi.'
+                'required' => 'Media harus diisi.'
             ],
             'tahun_media' => [
-                'required' => 'Tahun harus diisi.'
+                'required' => 'Tahun harus diisi.',
+                'numeric' => 'Tahun harus berupa angka.'
             ],
-            'deskripsi' => [
+            'deskripsi_media' => [
                 'required' => 'Deskripsi harus diisi.'
+            ],
+            'tipe' => [
+                'required' => 'Tipe media wajib diisi.'
             ],
         ]);
 
+        // Run validation
         if (!$validation->withRequest($this->request)->run()) {
             return redirect()->back()->withInput()->with('errors', $validation->getErrors());
         }
 
+        // Get user ID from session
+        $userId = session()->get('user_id');
+
         $mediaModel = new \App\Models\MediaPromosiModel();
-        $mediaModel->insert([
-            'user_id_media' => session()->get('user_id'),
-            'nama_media' => $this->request->getPost('nama_media'),
-            'tahun_media' => $this->request->getPost('tahun_media'),
-            'deskripsi_media' => $this->request->getPost('deskripsi_media'),
-            'tipe' => $this->request->getPost('tipe'),
-        ]);
+        $tipe = $this->request->getPost('tipe');
+        $tahun = DateTime::createFromFormat('Y', $this->request->getPost('tahun_media'))->format('Y');
+        // dd($tahun->format('Y'));
+
+        if ($tipe == '0') {
+            $mediaModel->insert([
+                'user_id_media' => $userId,
+                'nama_media' => $this->request->getPost('nama_media'),
+                'tahun_media' => $tahun,
+                'deskripsi_media' => $this->request->getPost('deskripsi_media'),
+                'tipe' => '0',
+                'status_verifikasi' => 'pending',
+            ]);
+            $mediaModel->insert([
+                'user_id_media' => $userId,
+                'nama_media' => $this->request->getPost('nama_media'),
+                'tahun_media' => $tahun,
+                'deskripsi_media' => $this->request->getPost('deskripsi_media'),
+                'tipe' => '1',
+                'status_verifikasi' => 'pending',
+            ]);
+        } else if ($tipe == '1') {
+            $mediaModel->insert([
+                'user_id_media' => $userId,
+                'nama_media' => $this->request->getPost('nama_media'),
+                'tahun_media' => $tahun,
+                'deskripsi_media' => $this->request->getPost('deskripsi_media'),
+                'tipe' => $tipe,
+                'status_verifikasi' => 'pending',
+            ]);
+        }
 
         return redirect()->to('user/profile')->with('success_media', 'Media promosi berhasil ditambahkan');
     }

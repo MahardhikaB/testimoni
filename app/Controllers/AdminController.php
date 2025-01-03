@@ -11,6 +11,7 @@ use App\Models\ProdukModel;
 use App\Models\ProgramPembinaanModel;
 use App\Models\SertifikatModel;
 use App\Models\UserModel;
+use App\Models\PencapaianEksporModel;
 
 class AdminController extends BaseController
 {
@@ -23,6 +24,7 @@ class AdminController extends BaseController
     protected $pengalamanEksporModel;
     protected $mediaPromosiModel;
     protected $programPembinaanModel;
+    protected $pencapaianEksporModel;
 
     public function __construct()
     {
@@ -34,6 +36,7 @@ class AdminController extends BaseController
         $this->pengalamanEksporModel = new PengalamanEksporModel();
         $this->mediaPromosiModel = new MediaPromosiModel();
         $this->programPembinaanModel = new ProgramPembinaanModel();
+        $this->pencapaianEksporModel = new PencapaianEksporModel();
         helper('form');
     }
 
@@ -73,7 +76,7 @@ class AdminController extends BaseController
 
         $verifikasiData = [];
 
-        if (!in_array($tipe, ['legalitas', 'produk', 'sertifikat', 'pengalaman-pameran', 'pengalaman-ekspor', 'media-promosi', 'program-pembinaan', 'verifikasi-user'])) {
+        if (!in_array($tipe, ['legalitas', 'produk', 'sertifikat', 'pengalaman-pameran', 'pengalaman-ekspor', 'media-promosi', 'program-pembinaan', 'verifikasi-user', 'lainnya'])) {
             return redirect()->back()->with('error', 'Tipe verifikasi tidak valid.');
         } else {
             if ($tipe == 'legalitas') {
@@ -92,10 +95,11 @@ class AdminController extends BaseController
                 $verifikasiData = $this->programPembinaanModel->getUnverifiedProgramPembinaan();
             } else if ($tipe == 'verifikasi-user') {
                 $verifikasiData = $this->userModel->getUnverifiedUser();
+            } else if ($tipe == 'lainnya') {
+                $verifikasiData = $this->pencapaianEksporModel->getUnverifiedLainnya();
             }
         }
 
-        // Kirim data pengguna dan sertifikat ke tampilan
         return view('admin/member/verifikasi', [
             'user' => $userData,
             'verifikasiData' => $verifikasiData,
@@ -103,39 +107,8 @@ class AdminController extends BaseController
             'tipeTitle' => $tipeTitle
         ]);
     }
-//     public function updateVerifikasi($id, $status)
-// {
-
-//     log_message('info', "updateVerifikasi called with ID: {$id}, Status: {$status}");
-
-//     $sertifikatModel = new SertifikatModel();
-
-//     // Pastikan status valid
-//     if (!in_array($status, ['accepted', 'rejected'])) {
-//         log_message('error', "Invalid status: {$status}");
-//         return redirect()->back()->with('error', 'Status tidak valid.');
-//     }
-
-//     // Periksa apakah ID ada di database
-//     $sertifikat = $sertifikatModel->find($id);
-//     if (!$sertifikat) {
-//         log_message('error', "Sertifikat with ID {$id} not found");
-//         return redirect()->back()->with('error', 'Sertifikat tidak ditemukan.');
-//     }
-
-//     // Update status
-//     $update = $sertifikatModel->update($id, ['status_verifikasi' => $status]);
-//     if (!$update) {
-//         log_message('error', "Failed to update status for ID: {$id}");
-//         return redirect()->back()->with('error', 'Gagal memperbarui status verifikasi.');
-//     }
-
-//     log_message('info', "Status updated successfully for ID: {$id}");
-//     return redirect()->to('/admin/dashboard/verifikasi')->with('success', 'Status verifikasi berhasil diperbarui.');
-// }
-
+    
     public function updateVerifikasi(){
-        // dd($this->request->getVar('id') . ', ' . $this->request->getVar('aksi') . ', ' . $this->request->getVar('section'));
         if(!$this->validate([
             'aksi' => [
                 'rules' => 'required|in_list[accepted,rejected]',
@@ -144,7 +117,7 @@ class AdminController extends BaseController
                 ]
             ],
             'section' => [
-                'rules' => 'required|in_list[legalitas,produk,sertifikat,pengalaman-pameran,pengalaman-ekspor,media-promosi,program-pembinaan,verifikasi-user]',
+                'rules' => 'required|in_list[legalitas,produk,sertifikat,pengalaman-pameran,pengalaman-ekspor,media-promosi,program-pembinaan,verifikasi-user,lainnya]',
                 'errors' => [
                     'required' => 'Section harus ada.'
                 ]
@@ -166,7 +139,13 @@ class AdminController extends BaseController
         $section = $this->request->getVar('section');
 
         $model = $this->getModelBySection($section);
-        $hasil = $model->updateVerifikasi($id, $aksi);
+        $controller = $this->getControllerBySection($section);
+
+        if($aksi == 'accepted'){
+            $hasil = $model->updateVerifikasi($id, $aksi);
+        } else if($aksi == 'rejected'){
+            $hasil = $controller->delete($id);
+        }
 
         // dd($hasil);
 
@@ -203,10 +182,48 @@ class AdminController extends BaseController
                 break;
             case 'verifikasi-user':
                 $model = $this->userModel;
+                break;
+            case 'lainnya':
+                $model = $this->pencapaianEksporModel;
                 break;    
         }
 
         return $model;
+    }
+
+    public function getControllerBySection($section){
+        $controller = null;
+        switch($section){
+            case 'legalitas':
+                $controller = new LegalitasController();
+                break;
+            case 'produk':
+                $controller = new ProdukController();
+                break;
+            case 'sertifikat':
+                $controller = new SertifikatController();
+                break;
+            case 'pengalaman-pameran':
+                $controller = new PameranController();
+                break;
+            case 'pengalaman-ekspor':
+                $controller = new EksporController();
+                break;
+            case 'media-promosi':
+                $controller = new MediaController();
+                break;
+            case 'program-pembinaan':
+                $controller = new ProgramController();
+                break;
+            case 'verifikasi-user':
+                $controller = new UserController();
+                break;
+            case 'lainnya':
+                $controller = new ProgressLainnyaController();
+                break;
+        }
+
+        return $controller;
     }
 
     public function memberList(){
