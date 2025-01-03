@@ -95,12 +95,12 @@
                     </div>
                     <div class="mb-3 input-group">
                         <label for="kuantitas" class="form-label">Kuantitas</label>
-                        <input type="number" class="form-control" id="kuantitas" name="kuantitas"
+                        <input type="text" class="form-control" id="kuantitas" name="kuantitas"
                             placeholder="Masukkan kuantitas">
                     </div>
                     <div class="mb-3 input-group">
                         <label for="nilai" class="form-label">Nilai</label>
-                        <input type="number" class="form-control" id="nilai" name="nilai"
+                        <input type="text" class="form-control" id="nilai" name="nilai"
                             placeholder="Masukkan nilai">
                     </div>
                     <div class="mb-3 input-group">
@@ -149,12 +149,12 @@
                     </div>
                     <div class="mb-3 input-group">
                         <label for="kuantitasEdit" class="form-label">Kuantitas</label>
-                        <input type="number" class="form-control" id="kuantitasEdit" name="kuantitas"
+                        <input type="text" class="form-control" id="kuantitasEdit" name="kuantitas"
                             placeholder="Masukkan kuantitas">
                     </div>
                     <div class="mb-3 input-group">
                         <label for="nilaiEdit" class="form-label">Nilai</label>
-                        <input type="number" class="form-control" id="nilaiEdit" name="nilai"
+                        <input type="text" class="form-control" id="nilaiEdit" name="nilai"
                             placeholder="Masukkan nilai">
                     </div>
                     <div class="mb-3 input-group">
