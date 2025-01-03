@@ -324,7 +324,8 @@
 .sertifikatClose,
 .eksporClose,
 .produkClose,
-.pemeranClose {
+.pameranClose,
+.pembinaanClose {
     color: #aaa;
     float: right;
     font-size: 28px;
@@ -342,8 +343,10 @@
 .sertifikatClose:focus,
 .eksporClose:hover,
 .eksporClose:focus,
-.pemeranClose:hover,
-.pemeranClose:focus {
+.pameranClose:hover,
+.pameranClose:focus,
+.pembinaanClose:hover,
+.pembinaanClose:focus {
     color: red;
     text-decoration: none;
     cursor: pointer;
@@ -475,6 +478,20 @@
 .input-group input[type="file"]::file-selector-button:active {
     background-color: #372c2c;
 }
+
+.input-group input[type="date"] {
+    font-size: 0.9rem;
+    padding: 0.6rem;
+    border-radius: 0.2rem;
+    border: 1px solid #ccc;
+}
+
+input#tanggalPameran {
+    height: 35px;
+    border-width: 1px;
+    padding: 10px;
+}
+
 /* Modal */
 
 .content-container .content-result-container .content-result-card .content-result-file {
@@ -999,4 +1016,154 @@
 .tab-button.active {
     color: #000;
     /* Optional: Change text color for active tab */
+}
+
+.dropdown-container {
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.mobile-dropdown {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.content-dropdown {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        height: auto;
+        padding: 20px;
+    }
+
+    .profile-image {
+        position: static;
+        transform: none;
+        width: 150px;
+        height: 150px;
+        margin: 0 auto;
+    }
+
+    .profile-section {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        margin-top: 0;
+    }
+
+    .profile-card {
+        text-align: center;
+        width: 100%;
+    }
+
+    .company-information {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        gap: 10px;
+    }
+
+    .contact-details,
+    .address-details {
+        width: 100%;
+        text-align: center;
+    }
+
+    .edit-profile-btn {
+        margin-top: 20px;
+    }
+
+    .content-profile {
+        padding: 20px;
+    }
+
+    .content-profile .tab-container {
+        flex-direction: column;
+    }
+
+    .content-profile .tab-container .tabs {
+        display: flex;
+        overflow-x: auto;
+        white-space: nowrap;
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid grey;
+    }
+
+    .content-profile .tab-container .tabs .tabs-btn {
+        flex: 0 0 auto;
+    }
+
+    .content-profile .tab-container .tab-content {
+        padding-left: 0;
+        padding-top: 20px;
+    }
+
+    .content-container {
+        flex-direction: column;
+    }
+
+    .content-container .content-result-container {
+        margin-right: 0;
+        padding-right: 0;
+    }
+
+    .content-container .before-content {
+        border-right: none;
+        border-bottom: 2px solid black;
+    }
+
+    .content-container .content-result-card {
+        margin-top: 20px;
+    }
+
+    .content-container .content-result-card .content-result-info {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .content-container .content-result-card .content-result-info button {
+        width: auto;
+        height: auto;
+        margin-top: 10px;
+    }
+
+    .content-container .content-result-card .content-result-text,
+    .content-container .content-result-card .content-result-image-produk {
+        margin-top: 20px;
+    }
+
+    .content-container .content-result-card .content-result-image-produk .produk-image-container {
+        flex-direction: column;
+    }
+
+    .content-container .content-result-card .content-result-image-produk .produk-image-container img {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .content-container .add-data {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .content-container .add-data button {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .modal-content {
+        width: 90%;
+    }
 }
