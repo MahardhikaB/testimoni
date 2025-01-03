@@ -21,9 +21,9 @@
     <!-- lainnya Promosi -->
     <div class="before-content content-result-container">
         <div class="add-data">
-            <h4>Pencapaian Ekspor</h4>
+            <h4>Progress Lainnya</h4>
             <button id="btnTambahLainnyaBefore">
-                Tambah Pencapaian Ekspor
+                Tambah Progress Lainnya
             </button>
         </div>
 
@@ -35,7 +35,7 @@
                     </b>
                     <div class="content-result-info">
                         <div class="content-text-container">
-                            <h5>Tanggal</h5>
+                            <h5>Tanggal Progress</h5>
                             <p><?= $item['tanggal_ekspor'] ?></p>
                         </div>
                         <div>
@@ -57,7 +57,7 @@
                             <p><?= $item['deskripsi'] ?></p>
                         </div>
                         <div class="content-text-container">
-                            <h5>Gambar</h5>
+                            <h5>Foto Bukti Progress</h5>
                             <?php if (!empty($item['bukti_gambar'])): ?>
                                 <img src="<?= base_url('storage/' . $item['bukti_gambar']) ?>" alt="Gambar Bukti" style="max-width: 400px; height: auto;">
                             <?php else: ?>
@@ -68,7 +68,7 @@
                 </div>
             <?php endforeach; ?>
         <?php else: ?>
-            <p style="margin-top: 1rem;">Belum ada data pencapaian ekspor yang ditambahkan.</p>
+            <p style="margin-top: 1rem;">Belum ada data progress lainnya yang ditambahkan.</p>
         <?php endif; ?>
     </div>
 </div>

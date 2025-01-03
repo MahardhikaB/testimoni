@@ -4,7 +4,7 @@
         <div class="modal-header">
             <span class="lainnyaClose">&times;</span>
         </div>
-        <h2 id="titleModalLainnya">Tambah Pencapaian Ekspor</h2>
+        <h2 id="titleModalLainnya">Tambah Progress Lainnya</h2>
         <div class="form-container">
             <?php if (session()->get('errors')): ?>
             <div class="alert-error">
@@ -19,7 +19,7 @@
                 <?= csrf_field() ?>
                 <div class="input-container">
                     <div class="input-group">
-                        <label for="tanggal_ekspor" class="form-label">Tanggal Ekspor</label>
+                        <label for="tanggal_ekspor" class="form-label">Tanggal Progress</label>
                         <input type="date" class="form-control" id="tanggal_ekspor" name="tanggal_ekspor">
                     </div>
                     <div class="input-group">
@@ -27,7 +27,7 @@
                         <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3"></textarea>
                     </div>
                     <div class="input-group">
-                        <p for="bukti_gambar" class="form-label">File Bukti Ekspor</p>
+                        <p for="bukti_gambar" class="form-label">Foto Bukti Progress</p>
                         <input type="file" class="form-control" id="bukti_gambar" name="bukti_gambar" accept=".jpg,.jpeg,.png">
                     </div>
                 </div>
