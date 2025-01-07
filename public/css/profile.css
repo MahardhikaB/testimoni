@@ -1035,6 +1035,18 @@ input#tanggalPameran {
     margin-bottom: 20px;
 }
 
+@media (max-width: 768px) {
+    .dropdown-container {
+        display: block;
+    }
+}
+
+@media (min-width: 769px) {
+    .dropdown-container {
+        display: none;
+    }
+}
+
 .mobile-dropdown {
     width: 100%;
     padding: 10px;
