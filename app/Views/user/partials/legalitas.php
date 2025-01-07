@@ -212,7 +212,7 @@ window.onload = function() {
                     <div class="mb-3 input-group">
                         <label for="legalitas" class="form-label">Jenis Legalitas</label>
                         <input type="text" class="form-control" id="legalitas" name="legalitas"
-                            placeholder="Masukkan jenis legalitas (BPOM, dll)">
+                            placeholder="Masukkan jenis legalitas (PT/CV/NIB/,DLL)">
                     </div>
                     <div class="mb-3 input-group">
                         <p for="fileLegalitas" class="form-label">File Legalitas</p>
